@@ -1,0 +1,28 @@
+== Template
+
+=== Description
+Plugin servant de base pour les plugins
+
+'''
+=== Création plugin partie 1 : l'arborescence
+include::partie_1.asciidoc[]
+
+'''
+=== Création plugin partie 2 : plugin info
+include::partie_2.asciidoc[]
+
+'''
+=== Création plugin partie 3 : dossier desktop
+include::partie_3.asciidoc[]
+
+'''
+=== Création plugin partie 4 : dossier core
+include::partie_4.asciidoc[]
+
+'''
+=== FAQ
+include::faq.asciidoc[]
+
+'''
+=== Changelog
+include::changelog.asciidoc[]

@@ -1,0 +1,179 @@
+===== info.xml
+
+Fichier de base du plugin, c'est dans celui-ci que Jeedom récupère toutes les informations relatives au plugin :
+
+Il est composé des balises (une * indique que cette balise est obligatoire) :
+
+- *id : identifiant unique du plugin (doit être le même que le nom du dossier contenant le plugin et que le type des équipements que crée le plugin)
+- *name : nom du plugin (ça sera le nom affiché sur l'interface)
+- description  : description du plugin
+- icon : classe css utilisée dans la balise <i> pour afficher l'icône du plugin. Doit obligatoirement commencer par "fa" suivi de l'icône voulu, la liste est disponible là* licence : Licence sous laquelle est publiée le plugin
+author : Auteur du plugin
+- installation : notice d'installation du plugin si nécessaire
+- *require : version minimale de Jeedom requise pour installation du plugin
+- *version : version du plugin
+- category : sert à catégoriser les plugins pour trouver celui qu'on veut plus rapidement
+- include : balise un peu particulière, permet de spécifier à Jeedom s'il faut utiliser un fichier d'inclusion particulier (pour rappel il doit se trouver dans #PLUGIN_ID#/core/php), ici par exemple j'indique qu'il faut utiliser le fichier : "sms/core/php/sms.inc.php". Si cette balise n'est pas là Jeedom inclura par défaut le fichier contenant la classe du plugin (ici ça aurait été /sms/core/class/sms.class.php. Pour rappel le fichier de classe du plugin est nommé en fonction de l'ID du plugin)
+- display : permet de spécifier le nom du fichier php (qui doit se trouver dans le dossier desktop/php) devant être appeler pour afficher le panel (lien dans le sous-menu accueil)
+- mobile : permet de spécifier le nom du fichier html (qui doit se trouver dans le dossier mobile/html) devant etre appeler pour afficher la version mobile du panel
+
+Exemple :
+
+
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>zwave</id>
+    <name>Zwave</name>
+    <description>Plugin pour envoyer des ordres Z-Wave</description>
+    <icon>fa fa-rss</icon>
+    <licence>AGPL</licence>
+    <author>Loïc Gevrey</author>
+    <installation>Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http://razberry.z-wave.me/) faites :
+        - "wget -q -O - razberry.z-wave.me/install | sudo bash"
+    </installation>
+    <require>1.10</require>
+    <version>1.0</version>
+    <category>automation protocol</category>
+    <mobile>zwave</mobile>
+</info>
+----
+
+===== installation.php
+Fichier donnant les instructions d'installation d'un plugin :
+
+Il est composé de la manière suivante :
+
+La première partie commentée contient la licence (c'est mieux :) celle utilisée ici indique que le fichier appartient à Jeedom et qu'il est open source)
+Ensuite vient l'inclusion du core de Jeedom (ça permet d’accéder au fonction interne)
+Et après viennent les 2 fonctions  :
+
+- install_pluginid() : méthode permettant d'installer le plugin
+Ici l'installation ajoute une tâche cron à Jeedom
+
+- update_pluginid() : méthode permettant d'installer le plugin
+Utilisé ici pour redémarrer la tache cron
+
+- remove_pluginid() : méthode permettant de supprimer le plugin
+Ici la fonction supprime la tâche cron de Jeedom lors de la désinstallation
+
+Exemple :
+
+
+----
+<?php
+/* This file is part of Jeedom.
+ *
+ * Jeedom is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Jeedom is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
+ */
+require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+
+function zwave_install() {
+    $cron = cron::byClassAndFunction('zwave', 'pull');
+    if (!is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('zwave');
+        $cron->setFunction('pull');
+        $cron->setEnable(1);
+        $cron->setDeamon(1);
+        $cron->setSchedule('* * * * *');
+        $cron->save();
+    }
+}
+
+function zwave_update() {
+    $cron = cron::byClassAndFunction('zwave', 'pull');
+    if (!is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('zwave');
+        $cron->setFunction('pull');
+        $cron->setEnable(1);
+        $cron->setDeamon(1);
+        $cron->setSchedule('* * * * *');
+        $cron->save();
+    }
+    $cron->stop();
+}
+
+function zwave_remove() {
+    $cron = cron::byClassAndFunction('zwave', 'pull');
+    if (is_object($cron)) {
+        $cron->remove();
+    }
+}
+?>
+----
+
+
+===== configuration.php
+Fichier permettant de demander des informations de configuration à l'utilisateur :
+
+Le fichier est constitué de  :
+
+- La licence comme tout à l'heure
+- L'inclusion du core de Jeedom
+- La vérification que l'utilisateur est bien connecté (j’inclue le fichier 404 car ce fichier est un fichier de type vue)
+
+Ensuite vient le paramètre demandé (il peut en avoir plusieurs), c'est de la syntaxe standard Bootstrap pour les formulaires seule particularité à respecter c'est la classe ("configKey") à mettre sur l'élément de paramètre ainsi que le "data-l1key" qui indique le nom du paramètre. Pour récupérer la valeur de celui-ci ailleurs dans le plugin il suffit de faire  : "config::byKey(#NOM_PARAMETRE#, #PLUGIN_ID#)"
+Exemple :
+
+
+----
+<?php
+/* This file is part of Jeedom.
+ *
+  * Jeedom is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Jeedom is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+  * You should have received a copy of the GNU General Public License
+ * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+include_file('core', 'authentification', 'php');
+if (!isConnect()) {
+    include_file('desktop', '404', 'php');
+    die();
+ }
+ ?>
+ <form class="form-horizontal">
+     <fieldset>
+         <div class="form-group">
+             <label class="col-lg-2 control-label">Zway IP</label>
+             <div class="col-lg-2">
+                 <input class="configKey form-control" data-l1key="zwaveAddr" />
+             </div>
+         </div>
+         <div class="form-group">
+             <label class="col-lg-4 control-label">Supprimer automatiquement les périphériques exclus</label>
+             <div class="col-lg-4">
+                 <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
+             </div>
+         </div>
+         <div class="form-group">
+             <label class="col-lg-4 control-label">J'utilise un serveur openzwave</label>
+             <div class="col-lg-4">
+                 <input type="checkbox" class="configKey" data-l1key="isOpenZwave" />
+             </div>
+         </div>
+     </fieldset>
+ </form>
+----
