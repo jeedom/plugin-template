@@ -27,7 +27,7 @@ class template extends eqLogic {
     /*     * ***********************Methode static*************************** */
 
     /*
-     * Fonction lancé automatiquement toutes les minutes par jeedom
+     * Fonction exécutée automatiquement toutes les minutes par Jeedom
       public static function cron() {
 
       }
@@ -35,14 +35,14 @@ class template extends eqLogic {
 
 
     /*
-     * Fonction lancé automatiquement toutes les heures par jeedom
+     * Fonction exécutée automatiquement toutes les heures par Jeedom
       public static function cronHourly() {
 
       }
      */
 
     /*
-     * Fonction lancé automatiquement touts les jours par jeedom
+     * Fonction exécutée automatiquement tous les jours par Jeedom
       public static function cronDayly() {
 
       }
@@ -50,7 +50,7 @@ class template extends eqLogic {
 
 
 
-    /*     * *********************Methode d'instance************************* */
+    /*     * *********************Méthodes d'instance************************* */
 
     public function preInsert() {
         
@@ -104,7 +104,7 @@ class weatherCmd extends cmd {
     /*     * *********************Methode d'instance************************* */
 
     /*
-     * Non obligatoire permet de demander de ne pas supprimer les commandes meme si elle ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
+     * Non obligatoire permet de demander de ne pas supprimer les commandes même si elles ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
       public function dontRemoveCmd() {
       return true;
       }
