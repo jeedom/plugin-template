@@ -88,7 +88,7 @@ $eqLogics = eqLogic::byType('template');
         </form>
 
         <legend>{{Template}}</legend>
-        <table id="table_Template" class="table table-bordered table-condensed">
+        <table id="table_cmd" class="table table-bordered table-condensed">
             <thead>
                 <tr>
                     <th>{{Nom}}</th><th>{{Type}}</th><th>{{Action}}</th>
