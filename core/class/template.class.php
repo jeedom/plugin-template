@@ -94,7 +94,7 @@ class template extends eqLogic {
     /*     * **********************Getteur Setteur*************************** */
 }
 
-class weatherCmd extends cmd {
+class templateCmd extends cmd {
     /*     * *************************Attributs****************************** */
 
 
