@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 /* This file is part of Jeedom.
