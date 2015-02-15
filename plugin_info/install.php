@@ -18,55 +18,17 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
-function weather_update() {
-    foreach (eqLogic::byType('weather') as $weather) {
-        foreach ($weather->getCmd() as $cmd) {
-            if ($cmd->getName() == 'Température') {
-                $cmd->setLogicalId('temperature');
-            }
-            if ($cmd->getName() == 'Humidité') {
-                $cmd->setLogicalId('humidity');
-            }
-            if ($cmd->getName() == 'Pression') {
-                $cmd->setLogicalId('pressure');
-            }
-            if ($cmd->getName() == 'Condition') {
-                $cmd->setLogicalId('condition');
-            }
-            if ($cmd->getName() == 'Condition Actuelle') {
-                $cmd->setLogicalId('condition_now');
-            }
-            if ($cmd->getName() == 'Vitesse du vent') {
-                $cmd->setLogicalId('wind_speed');
-            }
-            if ($cmd->getName() == 'Direction du vent') {
-                $cmd->setLogicalId('wind_direction');
-            }
-            if ($cmd->getName() == 'Lever du soleil') {
-                $cmd->setLogicalId('sunrise');
-            }
-            if ($cmd->getName() == 'Coucher du soleil') {
-                $cmd->setLogicalId('sunset');
-            }
-            if ($cmd->getName() == 'Température Min') {
-                $cmd->setLogicalId('temperature_min');
-            }
-            if ($cmd->getName() == 'Température Max') {
-                $cmd->setLogicalId('temperature_max');
-            }
-            if ($cmd->getName() == 'Température Min +1') {
-                $cmd->setLogicalId('temperature_1_min');
-            }
-            if ($cmd->getName() == 'Température Max +1') {
-                $cmd->setLogicalId('temperature_1_max');
-            }
-            if ($cmd->getName() == 'Condition +1') {
-                $cmd->setLogicalId('condition_1');
-            }
-            $cmd->save();
-        }
-        $weather->save();
-    }
+function template_install() {
+    
+}
+
+function template_update() {
+    
+}
+
+
+function template_remove() {
+    
 }
 
 ?>
