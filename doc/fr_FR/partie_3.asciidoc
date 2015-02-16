@@ -186,3 +186,19 @@ La deuxième ligne charge votre modal et l'affichage. Pour la syntaxe c'est asse
 Ce n'est pas un dossier mais dans les dernières versions de Jeedom celui-ci offre au développeur toute une api javascript (ça évite d'écrire des appels ajax dans tous les sens). J'essayerai de faire un article pour expliquer les différentes fonctionnalités mais vous pouvez déjà trouver le code ici.
 
 Voilà pour les détails du dossier desktop. Je me doute que c'est pas des plus complets (j'essayerai de le compléter en fonction des différentes demandes que je reçois) mais j’espère que grâce à ça vous pourrez commencer à faire des plugins pour Jeedom.
+
+
+===== Trucs et astuces
+
+.Assitant cron
+
+----
+$('body').delegate('.helpSelectCron','click',function(){
+  var el = $(this).closest('.schedule').find('.scenarioAttr[data-l1key=schedule]');
+  jeedom.getCronSelectModal({},function (result) {
+    el.value(result.value);
+  });
+});
+----
+
+Quand on clique sur le bouton d'assistant, ça récupère l'input dans lequel écrire puis appels l'assistant. Une fois la configuration finis dans l’assistant, le résultat est récuperé puis écris dans l'input précedement selectionné
