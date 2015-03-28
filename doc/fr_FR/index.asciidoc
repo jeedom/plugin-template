@@ -1,3 +1,4 @@
+:icons:
 == Template
 
 === Description
@@ -23,7 +24,3 @@ include::partie_4.asciidoc[]
 '''
 === FAQ
 include::faq.asciidoc[]
-
-'''
-=== Changelog
-include::changelog.asciidoc[]
