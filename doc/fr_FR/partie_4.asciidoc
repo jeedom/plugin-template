@@ -174,7 +174,7 @@ Fonction utilisable dans la commande ou dans l'équipement, en fonction des beso
             $forcast_template = getTemplate('core', $_version, 'forecast', 'weather');
             for ($i = 0; $i < 5; $i++) {
                 $replace = array();
-                $replace['#day#'] = convertDayEnToFr(date('l', strtotime('+' . $i . ' days')));
+                $replace['#day#'] = date_fr(date('l', strtotime('+' . $i . ' days')));
 
                 if ($i == 0) {
                     $temperature_min = $this->getCmd(null, 'temperature_min');
