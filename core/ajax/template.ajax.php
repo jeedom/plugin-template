@@ -23,12 +23,25 @@ try {
     if (!isConnect('admin')) {
         throw new Exception(__('401 - Accès non autorisé', __FILE__));
     }
+    // action qui permet de demmander le contenu de la sidebar
+    if (init('action') == 'sidebar') {
+        ajax::success(template::getSideBarList()); // ne pas oublier de modifier pour le nom de votre plugin
+    }
+    // action qui permet de demmander la liste des icones au format Jeedom
+    if (init('action') == 'container') {
+        ajax::success(template::getContainer()); // ne pas oublier de modifier pour le nom de votre plugin
+    }
 
+    // action qui permet d'effectuer la sauvegarde des donéée en asynchrone
+    if (init('action') == 'saveStack') {
+        $params = init('params');
+        ajax::success(template::saveStack($params)); // ne pas oublier de modifier pour le nom de votre plugin
+    }
 
-
-    throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
+    throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
 } catch (Exception $e) {
     ajax::error(displayExeption($e), $e->getCode());
 }
 ?>
+3
