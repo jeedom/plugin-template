@@ -20,6 +20,7 @@
 /*
  * Fonction pour l'ajout de commande, appellé automatiquement par plugin.template
  */
+
 function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {
         var _cmd = {configuration: {}};
@@ -50,3 +51,119 @@ function addCmdToTable(_cmd) {
     }
     jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
+
+function displayEqLogic(_data) {
+    
+}
+
+function getSideBarList() {
+    $.ajax({
+        type: "POST",
+        url: "plugins/weather/core/ajax/weather.ajax.php", // ne pas oublier de modifier pour le nom de votre plugin
+        data: {
+            action: "sidebar"
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state !== 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            $('#ul_eqLogicView').empty();
+            $('#ul_eqLogicView').append(data.result);
+            modifyWithoutSave = false;
+        }
+    });
+}
+
+function getContainer(_callback) {
+    $.ajax({
+        type: "POST",
+        url: "plugins/weather/core/ajax/weather.ajax.php", // ne pas oublier de modifier pour le nom de votre plugin
+        data: {
+            action: "container"
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state !== 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            $('.eqLogicThumbnailContainer').empty();
+            //$('.eqLogicThumbnailContainer').html(data.result);
+            $('.eqLogicThumbnailDisplay legend').after($('<div class="eqLogicThumbnailContainer">').html(data.result));
+            $('.eqLogicThumbnailContainer').packery();
+            $("img.lazy").lazyload({
+                container: $(".eqLogicThumbnailContainer"),
+                event : "sporty",
+                skip_invisible : false
+            });
+            $("img.lazy").trigger("sporty");
+            $("img.lazy").each(function () {
+                var el = $(this);
+                if (el.attr('data-original2') !== undefined) {
+                    $("<img>", {
+                        src: el.attr('data-original'),
+                        error: function () {
+                            $("<img>", {
+                                src: el.attr('data-original2'),
+                                error: function () {
+                                    if (el.attr('data-original3') !== undefined) {
+                                        $("<img>", {
+                                            src: el.attr('data-original3'),
+                                            error: function () {
+                                                el.lazyload({
+                                                    event: "sporty"
+                                                });
+                                                el.trigger("sporty");
+                                            },
+                                            load: function () {
+                                                el.attr("data-original", el.attr('data-original3'));
+                                                el.lazyload({
+                                                    event: "sporty"
+                                                });
+                                                el.trigger("sporty");
+                                            }
+                                        });
+                                    } else {
+                                        el.lazyload({
+                                            event: "sporty"
+                                        });
+                                        el.trigger("sporty");
+                                    }
+                                },
+                                load: function () {
+                                    el.attr("data-original", el.attr('data-original2'));
+                                    el.lazyload({
+                                        event: "sporty"
+                                    });
+                                    el.trigger("sporty");
+                                }
+                            });
+                        },
+                        load: function () {
+                            el.lazyload({
+                                event: "sporty"
+                            });
+                            el.trigger("sporty");
+                        }
+                    });
+                } else {
+                    el.lazyload({
+                        event: "sporty"
+                    });
+                    el.trigger("sporty");
+                }
+            });
+            if(_callback !== undefined)
+                _callback();
+        }
+    });
+}
+
