@@ -59,7 +59,7 @@ function displayEqLogic(_data) {
 function getSideBarList() {
     $.ajax({
         type: "POST",
-        url: "plugins/weather/core/ajax/weather.ajax.php", // ne pas oublier de modifier pour le nom de votre plugin
+        url: "plugins/template/core/ajax/template.ajax.php", // ne pas oublier de modifier pour le nom de votre plugin
         data: {
             action: "sidebar"
         },
@@ -82,7 +82,7 @@ function getSideBarList() {
 function getContainer(_callback) {
     $.ajax({
         type: "POST",
-        url: "plugins/weather/core/ajax/weather.ajax.php", // ne pas oublier de modifier pour le nom de votre plugin
+        url: "plugins/template/core/ajax/template.ajax.php", // ne pas oublier de modifier pour le nom de votre plugin
         data: {
             action: "container"
         },
