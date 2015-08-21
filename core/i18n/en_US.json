@@ -1,0 +1,6 @@
+{
+    "plugins/template/plugin_info/info.xml": {
+        "Plugin template pour la création de plugin": "Template plugin to create new plugin",
+        "Aucune": "Aucune"
+    }
+}
