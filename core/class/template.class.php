@@ -16,111 +16,70 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/******************************* Includes *******************************/ 
+/* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class template extends eqLogic {
-    /******************************* Attributs *******************************/ 
-    /* Ajouter ici toutes vos variables propre à votre classe */
+    /*     * *************************Attributs****************************** */
 
-    /***************************** Methode static ****************************/ 
 
-    /*
-    // Fonction exécutée automatiquement toutes les minutes par Jeedom
-    public static function cron() {
 
-    }
-    */
+    /*     * ***********************Methode static*************************** */
 
     /*
-    // Fonction exécutée automatiquement toutes les heures par Jeedom
-    public static function cronHourly() {
+     * Fonction exécutée automatiquement toutes les minutes par Jeedom
+      public static function cron() {
 
-    }
-    */
-
-    /*
-    // Fonction exécutée automatiquement tous les jours par Jeedom
-    public static function cronDayly() {
-
-    }
-    */
- 
-    /*************************** Methode d'instance **************************/ 
- 
-
-    /************************** Pile de mise à jour **************************/ 
-    
-    /* fonction permettant d'initialiser la pile 
-     * plugin: le nom de votre plugin
-     * action: l'action qui sera utilisé dans le fichier ajax du pulgin 
-     * callback: fonction appelé coté client(JS) pour mettre à jour l'affichage 
-     */ 
-    public function initStackData() {
-        nodejs::pushUpdate('template::initStackDataEqLogic', array('plugin' => 'template', 'action' => 'saveStack', 'callback' => 'displayEqLogic'));
-    }
-    
-    /* fonnction permettant d'envoyer un nouvel équipement pour sauvegarde et affichage, 
-     * les données sont envoyé au client(JS) pour être traité de manière asynchrone
-     * Entrée: 
-     *      - $params: variable contenant les paramètres eqLogic
+      }
      */
-    public function stackData($params) {
-        if(is_object($params)) {
-            $paramsArray = utils::o2a($params);
-        }
-        nodejs::pushUpdate('template::stackDataEqLogic', $paramsArray);
-    }
-    
-    /* fonction appelé pour la sauvegarde asynchrone
-     * Entrée: 
-     *      - $params: variable contenant les paramètres eqLogic
+
+
+    /*
+     * Fonction exécutée automatiquement toutes les heures par Jeedom
+      public static function cronHourly() {
+
+      }
      */
-    public function saveStack($params) {
-        // inserer ici le traitement pour sauvegarde de vos données en asynchrone
-        
-    }
 
-    /* fonction appelé avant le début de la séquence de sauvegarde */
-    public function preSave() {
-        
-    }
+    /*
+     * Fonction exécutée automatiquement tous les jours par Jeedom
+      public static function cronDayly() {
 
-    /* fonction appelé pendant la séquence de sauvegarde avant l'insertion 
-     * dans la base de données pour une mise à jour d'une entrée */
-    public function preUpdate() {
-        
-    }
+      }
+     */
 
-    /* fonction appelé pendant la séquence de sauvegarde après l'insertion 
-     * dans la base de données pour une mise à jour d'une entrée */
-    public function postUpdate() {
-        
-    }
 
-    /* fonction appelé pendant la séquence de sauvegarde avant l'insertion 
-     * dans la base de données pour une nouvelle entrée */
+
+    /*     * *********************Méthodes d'instance************************* */
+
     public function preInsert() {
-
+        
     }
 
-    /* fonction appelé pendant la séquence de sauvegarde après l'insertion 
-     * dans la base de données pour une nouvelle entrée */
     public function postInsert() {
         
     }
 
-    /* fonction appelé après la fin de la séquence de sauvegarde */
+    public function preSave() {
+        
+    }
+
     public function postSave() {
         
     }
 
-    /* fonction appelé avant l'effacement d'une entrée */
+    public function preUpdate() {
+        
+    }
+
+    public function postUpdate() {
+        
+    }
+
     public function preRemove() {
         
     }
 
-    /* fonnction appelé après l'effacement d'une entrée */
     public function postRemove() {
         
     }
@@ -136,26 +95,26 @@ class template extends eqLogic {
 }
 
 class templateCmd extends cmd {
-    /******************************* Attributs *******************************/ 
-    /* Ajouter ici toutes vos variables propre à votre classe */
+    /*     * *************************Attributs****************************** */
 
-    /***************************** Methode static ****************************/ 
 
-    /*************************** Methode d'instance **************************/ 
+    /*     * ***********************Methode static*************************** */
 
-    /* Non obligatoire permet de demander de ne pas supprimer les commandes même si elles ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
-    public function dontRemoveCmd() {
-        return true;
-    }
-    */
+
+    /*     * *********************Methode d'instance************************* */
+
+    /*
+     * Non obligatoire permet de demander de ne pas supprimer les commandes même si elles ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
+      public function dontRemoveCmd() {
+      return true;
+      }
+     */
 
     public function execute($_options = array()) {
         
     }
 
-    /***************************** Getteur/Setteur ***************************/ 
-
-    
+    /*     * **********************Getteur Setteur*************************** */
 }
 
 ?>
