@@ -14,7 +14,7 @@ $eqLogics = eqLogic::byType('template');
                 <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
                 <?php
 foreach ($eqLogics as $eqLogic) {
-	echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName() . '</a></li>';
+	echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
 }
 ?>
            </ul>
@@ -30,13 +30,13 @@ foreach ($eqLogics as $eqLogic) {
          <center>
             <i class="fa fa-plus-circle" style="font-size : 7em;color:#94ca02;"></i>
         </center>
-        <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>Ajouter</center></span>
+        <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Ajouter}}</center></span>
     </div>
     <?php
 foreach ($eqLogics as $eqLogic) {
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo "<center>";
-	echo '<img src="plugins/weather/doc/images/template_icon.png" height="105" width="95" />';
+	echo '<img src="plugins/template/doc/images/template_icon.png" height="105" width="95" />';
 	echo "</center>";
 	echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
 	echo '</div>';
