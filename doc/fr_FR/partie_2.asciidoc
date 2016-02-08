@@ -8,14 +8,14 @@ Il est composé des balises (une * indique que cette balise est obligatoire) :
 - *name : nom du plugin (ça sera le nom affiché sur l'interface)
 - description  : description du plugin
 - icon : classe css utilisée dans la balise <i> pour afficher l'icône du plugin. Doit obligatoirement commencer par "fa" suivi de l'icône voulu, la liste est disponible link:http://fortawesome.github.io/Font-Awesome/[là] licence : Licence sous laquelle est publiée le plugin
-author : Auteur du plugin
+- author : Auteur du plugin
 - installation : notice d'installation du plugin si nécessaire
 - *require : version minimale de Jeedom requise pour installation du plugin
 - *version : version du plugin
 - category : sert à catégoriser les plugins pour trouver celui qu'on veut plus rapidement
 - include : balise un peu particulière, permet de spécifier à Jeedom s'il faut utiliser un fichier d'inclusion particulier (pour rappel il doit se trouver dans #PLUGIN_ID#/core/php), ici par exemple j'indique qu'il faut utiliser le fichier : "sms/core/php/sms.inc.php". Si cette balise n'est pas là Jeedom inclura par défaut le fichier contenant la classe du plugin (ici ça aurait été /sms/core/class/sms.class.php. Pour rappel le fichier de classe du plugin est nommé en fonction de l'ID du plugin)
-- display : permet de spécifier le nom du fichier php (qui doit se trouver dans le dossier desktop/php) devant être appeler pour afficher le panel (lien dans le sous-menu accueil)
-- mobile : permet de spécifier le nom du fichier html (qui doit se trouver dans le dossier mobile/html) devant etre appeler pour afficher la version mobile du panel
+- display : permet de spécifier le nom du fichier php (qui doit se trouver dans le dossier desktop/php) devant c pour afficher le panel (lien dans le sous-menu accueil)
+- mobile : permet de spécifier le nom du fichier html (qui doit se trouver dans le dossier mobile/html) devant devant être appelé pour afficher la version mobile du panel
 
 Exemple :
 
@@ -48,13 +48,13 @@ La première partie commentée contient la licence (c'est mieux :) celle utilis�
 Ensuite vient l'inclusion du core de Jeedom (ça permet d’accéder au fonction interne)
 Et après viennent les 2 fonctions  :
 
-- install_pluginid() : méthode permettant d'installer le plugin
+- install_pluginid() : méthode permettant d'installer le plugin.
 Ici l'installation ajoute une tâche cron à Jeedom
 
-- update_pluginid() : méthode permettant d'installer le plugin
+- update_pluginid() : méthode permettant d'installer le plugin.
 Utilisé ici pour redémarrer la tache cron
 
-- remove_pluginid() : méthode permettant de supprimer le plugin
+- remove_pluginid() : méthode permettant de supprimer le plugin.
 Ici la fonction supprime la tâche cron de Jeedom lors de la désinstallation
 
 Exemple :

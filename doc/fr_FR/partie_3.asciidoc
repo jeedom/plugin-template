@@ -1,5 +1,5 @@
 ===== PHP
-Ce dossier contient la vue à proprement parler dedans on retrouve obligatoire la page de configuration du plugin (celle qui apparaîtra quand l'utilisateur fera plugin => catégorie => votre plugin), il est conseillé de nommer celle-ci avec l'id de votre plugin. Il peut aussi contenir le panel (page que l'utilisateur trouvera dans accueil -> nom de votre plugin).
+Ce dossier contient la vue à proprement parler, dedans on retrouve obligatoire la page de configuration du plugin (celle qui apparaîtra quand l'utilisateur fera plugin => catégorie => votre plugin), il est conseillé de nommer celle-ci avec l'id de votre plugin. Il peut aussi contenir le panel (page que l'utilisateur trouvera dans accueil -> nom de votre plugin).
 
 Tous les fichiers dans ce dossier doivent finir par .php et doit obligatoirement commencer par :
 
@@ -43,12 +43,12 @@ Pour la liste des propriétés des équipements c'est ici et des commandes c'est
 Dernier point important sur la page de configuration celle-ci peut contenir autant d'équipements et de commandes que nécessaire. Cependant il y a quelques règles à respecter :
 
 Tous les éléments ayant la classe eqLogicAttr doivent être dans un élément ayant la classe css eqLogic
-Idem pour les éléments de classe css cmdAttr qui doivent être dans un élément de classe cmd
+Idem pour les éléments de classe css cmdAttr qui doivent être dans un élément de classe cmd.
 Toutes les commandes d'un équipement doivent se trouver dans l'élément ayant la classe eqLogic correspondant
 
 ===== JS
 
-Tous les fichiers JS doivent se trouver dans le dossier JS (facile !!!). Il est conseillé de le nommer du même ID que votre plugin (pour la partie configuration, pour le panel vous faîtes comme vous voulez). Ce fichier JS (celui de la configuration du plugin) doit au minimum contenir une méthode addCmdToTable qui prend en paramètre l'objet commande à jouter. Voici un exemple simple :
+Tous les fichiers JS doivent se trouver dans le dossier JS (facile !!!). Il est conseillé de le nommer du même ID que votre plugin (pour la partie configuration, pour le panel vous faîtes comme vous voulez). Ce fichier JS (celui de la configuration du plugin) doit au minimum contenir une méthode addCmdToTable qui prend en paramètre l'objet commande à ajouter. Voici un exemple simple :
 
 
 ----
@@ -71,7 +71,7 @@ function addCmdToTable(_cmd) {
 }
 ----
 
-Vous remarquerez qu'il y a une ligne par commande et que celle-ci a bien la classe css cmd. Vous pouvez aussi voir les éléments qui on la classe cmdAttr.
+Vous remarquerez qu'il y a une ligne par commande et que celle-ci a bien la classe css cmd. Vous pouvez aussi voir les éléments qui ont la classe cmdAttr.
 
 
 Plusieurs points importants :
@@ -168,7 +168,7 @@ Ce dossier contient vos fichiers CSS (il ne devrait pas être trop utilisé) , v
 Le premier argument donne le dossier dans lequel le trouver (attention c'est le dossier père du dossier CSS), le deuxième le nom de votre fichier css, le troisième indique à Jeedom que c'est un fichier CSS et le dernier dans quel plugin il se trouve.
 
 ===== MODAL
-Le dossier modal vous permet de stocker vos fichiers php destiner à afficher des modals. Voici comment les appeler à partir de votre page principale (ce code se met dans un fichier javascript) :
+Le dossier modal vous permet de stocker vos fichiers php destinés à afficher des modals. Voici comment les appeler à partir de votre page principale (ce code se met dans un fichier javascript) :
 
 On peut voir :
 
@@ -201,4 +201,4 @@ $('body').delegate('.helpSelectCron','click',function(){
 });
 ----
 
-Quand on clique sur le bouton d'assistant, ça récupère l'input dans lequel écrire puis appels l'assistant. Une fois la configuration finis dans l’assistant, le résultat est récuperé puis écris dans l'input précedement selectionné
+Quand on clique sur le bouton d'assistant, ça récupère l'input dans lequel écrire puis appelle l'assistant. Une fois la configuration finie dans l’assistant, le résultat est récuperé puis écrit dans l'input précédemment selectionné
