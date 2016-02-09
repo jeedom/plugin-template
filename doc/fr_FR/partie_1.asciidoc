@@ -10,12 +10,12 @@ Voici comment ça se décompose, tout d’abord un dossier du nom de votre plugi
 * js : dossier contenant tous les fichiers de type javascript
 * php : dossier contenant tous les fichiers de type php qui font de l’affichage
 * css : il n’y en pas ici mais si besoin tous les fichiers css du plugin vont dedans
-* modal  : fichier contenant le code des modals du plugin
+* modal  : dossier contenant le code des modals du plugin
 - plugin_info : contient les fichiers permettant à Jeedom de qualifier le plugin, de faire son installation et sa configuration
 * info.xml : fichier contenant les informations de base du plugin (il est obligatoire sinon Jeedom ne verra pas le plugin), il contient entre autre l’identifiant du module, la description, les instructions d’installation...
 * install.php : fichier contenant (si besoin) les méthodes d’installation et de désinstallation du plugin
 * configuration.php : fichier contenant les paramètres à configurer du plugin indépendants des équipements de celui-ci (exemple pour le module Zwave l’ip du Raspberry Pi ayant la carte Razberry)
-- doc : doit contenir la doc du plugin au format asciidoc, la racine et le fichier index.asciidoc. Toute les images sont dans doc/images. La doc elle meme est dans un dossier en fonction de la langue (ex en francais : doc/fr_FR)
+- doc : doit contenir la doc du plugin au format asciidoc, la racine et le fichier index.asciidoc. Toutes les images sont dans doc/images. La doc elle meme est dans un dossier en fonction de la langue (ex en francais : doc/fr_FR)
 
 Pour ce qui est de la convention de nommage des fichiers voici les impératifs :
 
