@@ -348,7 +348,6 @@ Exemple, toujours avec le plugin weather de la creation des commandes ou mise à
         $weatherCmd->setConfiguration('data', 'temp');
         $weatherCmd->setUnite('°C');
         $weatherCmd->setType('info');
-        $weatherCmd->setEventOnly(1);
         $weatherCmd->setSubType('numeric');
         $weatherCmd->save();
 
