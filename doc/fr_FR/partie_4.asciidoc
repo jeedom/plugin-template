@@ -160,13 +160,19 @@ Fonction utilisable dans la commande ou dans l'équipement, en fonction des beso
 ----
 
    public function toHtml($_version = 'dashboard') {
-        if ($this->getIsEnable() != 1) {
+       if ($this->getIsEnable() != 1) {
             return '';
         }
-        $_version = jeedom::versionAlias($_version);
-        $mc = cache::byKey('weatherWidget' . $_version . $this->getId());
+        if (!$this->hasRight('r')) {
+            return '';
+        }
+        $version = jeedom::versionAlias($_version);
+        if ($this->getDisplay('hideOn' . $version) == 1) {
+            return '';
+        }
+        $mc = cache::byKey('weatherWidget' . jeedom::versionAlias($_version) . $this->getId());
         if ($mc->getValue() != '') {
-            return $mc->getValue();
+            return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
         }
         $html_forecast = '';
 
@@ -275,9 +281,9 @@ $_version = jeedom::versionAlias($_version);
 
 Ici recuperation du widget anciennement generé en cache (si celui-ci est non vide), ça permet de gagner du temps sur la generation, attention quand meme à bien vider le cache lors de la mise à jour des données
 ----
-    $mc = cache::byKey('weatherWidget' . $_version . $this->getId());
+   $mc = cache::byKey('netatmoWeatherWidget' . jeedom::versionAlias($_version) . $this->getId());
     if ($mc->getValue() != '') {
-        return $mc->getValue();
+        return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
     }
 ----
 
@@ -319,6 +325,67 @@ cache::set('weatherWidget' . $_version . $this->getId(), $html, 0);
 Enfin envoi du html à Jeedom : 
 ----
 return $html;
+----
+
+Il faut aussi dire à jeedom ce que votre widget autorise au niveau de la personalisation.Le truc est un peu complexe (et encore) mais normalement flexible et simple a mettre en place.
+
+Il marche pareil sur votre équipement ou commande, c'est un attribut static de la class $_widgetPossibility qui doit être un tableau multidimensionnel, mais c'est la que ca se complique si une dimension du tableau est a true ou false alors il considère que tout les enfants possible sont à cette valeur (je vais donner un exemple).
+
+Déja les cas ou vous devez vous en servir : si dans votre class heritant de eqLogic ou de cmd à une fonction toHtml sinon pas la peine de lire la suite.
+
+Vue que le mieux c'est un exemple (dans la class heritant de eqLogic) :
+
+----
+public static $_widgetPossibility = array('custom' => array(
+      'visibility' => true,
+      'displayName' => array('dashboard' => true, 'view' => true),
+      'optionalParameters' => true,
+));
+----
+
+En gros la ca dit que l'on peut changer la visibilité du widget, masquer ou non le nom de celui-ci et mettre des paramètres optionnels.
+
+Mais j'aurais aussi bien pu faire : 
+
+----
+public static $_widgetPossibility = array('custom' => array(
+      'visibility' => true,
+      'displayName' => true,
+      'optionalParameters' => true,
+));
+----
+
+
+La différence est au niveau du displayName, la si jeedom demande si on peut masquer le nom de l'équipement en mode vue (ca donne custom::displayName::view) on lui dira oui car custom::displayName est vrai donc tous les enfants de ca sont vrai
+
+Voila pour l'explication, en ce qui concerne les possibilités les voila pour un équipement : 
+
+----
+array('custom' => 
+   array(
+      'visibility' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'displayName' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'displayObjectName' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'optionalParameters' => true/false,
+      'background-color' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'text-color' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'border-radius' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'border' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+   ),
+)
+----
+
+Pour une commande : 
+
+----
+array('custom' => 
+   array(
+      'widget' => array('dashboard' => true/false,'mobile' => true/false),
+      'displayName' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'displayObjectName' => array('dashboard' => true/false,'plan' => true/false,'view' => true/false,'mobile' => true/false),
+      'optionalParameters' => true/false,
+   ),
+)
 ----
 
 .methode pre et post
