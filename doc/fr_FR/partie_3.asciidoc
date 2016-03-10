@@ -12,7 +12,7 @@ if (!isConnect('admin')) {
  sendVarToJS('eqType', 'mail');
  ?>
 ----
-Une fois sur cette page vous aurez accès en php à toutes les fonctions du core de jeedom (voir http://dev.jeedom.fr) ainsi qu'à celles de tous les modules installés donc le vôtre aussi.
+Une fois sur cette page vous aurez accès en php à toutes les fonctions du core de jeedom (voir https://www.jeedom.com/doc/documentation/code/) ainsi qu'à celles de tous les modules installés donc le vôtre aussi.
 
 Toutes ces pages étant des vues elles utilisent principalement la syntaxe HTML. Pour tout ce qui est présentation, Jeedom se base principalement sur  bootstrap donc toute la documentation est applicable (http://getbootstrap.com/).
 
