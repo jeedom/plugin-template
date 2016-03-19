@@ -160,77 +160,64 @@ Fonction utilisable dans la commande ou dans l'équipement, en fonction des beso
 ----
 
    public function toHtml($_version = 'dashboard') {
-       if ($this->getIsEnable() != 1) {
-            return '';
-        }
-        if (!$this->hasRight('r')) {
-            return '';
+        $replace = $this->preToHtml($_version);
+        if (!is_array($replace)) {
+            return $replace;
         }
         $version = jeedom::versionAlias($_version);
-        if ($this->getDisplay('hideOn' . $version) == 1) {
-            return '';
-        }
-        $mc = cache::byKey('weatherWidget' . jeedom::versionAlias($_version) . $this->getId());
-        if ($mc->getValue() != '') {
-            return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
-        }
-        $html_forecast = '';
-
-        if ($_version != 'mobile' || $this->getConfiguration('fullMobileDisplay', 0) == 1) {
-            $forcast_template = getTemplate('core', $_version, 'forecast', 'weather');
+        $replace['#forecast#'] = '';
+        if ($version != 'mobile' || $this->getConfiguration('fullMobileDisplay', 0) == 1) {
+            $forcast_template = getTemplate('core', $version, 'forecast', 'weather');
             for ($i = 0; $i < 5; $i++) {
-                $replace = array();
-                $replace['#day#'] = date_fr(date('l', strtotime('+' . $i . ' days')));
+                $replaceDay = array();
+                $replaceDay['#day#'] = date_fr(date('l', strtotime('+' . $i . ' days')));
 
                 if ($i == 0) {
                     $temperature_min = $this->getCmd(null, 'temperature_min');
                 } else {
                     $temperature_min = $this->getCmd(null, 'temperature_' . $i . '_min');
                 }
-                $replace['#low_temperature#'] = is_object($temperature_min) ? $temperature_min->execCmd() : '';
+                $replaceDay['#low_temperature#'] = is_object($temperature_min) ? $temperature_min->execCmd() : '';
 
                 if ($i == 0) {
                     $temperature_max = $this->getCmd(null, 'temperature_max');
                 } else {
                     $temperature_max = $this->getCmd(null, 'temperature_' . $i . '_max');
                 }
-                $replace['#hight_temperature#'] = is_object($temperature_max) ? $temperature_max->execCmd() : '';
+                $replaceDay['#hight_temperature#'] = is_object($temperature_max) ? $temperature_max->execCmd() : '';
+                $replaceDay['#tempid#'] = is_object($temperature_max) ? $temperature_max->getId() : '';
 
                 if ($i == 0) {
                     $condition = $this->getCmd(null, 'condition');
                 } else {
                     $condition = $this->getCmd(null, 'condition_' . $i);
                 }
-                $replace['#icone#'] = is_object($condition) ? self::getIconFromCondition($condition->execCmd()) : '';
-
-                $html_forecast .= template_replace($replace, $forcast_template);
+                $replaceDay['#icone#'] = is_object($condition) ? self::getIconFromCondition($condition->execCmd()) : '';
+                $replaceDay['#conditionid#'] = is_object($condition) ? $condition->getId() : '';
+                $replace['#forecast#'] .= template_replace($replaceDay, $forcast_template);
             }
         }
-        $replace = array(
-            '#id#' => $this->getId(),
-            '#city#' => $this->getConfiguration('city_name'),
-            '#collectDate#' => '',
-            '#background_color#' => $this->getBackgroundColor($_version),
-            '#eqLink#' => $this->getLinkToConfiguration(),
-            '#forecast#' => $html_forecast,
-        );
         $temperature = $this->getCmd(null, 'temperature');
         $replace['#temperature#'] = is_object($temperature) ? $temperature->execCmd() : '';
+        $replace['#tempid#'] = is_object($temperature) ? $temperature->getId() : '';
 
         $humidity = $this->getCmd(null, 'humidity');
         $replace['#humidity#'] = is_object($humidity) ? $humidity->execCmd() : '';
 
         $pressure = $this->getCmd(null, 'pressure');
         $replace['#pressure#'] = is_object($pressure) ? $pressure->execCmd() : '';
+        $replace['#pressureid#'] = is_object($pressure) ? $pressure->getId() : '';
 
         $wind_speed = $this->getCmd(null, 'wind_speed');
         $replace['#windspeed#'] = is_object($wind_speed) ? $wind_speed->execCmd() : '';
+        $replace['#windid#'] = is_object($wind_speed) ? $wind_speed->getId() : '';
 
         $sunrise = $this->getCmd(null, 'sunrise');
         $replace['#sunrise#'] = is_object($sunrise) ? $sunrise->execCmd() : '';
+        $replace['#sunid#'] = is_object($sunrise) ? $sunrise->getId() : '';
         if (strlen($replace['#sunrise#']) == 3) {
             $replace['#sunrise#'] = substr($replace['#sunrise#'], 0, 1) . ':' . substr($replace['#sunrise#'], 1, 2);
-        } else if (strlen($replace['#sunset#']) == 4) {
+        } else if (strlen($replace['#sunrise#']) == 4) {
             $replace['#sunrise#'] = substr($replace['#sunrise#'], 0, 2) . ':' . substr($replace['#sunrise#'], 2, 2);
         }
 
@@ -245,28 +232,31 @@ Fonction utilisable dans la commande ou dans l'équipement, en fonction des beso
         $wind_direction = $this->getCmd(null, 'wind_direction');
         $replace['#wind_direction#'] = is_object($wind_direction) ? $wind_direction->execCmd() : 0;
 
+        $refresh = $this->getCmd(null, 'refresh');
+        $replace['#refresh_id#'] = is_object($refresh) ? $refresh->getId() : '';
+
         $condition = $this->getCmd(null, 'condition_now');
         $sunset_time = is_object($sunset) ? $sunset->execCmd() : null;
         $sunrise_time = is_object($sunrise) ? $sunrise->execCmd() : null;
         if (is_object($condition)) {
             $replace['#icone#'] = self::getIconFromCondition($condition->execCmd(), $sunrise_time, $sunset_time);
             $replace['#condition#'] = $condition->execCmd();
+            $replace['#conditionid#'] = $condition->getId();
             $replace['#collectDate#'] = $condition->getCollectDate();
         } else {
             $replace['#icone#'] = '';
             $replace['#condition#'] = '';
             $replace['#collectDate#'] = '';
         }
-
-        $parameters = $this->getDisplay('parameters');
-        if (is_array($parameters)) {
-            foreach ($parameters as $key => $value) {
-                $replace['#' . $key . '#'] = $value;
-            }
+        if ($this->getConfiguration('modeImage', 0) == 1) {
+            $replace['#visibilityIcon#'] = "none";
+            $replace['#visibilityImage#'] = "block";
+        } else {
+            $replace['#visibilityIcon#'] = "block";
+            $replace['#visibilityImage#'] = "none";
         }
-
-        $html = template_replace($replace, getTemplate('core', $_version, 'current', 'weather'));
-        cache::set('weatherWidget' . $_version . $this->getId(), $html, 0);
+        $html = template_replace($replace, getTemplate('core', $version, 'current', 'weather'));
+        cache::set('widgetHtml' . $_version . $this->getId(), $html, 0);
         return $html;
     }
 
