@@ -46,6 +46,16 @@ foreach ($eqLogics as $eqLogic) {
 </div>
 
 <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
+	<a class="btn btn-success eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+		<a class="btn btn-danger eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{Equipement}}</a></li>
+			<li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+		</ul>
+
+		<div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
+			<div role="tabpanel" class="tab-pane active" id="eqlogictab">
     <form class="form-horizontal">
         <fieldset>
             <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}  <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i></legend>
@@ -69,13 +79,13 @@ foreach (object::all() as $object) {
                    </select>
                </div>
            </div>
-           <div class="form-group">
-            <label class="col-sm-3 control-label" >{{Activer}}</label>
-            <div class="col-sm-9">
-               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
-               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
-           </div>
-       </div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label"></label>
+		<div class="col-sm-9">
+			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+		</div>
+	</div>
        <div class="form-group">
         <label class="col-sm-3 control-label">{{template param 1}}</label>
         <div class="col-sm-3">
@@ -84,9 +94,9 @@ foreach (object::all() as $object) {
     </div>
 </fieldset>
 </form>
-
-<legend>{{Template}}</legend>
-<a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
+</div>
+      <div role="tabpanel" class="tab-pane" id="commandtab">
+<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
 <table id="table_cmd" class="table table-bordered table-condensed">
     <thead>
         <tr>
@@ -96,15 +106,8 @@ foreach (object::all() as $object) {
     <tbody>
     </tbody>
 </table>
-
-<form class="form-horizontal">
-    <fieldset>
-        <div class="form-actions">
-            <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-            <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-        </div>
-    </fieldset>
-</form>
+</div>
+</div>
 
 </div>
 </div>
