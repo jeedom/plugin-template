@@ -19,10 +19,8 @@ import sys
 import os
 import time
 import datetime
-import binascii
 import re
 import signal
-import xml.dom.minidom as minidom
 from optparse import OptionParser
 from os.path import join
 import json
