@@ -25,7 +25,6 @@ foreach ($eqLogics as $eqLogic) {
     <legend>{{Mes templates}}</legend>
   <legend><i class="fa fa-cog"></i>  {{Gestion}}</legend>
   <div class="eqLogicThumbnailContainer">
-    <div class="eqLogicThumbnailContainer">
       <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
          <center>
             <i class="fa fa-plus-circle" style="font-size : 6em;color:#94ca02;"></i>
