@@ -1,0 +1,10 @@
+{
+	"id" : "ipx800v4",
+	"name" : "IPX 800 v4",
+	"description" : "Plugin pour piloter l'IPX 800",
+	"licence" : "AGPL",
+	"author" : "Loïc",
+	"require" : "2.3",
+	"category" : "automation protocol",
+	"hasOwnDeamon" : true
+}
