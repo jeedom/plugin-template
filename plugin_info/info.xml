@@ -3,7 +3,6 @@
     <id>template</id>
     <name>Template</name>
     <description>Plugin template pour la création de plugin</description>
-    <icon>fa fa-keyboard-o</icon>
     <licence>AGPL</licence>
     <author>Loïc Gevrey</author>
     <installation>Aucune</installation>
