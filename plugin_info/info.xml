@@ -4,7 +4,7 @@
     <name>Template</name>
     <description>Plugin template pour la création de plugin</description>
     <licence>AGPL</licence>
-    <author>Loïc Gevrey</author>
+    <author>Loïc</author>
     <installation>Aucune</installation>
     <require>1.136</require>
     <category>programming</category>
