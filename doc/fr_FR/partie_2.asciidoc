@@ -11,12 +11,12 @@ Il est composé des balises (une * indique que cette balise est obligatoire) :
 - *require : version minimale de Jeedom requise pour installation du plugin
 - *version : version du plugin
 - category : sert à catégoriser les plugins pour trouver celui qu'on veut plus rapidement
-- include : balise un peu particulière, permet de spécifier à Jeedom s'il faut utiliser un fichier d'inclusion particulier (pour rappel il doit se trouver dans #PLUGIN_ID#/core/php), ici par exemple j'indique qu'il faut utiliser le fichier : "sms/core/php/sms.inc.php". Si cette balise n'est pas là Jeedom inclura par défaut le fichier contenant la classe du plugin (ici ça aurait été /sms/core/class/sms.class.php. Pour rappel le fichier de classe du plugin est nommé en fonction de l'ID du plugin)
+- include : balise un peu particulière, permet de spécifier à Jeedom s'il faut utiliser un fichier d'inclusion particulier (pour rappel il doit se trouver dans #PLUGIN_ID#/core/php), ici par exemple j'indique qu'il faut utiliser le fichier : "sms/core/php/sms.inc.php". Si cette balise n'est pas là Jeedom inclura par défaut le fichier contenant la classe du plugin (ici cela aurait été /sms/core/class/sms.class.php. Pour rappel le fichier de classe du plugin est nommé en fonction de l'ID du plugin)
 - display : permet de spécifier le nom du fichier php (qui doit se trouver dans le dossier desktop/php) devant c pour afficher le panel (lien dans le sous-menu accueil)
-- mobile : permet de spécifier le nom du fichier html (qui doit se trouver dans le dossier mobile/html) devant devant être appelé pour afficher la version mobile du panel
+- mobile : permet de spécifier le nom du fichier html (qui doit se trouver dans le dossier mobile/html) devant être appelé pour afficher la version mobile du panel
 - allowRemote : indique que le plugin est compatible avec un jeedom esclave
-- hasDependency : indique que le plugin possede des dépendances
-- hasOwnDeamon : indique que le plugin à un démon
+- hasDependency : indique que le plugin possède des dépendances
+- hasOwnDeamon : indique que le plugin a un démon
 
 Exemple :
 
@@ -43,9 +43,9 @@ Fichier donnant les instructions d'installation d'un plugin :
 
 Il est composé de la manière suivante :
 
-La première partie commentée contient la licence (c'est mieux :) celle utilisée ici indique que le fichier appartient à Jeedom et qu'il est open source)
-Ensuite vient l'inclusion du core de Jeedom (ça permet d’accéder au fonction interne)
-Et après viennent les 2 fonctions  :
+La première partie commentée contient la licence (c'est mieux). Celle utilisée ici indique que le fichier appartient à Jeedom et qu'il est open source
+Ensuite vient l'inclusion du core de Jeedom (cela permet d’accéder aux fonctions internes)
+Ensuite viennent les 2 fonctions  :
 
 - install_pluginid() : méthode permettant d'installer le plugin.
 Ici l'installation ajoute une tâche cron à Jeedom
@@ -120,11 +120,11 @@ Fichier permettant de demander des informations de configuration à l'utilisateu
 
 Le fichier est constitué de  :
 
-- La licence comme tout à l'heure
+- La licence comme précèdemment
 - L'inclusion du core de Jeedom
 - La vérification que l'utilisateur est bien connecté (j’inclue le fichier 404 car ce fichier est un fichier de type vue)
 
-Ensuite vient le paramètre demandé (il peut en avoir plusieurs), c'est de la syntaxe standard Bootstrap pour les formulaires seule particularité à respecter c'est la classe ("configKey") à mettre sur l'élément de paramètre ainsi que le "data-l1key" qui indique le nom du paramètre. Pour récupérer la valeur de celui-ci ailleurs dans le plugin il suffit de faire  : "config::byKey(#NOM_PARAMETRE#, #PLUGIN_ID#)"
+Ensuite vient le paramètre demandé (il peut en avoir plusieurs), c'est une syntaxe standard Bootstrap pour les formulaires, les seules particularités à respecter sont la classe ("configKey") à mettre sur l'élément de paramètre ainsi que le "data-l1key" qui indique le nom du paramètre. Pour récupérer la valeur de celui-ci ailleurs dans le plugin il suffit de faire  : "config::byKey(#NOM_PARAMETRE#, #PLUGIN_ID#)"
 Exemple :
 
 
