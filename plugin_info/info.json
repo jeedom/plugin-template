@@ -1,12 +1,11 @@
 {
 	"id" : "template",
 	"name" : "Template",
+	"description" : "Plugin template pour la création de plugin",
 	"licence" : "AGPL",
 	"author" : "Loïc",
-	"require" : "2.3",
+	"require" : "3.0",
 	"category" : "programming",
-	"require" : "1.124.0",
-	"category" : "security",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0
