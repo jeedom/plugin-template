@@ -117,4 +117,4 @@ class templateCmd extends cmd {
     /*     * **********************Getteur Setteur*************************** */
 }
 
-?>
+
