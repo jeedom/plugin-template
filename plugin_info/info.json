@@ -8,5 +8,7 @@
 	"category" : "programming",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
-	"maxDependancyInstallTime" : 0
+	"maxDependancyInstallTime" : 0,
+	"changelog" : "https://github.com/jeedom/plugin-template/blob/master/doc/#language#/changelog.asciidoc",
+	"documentation" : "https://github.com/jeedom/plugin-template/blob/master/doc/#language#/index.asciidoc"
 }
