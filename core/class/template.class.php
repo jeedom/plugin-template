@@ -91,6 +91,18 @@ class template extends eqLogic {
       }
      */
 
+    /*
+     * Non obligatoire mais ca permet de déclancher une action après modification de variable de configuration
+    public static function postConfig_<Variable>() {
+    }
+     */
+
+    /*
+     * Non obligatoire mais ca permet de déclancher une action avant modification de variable de configuration
+    public static function preConfig_<Variable>() {
+    }
+     */
+
     /*     * **********************Getteur Setteur*************************** */
 }
 
