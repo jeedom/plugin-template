@@ -43,7 +43,7 @@ class template extends eqLogic {
 
     /*
      * Fonction exécutée automatiquement tous les jours par Jeedom
-      public static function cronDayly() {
+      public static function cronDaily() {
 
       }
      */
