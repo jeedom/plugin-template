@@ -95,12 +95,12 @@ Voici les recommandations :
 Création plugin partie 2 : plugin info 
 ===
 
-### info.xml 
+### info.json 
 
 Fichier de base du plugin, c’est dans celui-ci que Jeedom récupère
 toutes les informations relatives au plugin :
 
-Il est composé des balises (une \* indique que cette balise est
+Il est composé des clefs (une \* indique que cette balise est
 obligatoire) :
 
 -   \*id : identifiant unique du plugin (doit être le même que le nom du
@@ -108,12 +108,6 @@ obligatoire) :
     le plugin)
 
 -   \*name : nom du plugin (ça sera le nom affiché sur l’interface)
-
--   icon : classe css utilisée dans la balise &lt;i&gt; pour afficher
-    l’icône du plugin. Doit obligatoirement commencer par "fa" suivi de
-    l’icône voulu, la liste est disponible
-    [là](http://fortawesome.github.io/Font-Awesome/) licence : Licence
-    sous laquelle est publiée le plugin
 
 -   author : Auteur du plugin
 
@@ -125,15 +119,6 @@ obligatoire) :
 -   category : sert à catégoriser les plugins pour trouver celui qu’on
     veut plus rapidement
 
--   include : balise un peu particulière, permet de spécifier à Jeedom
-    s’il faut utiliser un fichier d’inclusion particulier (pour rappel
-    il doit se trouver dans *PLUGIN\_ID*/core/php), ici par exemple
-    j’indique qu’il faut utiliser le fichier
-    : "sms/core/php/sms.inc.php". Si cette balise n’est pas là Jeedom
-    inclura par défaut le fichier contenant la classe du plugin (ici
-    cela aurait été /sms/core/class/sms.class.php. Pour rappel le
-    fichier de classe du plugin est nommé en fonction de l’ID du plugin)
-
 -   display : permet de spécifier le nom du fichier php (qui doit se
     trouver dans le dossier desktop/php) devant c pour afficher le panel
     (lien dans le sous-menu accueil)
@@ -142,29 +127,26 @@ obligatoire) :
     trouver dans le dossier mobile/html) devant être appelé pour
     afficher la version mobile du panel
 
--   allowRemote : indique que le plugin est compatible avec un jeedom
-    esclave
-
 -   hasDependency : indique que le plugin possède des dépendances
 
 -   hasOwnDeamon : indique que le plugin a un démon
 
 Exemple :
 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <info>
-        <id>zwave</id>
-        <name>Zwave</name>
-        <description>Plugin pour envoyer des ordres Z-Wave</description>
-        <licence>AGPL</licence>
-        <author>Loïc</author>
-        <installation>Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http://razberry.z-wave.me/) faites :
-            - "wget -q -O - razberry.z-wave.me/install | sudo bash"
-        </installation>
-        <require>2.0</require>
-        <category>automation protocol</category>
-        <mobile>zwave</mobile>
-    </info>
+{
+    "id" : "template",
+    "name" : "Template",
+    "description" : "Plugin template pour la création de plugin",
+    "licence" : "AGPL",
+    "author" : "Loïc",
+    "require" : "3.0",
+    "category" : "programming",
+    "hasDependency" : false,
+    "hasOwnDeamon" : false,
+    "maxDependancyInstallTime" : 0,
+    "changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
+    "documentation" : "https://jeedom.github.io/plugin-template/#language#/"
+}
 
 ### installation.php 
 
