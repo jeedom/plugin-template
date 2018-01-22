@@ -133,20 +133,20 @@ obligatoire) :
 
 Exemple :
 
-{
-    "id" : "template",
-    "name" : "Template",
-    "description" : "Plugin template pour la création de plugin",
-    "licence" : "AGPL",
-    "author" : "Loïc",
-    "require" : "3.0",
-    "category" : "programming",
-    "hasDependency" : false,
-    "hasOwnDeamon" : false,
-    "maxDependancyInstallTime" : 0,
-    "changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-    "documentation" : "https://jeedom.github.io/plugin-template/#language#/"
-}
+    {
+        "id" : "template",
+        "name" : "Template",
+        "description" : "Plugin template pour la création de plugin",
+        "licence" : "AGPL",
+        "author" : "Loïc",
+        "require" : "3.0",
+        "category" : "programming",
+        "hasDependency" : false,
+        "hasOwnDeamon" : false,
+        "maxDependancyInstallTime" : 0,
+        "changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
+        "documentation" : "https://jeedom.github.io/plugin-template/#language#/"
+    }
 
 ### installation.php 
 
