@@ -1,14 +1,11 @@
-Template 
-========
-
 Description 
------------
+===
 
 Plugin servant de base pour les plugins. Attention lors de l’utilisation
 à bien remplacer tous les templates par l’id de votre plugin.
 
 Création plugin partie 1 : l’arborescence 
------------------------------------------
+===
 
 Voici sa structure: tout d’abord un dossier du nom de votre plugin (son
 identifiant unique plus exactement) qui doit contenir les sous-dossiers
@@ -96,7 +93,7 @@ Voici les recommandations :
     plugin doit être l’ID du plugin
 
 Création plugin partie 2 : plugin info 
---------------------------------------
+===
 
 ### info.xml 
 
@@ -315,7 +312,7 @@ Exemple :
      </form>
 
 Création plugin partie 3 : dossier desktop 
-------------------------------------------
+===
 
 ### PHP 
 
@@ -576,7 +573,7 @@ l’assistant, le résultat est récuperé puis écrit dans l’input
 précédemment selectionné
 
 Création plugin partie 4 : dossier core 
----------------------------------------
+===
 
 De loin le dossier le plus important de votre plugin, il peut comporter
 4 sous dossiers.
@@ -1134,6 +1131,3 @@ Pour finir voici quelques trucs et astuces :
 -   toujours pour la commande vous pouvez utiliser addHistoryValue pour
     forcer la mise en historique (attention votre commande doit
     être historisée)
-
-FAQ 
----
