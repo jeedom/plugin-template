@@ -1,1 +1,15 @@
-theme: jekyll-theme-cayman
+---
+langs: [fr_FR,en_US,de_DE,es_ES] 
+baseurl: "/"
+sass:
+  sass_dir: assets/css
+  style: compressed
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+highlighter: rouge
+gems:
+- jekyll-paginate
+exclude:
+- vendor
