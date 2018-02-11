@@ -41,13 +41,17 @@ foreach ($eqLogics as $eqLogic) {
   <legend><i class="fa fa-table"></i> {{Mes templates}}</legend>
 <div class="eqLogicThumbnailContainer">
     <?php
-foreach ($eqLogics as $eqLogic) {
-	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
-	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="text-align: center; background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
-	echo '<img src="' . $plugin->getPathImgIcon() . '" height="105" width="95" />';
-	echo "<br>";
-	echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;">' . $eqLogic->getHumanName(true, true) . '</span>';
-	echo '</div>';
+if (count($eqLogics) == 0) {
+	echo "<br/><br/><br/><center><span style='color:#767676;font-size:1.2em;font-weight: bold;'>{{Vous n'avez pas encore de template, cliquez sur Ajouter un équipement pour commencer}}</span></center>";
+} else {
+	foreach ($eqLogics as $eqLogic) {
+		$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
+		echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="text-align: center; background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
+		echo '<img src="' . $plugin->getPathImgIcon() . '" height="105" width="95" />';
+		echo "<br>";
+		echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;">' . $eqLogic->getHumanName(true, true) . '</span>';
+		echo '</div>';
+	}
 }
 ?>
 </div>
