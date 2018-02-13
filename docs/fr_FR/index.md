@@ -1,6 +1,7 @@
 Description 
 ===
 
+![scrennshot1](../images/screenshot1.png)
 Plugin servant de base pour les plugins. Attention lors de l’utilisation
 à bien remplacer tous les templates par l’id de votre plugin.
 
