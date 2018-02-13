@@ -19,7 +19,7 @@ Vous trouverez la documentation [ici](https://github.com/Jeedom-Plugins-Extra/XX
 
 ### Prévisualisation
 
-<img src="docs/images/XXXXXXXX_screenshot1.png" align="center">
+<img src="docs/images/screenshot1.png" align="center">
 
 
 ### Forum
