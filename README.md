@@ -1,6 +1,6 @@
 # Plugin template pour Jeedom
 
-<img src="plugin_info/template_icon.png" align="right" height="160" width="140">
+<img src="plugin_info/template_icon.png" align="right" height="160" width="150">
 
 ?????????
 
@@ -42,3 +42,8 @@ Actions :
 
 Scénarios possible (ceux que j'ai chez moi) :
 * ?????
+
+<img src="https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/blob/master/images/Jeedom-Plugins-Extra.png" align="right" height="100" width="95">
+
+## Copyright @ la Team Jeedom-Plugins-Extra 👍 
+### Retour à l'accueil du [Wiki](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki) ou de la [Team](https://goo.gl/W9pd3p)
