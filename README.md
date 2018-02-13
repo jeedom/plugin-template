@@ -1,6 +1,6 @@
 # Plugin template pour Jeedom
 
-<img src="docs/images/template_icon.png" align="right" height="160" width="140">
+<img src="plugin_info/template_icon.png" align="right" height="160" width="140">
 
 ?????????
 
