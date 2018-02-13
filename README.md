@@ -1,6 +1,6 @@
-# Plugin XXXXXXXX pour Jeedom
+# Plugin template pour Jeedom
 
-<img src="docs/images/XXXXXXXX_icon.png" align="right" height="160" width="140">
+<img src="docs/images/template_icon.png" align="right" height="160" width="140">
 
 ?????????
 
@@ -9,12 +9,12 @@
 
 ### Market
 
-Retrouvez le sur le Market Jeedom [ici](https://www.jeedom.com/market/index.php?v=d&p=market&type=plugin&&name=XXXXXXXX)
+Retrouvez le sur le Market Jeedom [ici](https://www.jeedom.com/market/index.php?v=d&p=market&type=plugin&&name=template)
 
 
 ### Documentation
 
-Vous trouverez la documentation [ici](https://github.com/Jeedom-Plugins-Extra/XXXXXXXX/blob/stable/doc/fr_FR/index.asciidoc)
+Vous trouverez la documentation [ici](https://github.com/Jeedom-Plugins-Extra/template/blob/stable/doc/fr_FR/index.asciidoc)
 
 
 ### Prévisualisation
@@ -29,7 +29,7 @@ Lien vers le forum [ici](https://www.jeedom.com/forum/viewtopic.php?f=142&t=3415
 
 ### Chatroom
 
-Lien vers le chat [ici](https://gitter.im/Jeedom-Plugins-Extra/plugin-XXXXXXXX)
+Lien vers le chat [ici](https://gitter.im/Jeedom-Plugins-Extra/plugin-template)
 
 
 ### Fonctions disponibles
