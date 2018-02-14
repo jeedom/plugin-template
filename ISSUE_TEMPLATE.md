@@ -9,6 +9,5 @@
 ## Proposition de solution (optionnel):
 
 ## Environnement:
-* **Version**: 
+* **Version Jeedom**: 
 * **Platform**: 
-* **Subsystem**: 
