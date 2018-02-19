@@ -48,10 +48,10 @@ nav ul a,nav {
 	background-color: #fff !important;
 }
 .jeedomcolorbg {
-	background-color: #95C12B !important;
+	background-color: #40535E !important;
 }
 .jeedomcolor {
-	color: #95C12B !important;
+	color: #40535E !important;
 }
 .collection a.collection-item {
 	color: #85a835 !important;
@@ -76,7 +76,7 @@ nav ul a,nav {
 	font-size : 0.85rem !important; 
 }
 .tocnumber{
-	color : #95C12B !important;
+	color : #40535E !important;
 }
 #side-nav a{
 	line-height: 24px !important;
@@ -85,5 +85,5 @@ nav ul a,nav {
 	 font-weight: bold;
 }
 .dropdown-content li>a, .dropdown-content li>span{
-	color : #95C12B !important;
+	color : #40535E !important;
 }
