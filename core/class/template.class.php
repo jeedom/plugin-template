@@ -19,7 +19,8 @@
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-class template extends eqLogic {
+class template extends eqLogic
+{
     /*     * *************************Attributs****************************** */
 
 
@@ -52,35 +53,43 @@ class template extends eqLogic {
 
     /*     * *********************Méthodes d'instance************************* */
 
-    public function preInsert() {
+    public function preInsert()
+    {
         
     }
 
-    public function postInsert() {
+    public function postInsert()
+    {
         
     }
 
-    public function preSave() {
+    public function preSave()
+    {
         
     }
 
-    public function postSave() {
+    public function postSave()
+    {
         
     }
 
-    public function preUpdate() {
+    public function preUpdate()
+    {
         
     }
 
-    public function postUpdate() {
+    public function postUpdate()
+    {
         
     }
 
-    public function preRemove() {
+    public function preRemove()
+    {
         
     }
 
-    public function postRemove() {
+    public function postRemove()
+    {
         
     }
 
@@ -93,20 +102,21 @@ class template extends eqLogic {
 
     /*
      * Non obligatoire mais ca permet de déclencher une action après modification de variable de configuration
-    public static function postConfig_<Variable>() {
-    }
+      public static function postConfig_<Variable>() {
+      }
      */
 
     /*
      * Non obligatoire mais ca permet de déclencher une action avant modification de variable de configuration
-    public static function preConfig_<Variable>() {
-    }
+      public static function preConfig_<Variable>() {
+      }
      */
 
     /*     * **********************Getteur Setteur*************************** */
 }
 
-class templateCmd extends cmd {
+class templateCmd extends cmd
+{
     /*     * *************************Attributs****************************** */
 
 
@@ -122,11 +132,10 @@ class templateCmd extends cmd {
       }
      */
 
-    public function execute($_options = array()) {
+    public function execute($_options = array())
+    {
         
     }
 
     /*     * **********************Getteur Setteur*************************** */
 }
-
-
