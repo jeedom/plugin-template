@@ -1,17 +1,15 @@
-Change log
-==========
+# Changelog
+### Version 1.2.0
 
-> **Warning**
->
-> Detail complet des mises à jour sur [Historique
-> Commit](https://github.com/Jeedom-Plugins-Extra/plugin-template/commits/master)
+* Modif 1
 
-Liste des évolutions majeures de la version courante :
+### Version 1.1.1: **_date_** ~~ex: 31 Mai 2017~~
 
--   XXXX
+* Modif 1
+* Modif 2
 
-Anciennes évolutions :
+### Version 1.1.0: **_date_**
 
--   XXXX
-
--   XXXX
+* Modif 1
+* Modif 2
+* Modif 3
