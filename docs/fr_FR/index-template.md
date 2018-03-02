@@ -1,13 +1,11 @@
-Description
-===
+# Description
 
 ![scrennshot1](../images/screenshot1.png)
 
 Plugin servant de base pour les plugins. Attention lors de l’utilisation
 à bien remplacer tous les templates par l’id de votre plugin.
 
-Création plugin partie 1 : l’arborescence
-===
+# Création plugin partie 1 : l’arborescence
 
 Voici sa structure: tout d’abord un dossier du nom de votre plugin (son
 identifiant unique plus exactement) qui doit contenir les sous-dossiers
@@ -95,8 +93,7 @@ Voici les recommandations :
 -   le nom du fichier JS (s’il y en a un) de la première page de vue du
     plugin doit être l’ID du plugin
 
-Création plugin partie 2 : plugin info
-===
+# Création plugin partie 2 : plugin info
 
 ### info.json
 
@@ -133,6 +130,10 @@ obligatoire) :
 -   hasDependency : indique que le plugin possède des dépendances
 
 -   hasOwnDeamon : indique que le plugin a un démon
+
+-   changelog : lien vers le changelog du plugin
+
+-   documentation : Lien vers la documentation du plugin
 
 Exemple :
 
@@ -296,8 +297,7 @@ Exemple :
          </fieldset>
      </form>
 
-Création plugin partie 3 : dossier desktop
-===
+# Création plugin partie 3 : dossier desktop
 
 ### PHP
 
@@ -557,8 +557,7 @@ Quand on clique sur le bouton assistant, on récupère l’input dans lequel
 l’assistant, le résultat est récuperé puis écrit dans l’input
 précédemment selectionné
 
-Création plugin partie 4 : dossier core
-===
+# Création plugin partie 4 : dossier core
 
 De loin le dossier le plus important de votre plugin, il peut comporter
 4 sous dossiers.
