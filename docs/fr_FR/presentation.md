@@ -20,10 +20,3 @@ Retrouvez le sur le Market Jeedom [ici](https://www.jeedom.com/market/index.php?
 Lien vers le forum [ici](https://www.jeedom.com/forum/viewtopic.php?t=xxxx)
 ~~Remplacer `t=xxxx` par le bon forum number~~
 
-# Chatroom
-
-Lien vers le chat [ici](https://gitter.im/xxx)
-~~Remplacer le lien si le plugin a une Chatroom dédié, ou effacer ce paragraphe~~
-
-# Documentation du plugin template
-La documentation detaille pour ecrire un plugin se trouve dans le fichier index-template.md
