@@ -11,23 +11,18 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper container">
-        <a id="logo-container" href="https://www.jeedom.com/doc" class="brand-logo center"><img src="/{{site.github.project_title}}/assets/images/logo.png" style="height:50px;margin-top:5px"></a>
+        <a id="logo-container" href="https://jeedom-plugins-extra.github.io/" class="brand-logo center"><img src="/{{site.github.project_title}}/assets/images/logo.png" style="height:50px;margin-top:5px"></a>
         <ul class="left hide-on-med-and-down">
-          <li><a href="https://www.jeedom.com/doc">Jeedom Documentation</a></li>
+          <li><a href="https://jeedom-plugins-extra.github.io">jeedom-plugins-Extra Documentation</a></li>
         </ul>
-        <a href="https://www.jeedom.com/doc" data-activates="nav-mobile" class="button-collapse btn-floating btn-large waves-effect waves-light jeedomcolorbg"><i class="material-icons">menu</i></a>
+        <a href="https://jeedom-plugins-extra.github.io" data-activates="nav-mobile" class="button-collapse btn-floating btn-large waves-effect waves-light jeedomcolorbg"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="https://www.jeedom.com/site">Site</a></li>
-          <li><a href="https://www.jeedom.com/blog">Blog</a></li>
-          <li><a href="https://www.jeedom.com/forum">Forum</a></li>
-          <li><a href="https://www.jeedom.com/market">Market</a></li>
-          <li class="active"><a href="https://www.jeedom.com/doc">Doc</a></li>
+          <li><a href="https://jeedom-plugins-extra.github.io/">Site</a></li>
+          <li class="active"><a href="https://jeedom-plugins-extra.github.io">Doc</a></li>
         </ul>
         <ul class="side-nav" id="nav-mobile">
-          <li><a href="https://www.jeedom.com/blog">Blog</a></li>
-          <li><a href="https://www.jeedom.com/forum">Forum</a></li>
-          <li><a href="https://www.jeedom.com/market">Market</a></li>
-          <li class="active"><a href="https://www.jeedom.com/doc">Doc</a></li>
+          <li><a href="https://jeedom-plugins-extra.github.io/">Site</a></li>
+          <li class="active"><a href="https://jeedom-plugins-extra.github.io">Doc</a></li>
         </ul>
       </div>
     </nav>
@@ -88,7 +83,7 @@
    document.title = 'Documentation Jeedom | '+ title[0].toUpperCase() + title.substring(1)
    $(".button-collapse").sideNav();
    $('meta[name=description]').remove();
-   $('head').append( '<meta name="description" content="Ceci est la documentation du plugin "'+ title[0].toUpperCase() + title.substring(1)+'", lier à la solution domotique Jeedom.">' ); 
+   $('head').append( '<meta name="description" content="Ceci est la documentation du plugin "'+ title[0].toUpperCase() + title.substring(1)+'", lier à la solution domotique Jeedom.">' );
    $('img').addClass('responsive-img');
    $('#div_content table').addClass('striped');
    init();
@@ -138,16 +133,16 @@
  var i = 1, j = 1;
  $('h1, h2', $('#div_content')).each(function(){
   if($(this)[0].tagName.toLowerCase() == 'h1'){
-    $('#'+$(this).attr('id')).text(i + ') ' + $(this).text());
+    $('#'+$(this).attr('id')).text($(this).text());
     i++;
-  } 
+  }
   if($(this)[0].tagName.toLowerCase() == 'h2'){
-    $('#'+$(this).attr('id')).text( (i-1) + '.' + j + ') ' + $(this).text()); 
+    $('#'+$(this).attr('id')).text($(this).text());
     j++;
   }else{
     j = 1;
   }
-});  
+});
 });
 
   var idChapitre = null, nbrChapitre = 0, idAncre = null;
