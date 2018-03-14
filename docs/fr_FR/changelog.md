@@ -1,4 +1,5 @@
 # Changelog
+
 ### Version 1.2.0:  (**_date_** - Version en cours sur le market)
 
 * Modif 1
@@ -19,9 +20,9 @@
 * item 1
 * item 2
 
-### Detail des changements
+### Détail des changements
 
-Detail complet des mises à jour sur [Historique Commit](https://github.com/Jeedom-Plugins-Extra/plugin-template/commits/master)
+Détail complet des mises à jour sur [Historique Commit](https://github.com/Jeedom-Plugins-Extra/plugin-template/commits/master)
 
 # Bug
 
