@@ -25,8 +25,9 @@ matrix:
             - aspell-en
             - aspell-fr
       script:
+        - gem install mdl
         - for file in *.md docs/fr_FR/*.md;do  cat $file | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list;done | sort -u
-        - cat mdl *.md docs/fr_FR/*.md  | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list >/dev/null
+        - mdl *.md docs/fr_FR/*.md  | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list >/dev/null
 
     - language: markdown
       addons:
