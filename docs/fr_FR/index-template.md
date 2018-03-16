@@ -27,25 +27,25 @@ suivants :
 
 - desktop : dossier contenant la vue "bureau" du plugin (en opposition avec la vue "mobile")
 
--- js : dossier contenant tous les fichiers de type javascript
+  - js : dossier contenant tous les fichiers de type javascript
 
--- php : dossier contenant tous les fichiers de type php qui font de l’affichage
+  - php : dossier contenant tous les fichiers de type php qui font de l’affichage
 
--- css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
+  - css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
 
--- modal : dossier contenant le code des modals du plugin
+  - modal : dossier contenant le code des modals du plugin
 
 - plugin\_info : contient les fichiers permettant à Jeedom de qualifier le plugin, de faire son installation et sa configuration
 
-    - info.xml : fichier contenant les informations de base du plugin
+  - info.xml : fichier contenant les informations de base du plugin
         (il est obligatoire sinon Jeedom ne verra pas le plugin), il
         contient entre autre l’identifiant du module, la description,
         les instructions d’installation…​
 
-    - install.php : fichier contenant (si besoin) les méthodes
+  - install.php : fichier contenant (si besoin) les méthodes
         d’installation et de désinstallation du plugin
 
-    - configuration.php : fichier contenant les paramètres à
+  - configuration.php : fichier contenant les paramètres à
         configurer du plugin indépendants des équipements de celui-ci
         (exemple pour le module Zwave l’ip du Raspberry Pi ayant la
         carte Razberry)
@@ -554,7 +554,7 @@ commencer à faire des plugins pour Jeedom.
 
 ### Trucs et astuces
 
-###Assitant cron.###
+### Assitant cron
 
 ```
     $('body').delegate('.helpSelectCron','click',function(){
