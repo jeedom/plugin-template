@@ -6,9 +6,9 @@ description
 
 # Market
 
-Retrouvez le sur le [Market](https://www.jeedom.com/market/index.php?v=d&p=market&type=plugin&&name=<Plugin>) Jeedom
+Retrouvez le sur le [Market](https://www.jeedom.com/market/index.php?v=d&p=market&type=plugin&&name=Plugin) Jeedom
 
-~~Changer <Plugin> par le nom du plugin dans l'adresse https du lien~~
+~~Changer **_Plugin_** par le nom du plugin dans l'adresse https du lien~~
 
 # Prévisualisation
 
