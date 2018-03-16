@@ -11,33 +11,33 @@ Voici sa structure: tout d’abord un dossier du nom de votre plugin (son
 identifiant unique plus exactement) qui doit contenir les sous-dossiers
 suivants :
 
--3rdparty : dossier contenant les librairies externes utilisées dans le plugin (exemple pour le plugin SMS une librairie pour la communication série en php)
+- 3rdparty : dossier contenant les librairies externes utilisées dans le plugin (exemple pour le plugin SMS une librairie pour la communication série en php)
 
--core : dossier contenant tous les fichiers de fonctionnement interne
+- core : dossier contenant tous les fichiers de fonctionnement interne
 
--class : dossier contenant la classe du plugin
+- class : dossier contenant la classe du plugin
 
--php : dossier pouvant contenir des fonctions ne devant pas forcément
+- php : dossier pouvant contenir des fonctions ne devant pas forcément
     appartenir à une classe (souvent utilisé pour permettre l’inclusion
     de multiples classes ou fichiers de configuration en une fois)
 
--config : fichier de configuration du plugin
+- config : fichier de configuration du plugin
 
--ajax : dossier contenant les fichiers cibles d’appels AJAX
+- ajax : dossier contenant les fichiers cibles d’appels AJAX
 
--desktop : dossier contenant la vue "bureau" du plugin (en opposition avec la vue "mobile")
+- desktop : dossier contenant la vue "bureau" du plugin (en opposition avec la vue "mobile")
 
-    -js : dossier contenant tous les fichiers de type javascript
+    - js : dossier contenant tous les fichiers de type javascript
 
-    -php : dossier contenant tous les fichiers de type php qui font de l’affichage
+    - php : dossier contenant tous les fichiers de type php qui font de l’affichage
 
-    -css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
+    - css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
 
-    -modal : dossier contenant le code des modals du plugin
+    - modal : dossier contenant le code des modals du plugin
 
--plugin\_info : contient les fichiers permettant à Jeedom de qualifier le plugin, de faire son installation et sa configuration
+- plugin\_info : contient les fichiers permettant à Jeedom de qualifier le plugin, de faire son installation et sa configuration
 
-    -info.xml : fichier contenant les informations de base du plugin
+    - info.xml : fichier contenant les informations de base du plugin
         (il est obligatoire sinon Jeedom ne verra pas le plugin), il
         contient entre autre l’identifiant du module, la description,
         les instructions d’installation…​
