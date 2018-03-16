@@ -1,17 +1,43 @@
-language: php
-php:
-  - 5.6
-branches:
-  only:
-    - master
-before_script:
-    - find . -type f -name *.php | xargs -n1 php -l
-script: 
-    - cd ${TRAVIS_BUILD_DIR}
-    - pwd
-after_success:
-    - cd ${TRAVIS_BUILD_DIR}
-    - ls -latr
-after_failure:
-    - cd ${TRAVIS_BUILD_DIR}
-    - ls -latr
+matrix:
+  include:
+    - language:  php
+      php: 5.6
+      before_script:
+          - find . -type f -name *.php | xargs -n1 php -l
+      script:        
+          - cd ${TRAVIS_BUILD_DIR}
+          - pwd
+      after_success:
+          - cd ${TRAVIS_BUILD_DIR}
+          - ls -latr
+      after_failure:
+          - cd ${TRAVIS_BUILD_DIR}
+          - ls -latr
+    
+    - language: python
+      python: 2.7
+    
+    - language: orthographe
+      addons:
+        apt:
+          packages:
+            - aspell
+            - aspell-en
+            - aspell-fr
+      script:
+        - for file in *.md docs/fr_FR/*.md;do  cat $file | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list;done | sort -u
+        - cat mdl *.md docs/fr_FR/*.md  | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list >/dev/null
+
+    - language: markdown
+      addons:
+        apt:
+          packages:
+            - aspell
+            - aspell-en
+            - aspell-fr
+      script:
+        - gem install mdl
+        - for file in *.md docs/fr_FR/*.md;do  mdl $file;done
+        - mdl *.md docs/fr_FR/*.md >/dev/null
+    
+
