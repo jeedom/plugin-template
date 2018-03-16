@@ -42,15 +42,15 @@ suivants :
         contient entre autre l’identifiant du module, la description,
         les instructions d’installation…​
 
-    -install.php : fichier contenant (si besoin) les méthodes
+    - install.php : fichier contenant (si besoin) les méthodes
         d’installation et de désinstallation du plugin
 
-    -configuration.php : fichier contenant les paramètres à
+    - configuration.php : fichier contenant les paramètres à
         configurer du plugin indépendants des équipements de celui-ci
         (exemple pour le module Zwave l’ip du Raspberry Pi ayant la
         carte Razberry)
 
--docs : doit contenir la documentation du plugin au format markdown (.md), la racine
+- docs : doit contenir la documentation du plugin au format markdown (.md), la racine
     est le fichier index.html qui renvoie sur le fichier docs/fr\_FR/index.md.
     Le fichier index.md inclue 4 fichiers: presentation.md, configuration.md, faq.md et changelog.md
     Toutes les images sont dans doc/images. La doc elle-même est dans un dossier en fonction de
@@ -59,18 +59,18 @@ suivants :
 Pour ce qui est de la convention de nommage des fichiers voici les
 impératifs :
 
--les fichiers de class php doivent obligatoirement se finir par
+- les fichiers de class php doivent obligatoirement se finir par
     ".class.php"
 
--si ce n’est pas géré par un fichier d’inclusion, le nom du fichier
+- si ce n’est pas géré par un fichier d’inclusion, le nom du fichier
     doit être "*nom\_class*.class.php"
 
--les fichiers servant uniquement de point d’entrée pour inclure de
+- les fichiers servant uniquement de point d’entrée pour inclure de
     multiples fichiers doivent se finir par ".inc.php"
 
--les fichiers de configuration doivent se finir par ".config.php"
+- les fichiers de configuration doivent se finir par ".config.php"
 
--les fichiers d’aide à une page doivent être nommés de cette forme
+- les fichiers d’aide à une page doivent être nommés de cette forme
     "help.*nomdelapage*.php". Le plus souvent un plugin n’ayant qu’une
     page de vue, le fichier d’aide aura donc le nom suivant
     "help.*PLUGIN\_ID*.php" (le nom de la première page d’un plugin est
@@ -79,12 +79,12 @@ impératifs :
 
 Voici les recommandations :
 
--les fichiers de type AJAX doivent se finir par ".ajax.php"
+- les fichiers de type AJAX doivent se finir par ".ajax.php"
 
--le nom de la première page de vue d’un plugin doit être le même que
+- le nom de la première page de vue d’un plugin doit être le même que
     l’ID du plugin
 
--le nom du fichier JS (s’il y en a un) de la première page de vue du
+- le nom du fichier JS (s’il y en a un) de la première page de vue du
     plugin doit être l’ID du plugin
 
 # Création plugin partie 2 : plugin info
@@ -97,37 +97,37 @@ toutes les informations relatives au plugin :
 Il est composé des clefs (une \* indique que cette balise est
 obligatoire) :
 
--   \*id : identifiant unique du plugin (doit être le même que le nom du
+- \*id : identifiant unique du plugin (doit être le même que le nom du
     dossier contenant le plugin et que le type des équipements que crée
     le plugin)
 
--   \*name : nom du plugin (ça sera le nom affiché sur l’interface)
+- \*name : nom du plugin (ça sera le nom affiché sur l’interface)
 
--   author : Auteur du plugin
+- author : Auteur du plugin
 
--   \*require : version minimale de Jeedom requise pour installation du
+- \*require : version minimale de Jeedom requise pour installation du
     plugin
 
--   \*version : version du plugin
+- \*version : version du plugin
 
--   category : sert à catégoriser les plugins pour trouver celui qu’on
+- category : sert à catégoriser les plugins pour trouver celui qu’on
     veut plus rapidement
 
--   display : permet de spécifier le nom du fichier php (qui doit se
+- display : permet de spécifier le nom du fichier php (qui doit se
     trouver dans le dossier desktop/php) devant c pour afficher le panel
     (lien dans le sous-menu accueil)
 
--   mobile : permet de spécifier le nom du fichier html (qui doit se
+- mobile : permet de spécifier le nom du fichier html (qui doit se
     trouver dans le dossier mobile/html) devant être appelé pour
     afficher la version mobile du panel
 
--   hasDependency : indique que le plugin possède des dépendances
+- hasDependency : indique que le plugin possède des dépendances
 
--   hasOwnDeamon : indique que le plugin a un démon
+- hasOwnDeamon : indique que le plugin a un démon
 
--   changelog : lien vers le changelog du plugin
+- changelog : lien vers le changelog du plugin
 
--   documentation : Lien vers la documentation du plugin
+- documentation : Lien vers la documentation du plugin
 
 Exemple :
 
@@ -159,13 +159,13 @@ utilisée ici indique que le fichier appartient à Jeedom et qu’il est
 open source Ensuite vient l’inclusion du core de Jeedom (cela permet
 d’accéder aux fonctions internes) Ensuite viennent les 2 fonctions :
 
--   install\_pluginid() : méthode permettant d’installer le plugin. Ici
+- install\_pluginid() : méthode permettant d’installer le plugin. Ici
     l’installation ajoute une tâche cron à Jeedom
 
--   update\_pluginid() : méthode permettant d’installer le plugin.
+- update\_pluginid() : méthode permettant d’installer le plugin.
     Utilisé ici pour redémarrer la tache cron
 
--   remove\_pluginid() : méthode permettant de supprimer le plugin. Ici
+- remove\_pluginid() : méthode permettant de supprimer le plugin. Ici
     la fonction supprime la tâche cron de Jeedom lors de la
     désinstallation
 
@@ -233,11 +233,11 @@ l’utilisateur :
 
 Le fichier est constitué de :
 
--   La licence comme précèdemment
+- La licence comme précèdemment
 
--   L’inclusion du core de Jeedom
+- L’inclusion du core de Jeedom
 
--   La vérification que l’utilisateur est bien connecté (j’inclue le
+- La vérification que l’utilisateur est bien connecté (j’inclue le
     fichier 404 car ce fichier est un fichier de type vue)
 
 Ensuite vient le paramètre demandé (il peut en avoir plusieurs), c’est
@@ -478,24 +478,24 @@ commande :
 
 Ici on peut remarquer :
 
--   jeedom.cmd.availableType() va insérer un select avec la liste des
+- jeedom.cmd.availableType() va insérer un select avec la liste des
     types connus (action et info pour le moment)
 
--   &lt;span class="subType" subType="' + init(\_cmd.subType) +
+- &lt;span class="subType" subType="' + init(\_cmd.subType) +
     '"&gt;&lt;/span&gt;: l’endroit où le select de sous type doit être
     posé
 
--   jeedom.cmd.changeType(\$('\#table\_cmd tbody
+- jeedom.cmd.changeType(\$('\#table\_cmd tbody
     tr:last'), init(\_cmd.subType)) qui permet d’initialiser le sous
     type avec la bonne valeur
 
 D’autres fonctions javascript peuvent être utilisées :
 
--   printEqLogic qui prend en paramètre tout l’objet de l’équipement
+- printEqLogic qui prend en paramètre tout l’objet de l’équipement
     (utile en cas de traitement de données avant de les restituer). Elle
     est appelée lors de l’affichage des données de l’équipement
 
--   saveEqLogic qui prend en paramètre l’objet équipement qui va être
+- saveEqLogic qui prend en paramètre l’objet équipement qui va être
     sauvegardé en base de données (utile si vous devez faire du
     traitement avant sauvegarde) Dernière chose, pour les fichiers JS,
     voici comment les inclure de manière propre sur votre page php :
@@ -995,22 +995,22 @@ Lors de la création ou la suppression de vos objets (équipement,
 commande ou autre) dans Jeedom, celui-ci peut appeler plusieurs méthodes
 avant/après l’action :
 
--   preInsert ⇒ Méthode appellée avant la création de votre objet
+- preInsert ⇒ Méthode appellée avant la création de votre objet
 
--   postInsert ⇒ Méthode appellée après la création de votre objet
+- postInsert ⇒ Méthode appellée après la création de votre objet
 
--   preUpdate ⇒ Méthode appellée avant la mise à jour de votre objet
+- preUpdate ⇒ Méthode appellée avant la mise à jour de votre objet
 
--   postUpdate ⇒ Méthode appellée après la mise à jour de votre objet
+- postUpdate ⇒ Méthode appellée après la mise à jour de votre objet
 
--   preSave ⇒ Méthode appellée avant la sauvegarde (creation et mise à
+- preSave ⇒ Méthode appellée avant la sauvegarde (creation et mise à
     jour donc) de votre objet
 
--   postSave ⇒ Méthode appellée après la sauvegarde de votre objet
+- postSave ⇒ Méthode appellée après la sauvegarde de votre objet
 
--   preRemove ⇒ Méthode appellée avant la supression de votre objet
+- preRemove ⇒ Méthode appellée avant la supression de votre objet
 
--   postRemove ⇒ Méthode appellée après la supression de votre objet
+- postRemove ⇒ Méthode appellée après la supression de votre objet
 
 Exemple, toujours avec le plugin weather de la création des commandes ou
 mise à jour de celles-ci après la sauvegarde (l’exemple est simplifié) :
@@ -1128,10 +1128,10 @@ l’éviter :
 
 Pour finir voici quelques trucs et astuces :
 
--   évitez (à moins de savoir ce que vous faites) d’écraser une méthode
+- évitez (à moins de savoir ce que vous faites) d’écraser une méthode
     de la classe héritée (cela peut causer beaucoup de problèmes)
 
--   Pour remonter la batterie (en %) d’un équipement, faites sur
+- Pour remonter la batterie (en %) d’un équipement, faites sur
     celui-ci (Jeedom se chargera du reste et de prévenir l’utilisateur
     si nécessaire) :
 
@@ -1139,19 +1139,19 @@ Pour finir voici quelques trucs et astuces :
 
     `$eqLogic->batteryStatus(56);`
 
--   Sur les commandes au moment de l’ajout d’une valeur Jeedom applique
+- Sur les commandes au moment de l’ajout d’une valeur Jeedom applique
     la méthode d’instance formatValue(\$\_value) qui, en fonction du
     sous-type, peut la remettre en forme (en particulier pour les
     valeurs binaires)
 
--   ne faites JAMAIS une méthode dans la class héritant de cmd
+- ne faites JAMAIS une méthode dans la class héritant de cmd
     s’appellant : execCmd ou event
 
--   si dans la configuration de votre commande vous avez renseigné
+- si dans la configuration de votre commande vous avez renseigné
     returnStateTime (en minute) et returnStateValue, Jeedom changera
     automatique la valeur de votre commande par returnStateValue au bout
     de X minute(s)
 
--   toujours pour la commande vous pouvez utiliser addHistoryValue pour
+- toujours pour la commande vous pouvez utiliser addHistoryValue pour
     forcer la mise en historique (attention votre commande doit
     être historisée)
