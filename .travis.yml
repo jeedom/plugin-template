@@ -1,0 +1,17 @@
+language: php
+php:
+  - 5.6
+branches:
+  only:
+    - master
+before_script:
+    - find . -type f -name *.php | xargs -n1 php -l
+script: 
+    - cd ${TRAVIS_BUILD_DIR}
+    - pwd
+after_success:
+    - cd ${TRAVIS_BUILD_DIR}
+    - ls -latr
+after_failure:
+    - cd ${TRAVIS_BUILD_DIR}
+    - ls -latr
