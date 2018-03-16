@@ -17,44 +17,40 @@ suivants :
 
 -class : dossier contenant la classe du plugin
 
--   php : dossier pouvant contenir des fonctions ne devant pas forcément
+-php : dossier pouvant contenir des fonctions ne devant pas forcément
     appartenir à une classe (souvent utilisé pour permettre l’inclusion
     de multiples classes ou fichiers de configuration en une fois)
 
--   config : fichier de configuration du plugin
+-config : fichier de configuration du plugin
 
--   ajax : dossier contenant les fichiers cibles d’appels AJAX
+-ajax : dossier contenant les fichiers cibles d’appels AJAX
 
--   desktop : dossier contenant la vue "bureau" du plugin (en opposition
-    avec la vue "mobile")
+-desktop : dossier contenant la vue "bureau" du plugin (en opposition avec la vue "mobile")
 
-    --js : dossier contenant tous les fichiers de type javascript
+    -js : dossier contenant tous les fichiers de type javascript
 
-    -   php : dossier contenant tous les fichiers de type php qui font
-        de l’affichage
+    -php : dossier contenant tous les fichiers de type php qui font de l’affichage
 
-    -   css : il n’y en pas ici mais, si besoin, tous les fichiers css
-        du plugin vont dedans
+    -css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
 
-    -   modal : dossier contenant le code des modals du plugin
+    -modal : dossier contenant le code des modals du plugin
 
--   plugin\_info : contient les fichiers permettant à Jeedom de
-    qualifier le plugin, de faire son installation et sa configuration
+-plugin\_info : contient les fichiers permettant à Jeedom de qualifier le plugin, de faire son installation et sa configuration
 
-    -   info.xml : fichier contenant les informations de base du plugin
+    -info.xml : fichier contenant les informations de base du plugin
         (il est obligatoire sinon Jeedom ne verra pas le plugin), il
         contient entre autre l’identifiant du module, la description,
         les instructions d’installation…​
 
-    -   install.php : fichier contenant (si besoin) les méthodes
+    -install.php : fichier contenant (si besoin) les méthodes
         d’installation et de désinstallation du plugin
 
-    -   configuration.php : fichier contenant les paramètres à
+    -configuration.php : fichier contenant les paramètres à
         configurer du plugin indépendants des équipements de celui-ci
         (exemple pour le module Zwave l’ip du Raspberry Pi ayant la
         carte Razberry)
 
--   docs : doit contenir la documentation du plugin au format markdown (.md), la racine
+-docs : doit contenir la documentation du plugin au format markdown (.md), la racine
     est le fichier index.html qui renvoie sur le fichier docs/fr\_FR/index.md.
     Le fichier index.md inclue 4 fichiers: presentation.md, configuration.md, faq.md et changelog.md
     Toutes les images sont dans doc/images. La doc elle-même est dans un dossier en fonction de
@@ -63,18 +59,18 @@ suivants :
 Pour ce qui est de la convention de nommage des fichiers voici les
 impératifs :
 
--   les fichiers de class php doivent obligatoirement se finir par
+-les fichiers de class php doivent obligatoirement se finir par
     ".class.php"
 
--   si ce n’est pas géré par un fichier d’inclusion, le nom du fichier
+-si ce n’est pas géré par un fichier d’inclusion, le nom du fichier
     doit être "*nom\_class*.class.php"
 
--   les fichiers servant uniquement de point d’entrée pour inclure de
+-les fichiers servant uniquement de point d’entrée pour inclure de
     multiples fichiers doivent se finir par ".inc.php"
 
--   les fichiers de configuration doivent se finir par ".config.php"
+-les fichiers de configuration doivent se finir par ".config.php"
 
--   les fichiers d’aide à une page doivent être nommés de cette forme
+-les fichiers d’aide à une page doivent être nommés de cette forme
     "help.*nomdelapage*.php". Le plus souvent un plugin n’ayant qu’une
     page de vue, le fichier d’aide aura donc le nom suivant
     "help.*PLUGIN\_ID*.php" (le nom de la première page d’un plugin est
@@ -83,12 +79,12 @@ impératifs :
 
 Voici les recommandations :
 
--   les fichiers de type AJAX doivent se finir par ".ajax.php"
+-les fichiers de type AJAX doivent se finir par ".ajax.php"
 
--   le nom de la première page de vue d’un plugin doit être le même que
+-le nom de la première page de vue d’un plugin doit être le même que
     l’ID du plugin
 
--   le nom du fichier JS (s’il y en a un) de la première page de vue du
+-le nom du fichier JS (s’il y en a un) de la première page de vue du
     plugin doit être l’ID du plugin
 
 # Création plugin partie 2 : plugin info
