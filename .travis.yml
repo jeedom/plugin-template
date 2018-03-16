@@ -16,26 +16,10 @@ matrix:
     
     - language: python
       python: 2.7
-    
-    - language: orthographe
-      addons:
-        apt:
-          packages:
-            - aspell
-            - aspell-en
-            - aspell-fr
       script:
-        - gem install mdl
-        - for file in *.md docs/fr_FR/*.md;do  cat $file | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list;done | sort -u
-        - mdl *.md docs/fr_FR/*.md  | aspell --personal=${TRAVIS_BUILD_DIR}/.aspell.fr.pws --lang=fr --encoding=utf-8 list >/dev/null
-
+        - pwd
+        
     - language: markdown
-      addons:
-        apt:
-          packages:
-            - aspell
-            - aspell-en
-            - aspell-fr
       script:
         - gem install mdl
         - for file in *.md docs/fr_FR/*.md;do  mdl $file;done
