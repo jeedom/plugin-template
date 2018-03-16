@@ -27,13 +27,13 @@ suivants :
 
 - desktop : dossier contenant la vue "bureau" du plugin (en opposition avec la vue "mobile")
 
-    - js : dossier contenant tous les fichiers de type javascript
+-- js : dossier contenant tous les fichiers de type javascript
 
-    - php : dossier contenant tous les fichiers de type php qui font de l’affichage
+-- php : dossier contenant tous les fichiers de type php qui font de l’affichage
 
-    - css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
+-- css : il n’y en pas ici mais, si besoin, tous les fichiers css du plugin vont dedans
 
-    - modal : dossier contenant le code des modals du plugin
+-- modal : dossier contenant le code des modals du plugin
 
 - plugin\_info : contient les fichiers permettant à Jeedom de qualifier le plugin, de faire son installation et sa configuration
 
@@ -248,6 +248,7 @@ paramètre. Pour récupérer la valeur de celui-ci ailleurs dans le plugin
 il suffit de faire : `config::byKey(*NOM\_PARAMETRE*, *PLUGIN\_ID*)`
 
 Exemple :
+
 ```
     <?php
     /* This file is part of Jeedom.
@@ -411,10 +412,10 @@ cmdAttr.
 
 Plusieurs points importants :
 
--   cette fonction peut être appelée avec un objet vide (d’où les 3
+- cette fonction peut être appelée avec un objet vide (d’où les 3
     premières lignes) lors de l’ajout d’une nouvelle commande
 
--   la dernière ligne permet d’initialiser tous les champs une fois la
+- la dernière ligne permet d’initialiser tous les champs une fois la
     ligne insérée
 
 Dernier point: un exemple plus complet avec type et sous-type de
@@ -553,7 +554,7 @@ commencer à faire des plugins pour Jeedom.
 
 ### Trucs et astuces
 
-**Assitant cron.**
+###Assitant cron.###
 
 ```
     $('body').delegate('.helpSelectCron','click',function(){
@@ -577,7 +578,7 @@ De loin le dossier le plus important de votre plugin, il peut comporter
 Note : tous le long de cette partie l’id de votre plugin sera referencé
 par : plugin\_id
 
-### PHP
+### PHP:
 
 Contient les fichiers PHP annexes, j’ai pris l’habitude de mettre par
 exemple un fichier d’inclusion si, bien sur, vous avez plusieurs
@@ -647,9 +648,9 @@ fichier ajax :
 Dossier très important, c’est le moteur de votre plugin. C’est là que
 viennent les 2 classes obligatoires de votre plugin :
 
--   plugin\_id
+- plugin\_id
 
--   plugin\_idCmd
+- plugin\_idCmd
 
 La première devant hériter de la classe eqLogic et la deuxième de cmd.
 Voici un template :
@@ -745,7 +746,7 @@ sous-type other).
 Voila pour la partie obligatoire, voila maintenant ce qui peut etre
 utilisé à coté (avec exemple) :
 
-**toHtml(\$\_version = 'dashboard').**
+### toHtml(\$\_version = 'dashboard')
 
 Fonction utilisable dans la commande ou dans l’équipement, en fonction
 des besoins, voici un exemple pour l’équipement
@@ -852,6 +853,7 @@ des besoins, voici un exemple pour l’équipement
             return $html;
         }
 ```
+
 Plusieurs choses intéressantes ici :
 
 Pour convertir la version demandée en dashboard ou mobile (mview devient
@@ -870,6 +872,7 @@ quand même à bien vider le cache lors de la mise à jour des données
             return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
         }
 ```
+
 Récupération d’un template de commande, ici le template de commande :
 plugins/weather/core/template/\$\_version/forecast.html (\$\_version
 valant mobile ou dashboard)
@@ -989,7 +992,7 @@ Pour une commande :
     )
 ```
 
-**méthode pre et post.**
+### méthode pre et post
 
 Lors de la création ou la suppression de vos objets (équipement,
 commande ou autre) dans Jeedom, celui-ci peut appeler plusieurs méthodes
@@ -1042,6 +1045,7 @@ mise à jour de celles-ci après la sauvegarde (l’exemple est simplifié) :
             $cron->save();
     }
 ```
+
 Le début est assez standard avec la création d’une commande, la fin est
 plus intéressante avec la mise en place d’un cron qui va appeler la
 méthode weather::updateWeatherData en passant l’id de l’équipement à
@@ -1070,6 +1074,7 @@ Ici la methode updateWeatherData (simplifiée aussi) :
         }
     }
 ```
+
 On voit ici que lors de l’appel on recupère l’équipement concerné puis
 on exécute les commandes pour recupérer les valeurs et mettre à jour
 celles-ci si nécessaire.
