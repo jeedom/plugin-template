@@ -13,6 +13,7 @@ Retrouvez le sur le [Market](https://www.jeedom.com/market/index.php?v=d&p=marke
 # Prévisualisation
 
 ~~Insérer un screenshot du plugin en mode desktop~~
+
 ![screenshot1](../images/template_icon.png)
 
 # Forum
