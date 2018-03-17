@@ -12,7 +12,7 @@ Après téléchargement du plugin, il faut l’activer, celui-ci ne nécessite a
 
 ### Configuration des équipements
 
-description de la configuration du **plugin**, exemple d'_italique_ de **_boldItalique_** et de `code`
+description de la configuration du **plugin**, exemple d'_italique_ de **_bold Italique_** et de `code`
 
 ```
 bloc code
