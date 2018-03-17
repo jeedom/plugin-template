@@ -24,6 +24,7 @@ matrix:
         apt:
           packages:
             - aspell
+            - aspell-fr
       script:
         - gem install mdl
         - cd ${TRAVIS_BUILD_DIR}
