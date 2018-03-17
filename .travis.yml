@@ -16,9 +16,11 @@ matrix:
     
     - language: python
       python: 2.7
+      install:
+        - pip install pylint
       script:
-        - pwd
-        
+        - cd ${TRAVIS_BUILD_DIR}
+        - ./tests/tools/lintAllPythonFiles.sh
     - language: markdown
       addons:
         apt:
