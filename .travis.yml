@@ -20,6 +20,10 @@ matrix:
         - pwd
         
     - language: markdown
+      addons:
+        apt:
+          packages:
+            - aspell
       script:
         - gem install mdl
         - cd ${TRAVIS_BUILD_DIR}
