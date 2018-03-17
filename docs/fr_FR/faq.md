@@ -1,9 +1,10 @@
 # FAQ
 
-## Question 1 ?
+### Question 1 ?
 
-Reponse 1.
 
-## Question 2 ?
+Réponse 1.
 
-Reponse 2
+### Question 2 ?
+
+Réponse 2

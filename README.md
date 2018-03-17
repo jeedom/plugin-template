@@ -1,1 +1,1 @@
-Lien vers la doc [ici](docs/fr_FR/presentation.md)
+Lien vers la [documentation](docs/fr_FR/presentation.md)

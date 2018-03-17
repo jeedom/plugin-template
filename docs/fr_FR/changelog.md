@@ -1,24 +1,27 @@
+# Idées pour de futures releases
+
+~~chapitre à garder seulement pour les idées sur lesquelles aucun développement n'est prévu actuellement~~
+
+# Prochaine release
+
+~~chapitre à garder seulement si une version développement est en cours~~
+
 # Changelog
 
 ### Version 1.2.0:  (**_date_** - Version en cours sur le market)
 
-* Modif 1
+* Modification 1
 
 ### Version 1.1.1:  (**_date_** ~~ex: 31 Mai 2017~~)
 
-* Modif 1
-* Modif 2
+* Modification 1
+* Modification 2
 
 ### Version 1.1.0:  (**_date_**)
 
-* Modif 1
-* Modif 2
-* Modif 3
-
-### TODO
-
-* item 1
-* item 2
+* Modification 1
+* Modification 2
+* Modification 3
 
 ### Détail des changements
 
