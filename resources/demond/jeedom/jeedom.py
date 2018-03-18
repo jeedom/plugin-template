@@ -13,7 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 #
-
+# pylint: disable=C
+# pylint: disable=R
+# pylint: disable=W
+# pylint: disable=E
 import time
 import logging
 import threading
