@@ -60,12 +60,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
     <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
         <a class="btn btn-success eqLogicAction pull-right" data-action="save">
-            <i class="fa fa-check-circle"></i>{{Sauvegarder}}
+            <i class="fa fa-check-circle"></i> {{Sauvegarder}}
         </a>
         <a class="btn btn-danger eqLogicAction pull-right" data-action="remove">
-            <i class="fa fa-minus-circle"></i>{{Supprimer}}</a>
+            <i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
         <a class="btn btn-default eqLogicAction pull-right" data-action="configure">
-            <i class="fa fa-cogs"></i>{{Configuration avancée}}
+            <i class="fa fa-cogs"></i> {{Configuration avancée}}
         </a>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation">
@@ -88,14 +88,14 @@ $eqLogics = eqLogic::byType($plugin->getId());
                 <form class="form-horizontal">
                     <fieldset>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">{{Nom de l'équipement template}}</label>
+                            <label class="col-sm-3 control-label" for="name">{{Nom de l'équipement template}}</label>
                             <div class="col-sm-3">
                                 <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;"/>
-                                <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement template}}"/>
+                                <input type="text" class="eqLogicAttr form-control" data-l1key="name" id="name" placeholder="{{Nom de l'équipement template}}"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">{{Objet parent}}</label>
+                            <label class="col-sm-3 control-label" for="sel_object">{{Objet parent}}</label>
                             <div class="col-sm-3">
                                 <select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
                                     <option value="">{{Aucun}}</option>
@@ -112,8 +112,8 @@ $eqLogics = eqLogic::byType($plugin->getId());
                             <div class="col-sm-9">
                                 <?php
                                 foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-                                    echo '<label class="checkbox-inline">';
-                                    echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
+                                    echo '<label class="checkbox-inline" for="category-'.$key.'">';
+                                    echo '<input type="checkbox" id="category-'.$key.'" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
                                     echo '</label>';
                                 }
                                 ?>
@@ -122,20 +122,20 @@ $eqLogics = eqLogic::byType($plugin->getId());
                         <div class="form-group">
                             <label class="col-sm-3 control-label"></label>
                             <div class="col-sm-9">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>
+                                <label class="checkbox-inline" for="is-enable">
+                                    <input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked="checked" id="is-enable"/>
                                     {{Activer}}
                                 </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>
+                                <label class="checkbox-inline" for="is-visible">
+                                    <input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked="checked" id="is-visible"/>
                                     {{Visible}}
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">{{template param 1}}</label>
+                            <label class="col-sm-3 control-label" for="template-param">{{template param 1}}</label>
                             <div class="col-sm-3">
-                                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="city" placeholder="param1"/>
+                                <input type="text" class="eqLogicAttr form-control" id="template-param" data-l1key="configuration" data-l2key="city" placeholder="param1"/>
                             </div>
                         </div>
                     </fieldset>
