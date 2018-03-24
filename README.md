@@ -14,9 +14,13 @@ Template de permettant de céér des plugins pour Jeedom
 *Effacer cette section dans votre plugin*
 
 [Documentation principale](https://github.com/rjullien/plugin-template/blob/develop/docs/fr_FR/index-template.md)
+
 [Comment documenter un plug-in](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Documentation-d'un-Plugin)
+
 [Comment tester un plugin](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Tester-un-plugin-avec-travis-ci)
+
 [Comment creer l'icône](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/07-Cr%C3%A9ation-d'une-icone-plugin)
+
 [Les bonnes pratiques](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Bonnes-pratiques-pour-les-plugins)
 
 # Documentation du plugin:
