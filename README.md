@@ -2,7 +2,7 @@
 
 ### Master: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=master)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=master)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=master)
 
-### Develop: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=Develop)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=master)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=master)
+### Develop: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=develop)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=develop)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=master)
 
 # Présentation:
 
