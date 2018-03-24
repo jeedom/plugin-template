@@ -6,17 +6,18 @@
 
 # Présentation:
 
-Template de permettant de céér des plugins pour Jeedom 
+Template de permettant de céér des plugins pour Jeedom
 
-[![Read the Docs](docs/images/template_icon.png)](docs)
 
-# Documentation du plugin:
+# Documentation du plugin, comment créér un plugin:
+
+TODO: Add link to wiki
+
+# Documentation standard d'un plugin:
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](docs/fr_FR/presentation.md) 
 [présentation](docs/fr_FR/presentation.md) [configuration](docs/fr_FR/configuration.md) [faq](docs/fr_FR/faq.md) [changelog](docs/fr_FR/changelog.md)
 
-
-
-# Documentation complète:
+# Documentation complète sur github.io:
 
 [![Read the Docs](plugin_info/template_icon.png)](https://jeedom-plugins-extra.github.io/plugin-template)
 
