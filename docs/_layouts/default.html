@@ -2,30 +2,34 @@
 <html lang="pt-br">
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="/{{site.github.project_title}}/assets/css/styles.css">
   <link rel="stylesheet" href="/{{site.github.project_title}}/assets/css/materialize.css">
+  <link rel="stylesheet" href="/{{site.github.project_title}}/assets/css/styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Language" content="pt-br">
 </head>
 <body>
-
   <div class="navbar-fixed">
-         <nav style="background-color:#eee" !important>
-            <div class="nav-wrapper container">
-                <a id="logo-container" href="https://jeedom-plugins-extra.github.io/" class="brand-logo left"><img src="../images/logoblue.png" style="height:80px;margin-top:5px"></a>
-                <ul class="titre">
-                    <li><h4 style="margin-bottom:0px;color: #444 !important;">Jeedom-Plugins-Extra</h4><h6 style="color: #444 !important;">Car à plusieurs on est plus fort et ensemble on codera plus propre</h6></li>
+    <nav>
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="https://jeedom-plugins-extra.github.io/" class="brand-logo left"><img class="logo" src="/{{site.github.project_title}}/images/logoblue.png"></a>
+        <ul class="left">
+            <li><h5 style="margin-top:15px; padding-left: 75px">Jeedom-Plugins-Extra</h5>
+                <ul class="left hide-on-med-and-down">
+                  <h6 style="padding-left: 75px; margin-top:0px">Car à plusieurs on est plus fort et ensemble on codera plus propre</h6></li>
                 </ul>
-                <a href="https://jeedom-plugins-extra.github.io/" data-activates="nav-mobile" class="button-collapse btn-floating btn-large waves-effect waves-light jeedomcolorbg"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li class="active"><a style="background-color:#eee" href="https://jeedom-plugins-extra.github.io/">Site</a></li>
-                </ul>
-                <ul class="side-nav" id="nav-mobile">
-                    <li><a href="https://jeedom-plugins-extra.github.io/">Site</a></li>
-                </ul>
-            </div>
-        </nav>
-   </div>
+        </ul>
+        <a href="https://jeedom-plugins-extra.github.io/" data-activates="nav-mobile" class="button-collapse btn-floating btn-large waves-effect waves-light jeedomcolorbg"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="https://jeedom-plugins-extra.github.io/">Site</a></li>
+        </ul>
+        <ul class="side-nav" id="nav-mobile">
+          <li><a href="https://jeedom-plugins-extra.github.io/">Site</a></li>
+          <li><a href="https://www.jeedom.com/forum/">Forum Jeedom</a></li>
+          <li><a href="https://www.jeedom.com/site/fr/">Jeedom SAS</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
   <div class="row" id="div_main">
     <div id="side-nav" class="side-nav fixed">
       <div class="container">
@@ -44,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div id="div_summary" style="margin-top:-45px;padding-bottom: 45px;"></div>
+    <div id="div_summary"></div>
   </div>
   <div>
     <i class="material-icons" id="bt_up" style="position:fixed;bottom:10px;right:10px;cursor: pointer;font-size:3em;">keyboard_arrow_up</i>
@@ -70,6 +74,18 @@
 </div>
 </div>
 </div>
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <a class="col s3" style="text-align:center" href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://creativecommons.org/images/deed/cc_blue_x2.png" height="24px" width="24px"><img src="https://creativecommons.org/images/deed/attribution_icon_blue_x2.png" height="24px" width="24px"><img src="https://creativecommons.org/images/deed/sa_blue_x2.png" height="24px" width="24px"></a>
+            <ul class="hide-on-med-and-down">
+                <a class="col s3 light-green-text" style="text-align:right"  href="https://www.jeedom.com/forum/">Forum Jeedom</a>
+                <a class="col s3 light-green-text" style="text-align:left" href="https://www.jeedom.com/site/fr/">Jeedom SAS</a>
+            </ul>
+            <a class="col s3 grey-text" style="text-align:center" href="https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra">Github</a>
+        </div>
+    </div>
+</footer>
 <script type="text/javascript" src="/{{site.github.project_title}}/assets/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/{{site.github.project_title}}/assets/js/materialize.min.js"></script>
 <script type="text/javascript" src="/{{site.github.project_title}}/assets/js/jquery.inview.min.js"></script>
@@ -79,7 +95,7 @@
    var title = '{{site.github.project_title}}';
    title = title.replace('plugin-','');
    $('#doc_title').append(title[0].toUpperCase() + title.substring(1))
-   document.title = 'Documentation Jeedom | '+ title[0].toUpperCase() + title.substring(1)
+   document.title = 'Documentation Jeedom-Plugins-Extra | '+ title[0].toUpperCase() + title.substring(1)
    $(".button-collapse").sideNav();
    $('meta[name=description]').remove();
    $('head').append( '<meta name="description" content="Ceci est la documentation du plugin "'+ title[0].toUpperCase() + title.substring(1)+'", lier à la solution domotique Jeedom.">' );
@@ -129,19 +145,7 @@
    $('#toctitle').html('<h2 style="padding-left:5px !important;">'+titlePlugin+'</h2>');
    $('.toclevel-2').parent().css('color', 'blue');
  }
- var i = 1, j = 1;
- $('h1, h2', $('#div_content')).each(function(){
-  if($(this)[0].tagName.toLowerCase() == 'h1'){
-    $('#'+$(this).attr('id')).text($(this).text());
-    i++;
-  }
-  if($(this)[0].tagName.toLowerCase() == 'h2'){
-    $('#'+$(this).attr('id')).text($(this).text());
-    j++;
-  }else{
-    j = 1;
-  }
-});
+
 });
 
   var idChapitre = null, nbrChapitre = 0, idAncre = null;
