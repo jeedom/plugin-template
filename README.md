@@ -11,13 +11,19 @@ Template de permettant de céér des plugins pour Jeedom
 
 # Documentation du plugin, comment créér un plugin:
 
-TODO: Add link to wiki
+*Effacer cette section dans votre plugin*
 
-# Documentation standard d'un plugin:
+[Documentation principale](https://github.com/rjullien/plugin-template/blob/develop/docs/fr_FR/index-template.md)
+[Comment documenter un plug-in](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Documentation-d'un-Plugin)
+[Comment tester un plugin](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Tester-un-plugin-avec-travis-ci)
+[Comment creer l'icône](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/07-Cr%C3%A9ation-d'une-icone-plugin)
+[Les bonnes pratiques](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Bonnes-pratiques-pour-les-plugins)
+
+# Documentation du plugin:
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](docs/fr_FR/presentation.md) 
 [présentation](docs/fr_FR/presentation.md) [configuration](docs/fr_FR/configuration.md) [faq](docs/fr_FR/faq.md) [changelog](docs/fr_FR/changelog.md)
 
-# Documentation complète sur github.io:
+# Documentation complète:
 
 [![Read the Docs](plugin_info/template_icon.png)](https://jeedom-plugins-extra.github.io/plugin-template)
 
