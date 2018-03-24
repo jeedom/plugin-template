@@ -1,3 +1,4 @@
+[![license](https://img.shields.io/github/license/Jeedom-Plugins-Extra/plugin-template.svg)]()
 # Plugin template pour Jeedom
 
 <img src="plugin_info/template_icon.png" align="right" height="160" width="150">
