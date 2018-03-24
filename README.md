@@ -8,7 +8,7 @@
 
 Template de permettant de céér des plugins pour Jeedom 
 
-[![Read the Docs](docs/images/template-Screenshot1.png)](docs/images/template-Screenshot1.png)
+[![Read the Docs](docs/images/template_icon.png)](docs)
 
 # Documentation du plugin:
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](docs/fr_FR/presentation.md) 
@@ -18,7 +18,7 @@ Template de permettant de céér des plugins pour Jeedom
 
 # Documentation complète:
 
-[![Read the Docs](plugin_info/MiFlora_icon.png)](https://jeedom-plugins-extra.github.io/plugin-template)
+[![Read the Docs](plugin_info/template_icon.png)](https://jeedom-plugins-extra.github.io/plugin-template)
 
 
 
