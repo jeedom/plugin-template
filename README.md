@@ -23,6 +23,8 @@ Template de permettant de céér des plugins pour Jeedom
 
 [Les bonnes pratiques](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Bonnes-pratiques-pour-les-plugins)
 
+[Créér un plugun au standard Jeedom-Plugins-Extra](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/PROJET-:-Crit%C3%A8re-de-validation-d'un-plugin)
+
 # Documentation du plugin:
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](docs/fr_FR/presentation.md) 
 [présentation](docs/fr_FR/presentation.md) [configuration](docs/fr_FR/configuration.md) [faq](docs/fr_FR/faq.md) [changelog](docs/fr_FR/changelog.md)
