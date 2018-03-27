@@ -1,13 +1,12 @@
-[![license](https://img.shields.io/github/license/Jeedom-Plugins-Extra/plugin-template.svg)]() [![GitHub contributors](https://img.shields.io/github/contributors/Jeedom-Plugins-Extra/plugin-template.svg)]() [![GitHub release](https://img.shields.io/github/release/Jeedom-Plugins-Extra/plugin-template.svg)]() [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.meUSERNAME) [![Waffle.io - Columns and their card count](https://badge.waffle.io/Jeedom-Plugins-Extra/plugin-template.svg?columns=all)](https://waffle.io/Jeedom-Plugins-Extra/plugin-template)
+[![license](https://img.shields.io/github/license/Jeedom-Plugins-Extra/plugin-template.svg)](./LICENSE) [![GitHub contributors](https://img.shields.io/github/contributors/Jeedom-Plugins-Extra/plugin-template.svg)](../../graphs/contributors) [![GitHub release](https://img.shields.io/github/release/Jeedom-Plugins-Extra/plugin-template.svg)](../../branches/all?query=release) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/MONUSERNAMEAMOI/) [![Waffle.io - Columns and their card count](https://badge.waffle.io/Jeedom-Plugins-Extra/plugin-template.svg?columns=all)](https://waffle.io/Jeedom-Plugins-Extra/plugin-template)
 
 ### Master: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=master)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=master)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=master)
 
-### Develop: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=develop)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=develop)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=master)
+### Develop: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=develop)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=develop)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=develop)
 
 # Présentation:
 
 Template de permettant de céér des plugins pour Jeedom
-
 
 # Documentation du plugin, comment créér un plugin:
 
@@ -33,6 +32,4 @@ Template de permettant de céér des plugins pour Jeedom
 
 [![Read the Docs](plugin_info/template_icon.png)](https://jeedom-plugins-extra.github.io/plugin-template)
 
-
-
-[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.meUSERNAME/)
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/MONUSERNAMEAMOI/)
