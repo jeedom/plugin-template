@@ -1,49 +1,37 @@
-# Plugin template pour Jeedom
 
-<img src="plugin_info/template_icon.png" align="right" height="160" width="150">
+[![license](https://img.shields.io/github/license/Jeedom-Plugins-Extra/plugin-template.svg)](./LICENSE) [![GitHub contributors](https://img.shields.io/github/contributors/Jeedom-Plugins-Extra/plugin-template.svg)](../../graphs/contributors) [![GitHub release](https://img.shields.io/github/release/Jeedom-Plugins-Extra/plugin-template.svg)](../../releases) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/_USERNAME) [![Waffle.io - Columns and their card count](https://badge.waffle.io/Jeedom-Plugins-Extra/plugin-template.svg?columns=all)](https://waffle.io/Jeedom-Plugins-Extra/plugin-template)
 
-?????????
+### Master: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=master)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=master)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=master)
+
+### Develop: [![Build Status](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template.svg?branch=develop)](https://travis-ci.org/Jeedom-Plugins-Extra/plugin-template)  [![Coverage Status](https://coveralls.io/repos/github/Jeedom-Plugins-Extra/plugin-template/badge.svg?branch=develop)](https://coveralls.io/github/Jeedom-Plugins-Extra/plugin-template?branch=develop)
+
+# Présentation:
+
+Template de permettant de céér des plugins pour Jeedom
+
+# Documentation du plugin, comment créér un plugin:
+
+*Effacer cette section dans votre plugin*
+
+[Documentation principale](https://github.com/rjullien/plugin-template/blob/develop/docs/fr_FR/index-template.md)
+
+[Comment documenter un plug-in](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Documentation-d'un-Plugin)
+
+[Comment tester un plugin](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Tester-un-plugin-avec-travis-ci)
+
+[Comment creer l'icône](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/07-Cr%C3%A9ation-d'une-icone-plugin)
+
+[Les bonnes pratiques](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/Bonnes-pratiques-pour-les-plugins)
+
+[Créér un plugun au standard Jeedom-Plugins-Extra](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki/PROJET-:-Crit%C3%A8re-de-validation-d'un-plugin)
+
+# Documentation du plugin:
+[![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](docs/fr_FR/presentation.md) 
+[présentation](docs/fr_FR/presentation.md) [configuration](docs/fr_FR/configuration.md) [faq](docs/fr_FR/faq.md) [changelog](docs/fr_FR/changelog.md)
+
+# Documentation complète:
+
+[![Read the Docs](plugin_info/template_icon.png)](https://jeedom-plugins-extra.github.io/plugin-template)
 
 
-
-
-### Market
-
-Retrouvez le sur le Market Jeedom [ici](https://www.jeedom.com/market/index.php?v=d&p=market&type=plugin&&name=template)
-
-
-### Documentation
-
-Vous trouverez la documentation [ici](https://github.com/Jeedom-Plugins-Extra/template/blob/stable/doc/fr_FR/index.asciidoc)
-
-
-### Prévisualisation
-
-<img src="docs/images/screenshot1.png" align="center">
-
-
-### Forum
-
-Lien vers le forum [ici](https://www.jeedom.com/forum/viewtopic.php?f=142&t=34154)
-
-
-### Chatroom
-
-Lien vers le chat [ici](https://gitter.im/Jeedom-Plugins-Extra/plugin-template)
-
-
-### Fonctions disponibles
-
-Infos :
-* ?????
-
-Actions :
-* ?????
-
-Scénarios possible (ceux que j'ai chez moi) :
-* ?????
-
-<img src="https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/blob/master/images/Jeedom-Plugins-Extra.png" align="right" height="100" width="95">
-
-## <a href="https://creativecommons.org/licenses/by-sa/4.0/"><img alt="CC" src="https://creativecommons.org/images/deed/cc_blue_x2.png" height="24px" width="24px"><img alt="attribution" src="https://creativecommons.org/images/deed/attribution_icon_blue_x2.png" height="24px" width="24px"><img alt="SA" src="https://creativecommons.org/images/deed/sa_blue_x2.png" height="24px" width="24px"> Team Jeedom-Plugins-Extra </a> 👍 
-### Retour à l'accueil du [Wiki](https://github.com/Jeedom-Plugins-Extra/Jeedom-Plugins-Extra/wiki) ou de la [Team](https://github.com/Jeedom-Plugins-Extra)
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/_USERNAME/)
