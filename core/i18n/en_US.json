@@ -1,0 +1,24 @@
+{
+  "plugins\/template\/desktop\/php\/template.php": {
+    "Action": "Action",
+    "Activer": "Activate",
+    "Ajouter": "Add",
+    "Ajouter un template": "Add a template",
+    "Aucun": "Nothing",
+    "Catégorie": "Category",
+    "Commandes": "Commands",
+    "Configuration": "Configuration",
+    "Configuration avancée": "Advanced configuration",
+    "Equipement": "Equipment",
+    "Gestion": "Management",
+    "Mes templates": "My templates",
+    "Nom": "Name",
+    "Nom de l'équipement template": "Name of the template equipment",
+    "Objet parent": "Parent object",
+    "Rechercher": "Find",
+    "Sauvegarder": "Save",
+    "Supprimer": "Delete",
+    "Type": "Type",
+    "Visible": "Visible"
+  }
+}
