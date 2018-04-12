@@ -20,5 +20,13 @@
     "Supprimer": "Supprimer",
     "Type": "Type",
     "Visible": "Visible"
+  },
+  "plugins\/template\/plugin_info\/configuration.php": {
+    "Global param 1": "Premier paramètre global",
+    "Global param 2": "Deuxième paramètre global",
+    "Global param 3": "Troisième paramètre global",
+    "Default value": "Valeur par défaut",
+    "First value": "Première valeur",
+    "Second value": "Deuxième valeur"
   }
 }
