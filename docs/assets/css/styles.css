@@ -99,6 +99,9 @@ nav ul a,nav {
 	.show-on-print {
 		display:block !important;
 	}
+	#div_content {
+		padding-left : 0px !important; 
+	}
 }
 
 
