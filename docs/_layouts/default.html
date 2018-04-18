@@ -53,9 +53,9 @@
     <div id="div_summary" style="margin-top:-45px;padding-bottom: 45px;"></div>
   </div>
   <div>
-    <i class="material-icons hide-on-print" id="bt_up" style="position:fixed;bottom:10px;right:10px;cursor: pointer;font-size:3em;">keyboard_arrow_up</i>
-    <div class="hide-on-large-only show-on-print" id='div_menuMobile'>
-     <div class="row hide-on-print">
+    <i class="material-icons" id="bt_up" style="position:fixed;bottom:10px;right:10px;cursor: pointer;font-size:3em;">keyboard_arrow_up</i>
+    <div class="hide-on-large-only" id='div_menuMobile'>
+     <div class="row">
       <div class="col s2">
         <i class="material-icons" style="position: relative;top:15px;left:20px;">language</i>
       </div>
@@ -69,8 +69,9 @@
       </select>
     </div>
   </div>
-  <div id="div_summary2" class="show-on-print"></div>
+  <div id="div_summary2"></div>
 </div>
+<div id="div_summary3" style="display: none;" class="show-on-print"></div>
 <div id="div_content">
   {{content}}
 </div>
@@ -117,7 +118,7 @@
     init();
   });
   function init(){
-    $('#div_summary2,#div_summary').empty();
+    $('#div_summary2,#div_summary,#div_summary3').empty();
     var titlePlugin = title.charAt(0).toUpperCase() + title.substring(1).toLowerCase()
     if(window.innerWidth < 992){
       $('#div_main').addClass('container');
@@ -129,6 +130,10 @@
      $('#div_main').removeClass('container');
      $('#div_content').toc({
       renderIn : "#div_summary",
+      selectors : 'h1,h2'
+    });
+     $('#div_content').toc({
+      renderIn : "#div_summary3",
       selectors : 'h1,h2'
     });
    }
