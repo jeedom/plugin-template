@@ -94,6 +94,7 @@ nav ul a,nav {
 }
 @media print {
 	.hide-on-print {
+		height: 100% !important;
 		visibility: hidden  !important;
 	}
 	.show-on-print {
