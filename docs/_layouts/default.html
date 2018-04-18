@@ -137,7 +137,9 @@
       renderIn : "#div_summary3",
       selectors : 'h1,h2'
     });
-   $('#toctitle').html('<h2 style="padding-left:5px !important;">'+titlePlugin+'</h2>');
+   $('#div_summary #toctitle').html('<h2 style="padding-left:5px !important;">'+titlePlugin+'</h2>');
+   $('#div_summary2 #toctitle').html('<h2 style="padding-left:5px !important;">'+titlePlugin+'</h2>');
+   $('#div_summary3 #toctitle').html('<h2 style="padding-left:5px !important;">'+titlePlugin+'</h2>');
    $('.toclevel-2').parent().css('color', 'blue');
  }
  var i = 1, j = 1;
