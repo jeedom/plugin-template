@@ -16,5 +16,5 @@
 		"video" : "Lien vers une video",
 	},
 	"language" : ["fr_FR","en_US","de_DE","sp_SP","ru_RU","id_ID","it_IT"],
-	"compatibility" : ["Jeedomboard","Smart","RPI/RPI2","Docker","DIY","mobile"]
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"]
 }
