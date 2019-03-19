@@ -9,7 +9,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 <div class="row row-overflow">
    <div class="col-xs-12 eqLogicThumbnailDisplay">
-  <legend><i class="fa fa-cog"></i>  {{Gestion}}</legend>
+  <legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
   <div class="eqLogicThumbnailContainer">
       <div class="cursor eqLogicAction logoPrimary" data-action="add">
         <i class="fas fa-plus-circle"></i>
@@ -22,7 +22,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <span>{{Configuration}}</span>
   </div>
   </div>
-  <legend><i class="fa fa-table"></i> {{Mes templates}}</legend>
+  <legend><i class="fas fa-table"></i> {{Mes templates}}</legend>
 	   <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 <div class="eqLogicThumbnailContainer">
     <?php
@@ -41,7 +41,7 @@ foreach ($eqLogics as $eqLogic) {
 <div class="col-xs-12 eqLogic" style="display: none;">
 		<div class="input-group pull-right" style="display:inline-flex">
 			<span class="input-group-btn">
-				<a class="btn btn-default btn-sm eqLogicAction roundedLeft" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fa fa-copy"></i> {{Dupliquer}}</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+				<a class="btn btn-default btn-sm eqLogicAction roundedLeft" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}</a>
 			</span>
 		</div>
   <ul class="nav nav-tabs" role="tablist">
