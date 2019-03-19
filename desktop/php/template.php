@@ -23,7 +23,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
   </div>
   </div>
   <legend><i class="fa fa-table"></i> {{Mes templates}}</legend>
-	   <input class="form-control" placeholder="{{Rechercher}}" style="margin-bottom:4px;" id="in_searchEqlogic" />
+	   <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 <div class="eqLogicThumbnailContainer">
     <?php
 foreach ($eqLogics as $eqLogic) {
