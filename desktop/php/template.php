@@ -27,8 +27,8 @@ $eqLogics = eqLogic::byType($plugin->getId());
 <div class="eqLogicThumbnailContainer">
     <?php
 foreach ($eqLogics as $eqLogic) {
-	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
-	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="' . $opacity . '" >';
+	$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+	echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
 	echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
 	echo "<br>";
 	echo '<span>' . $eqLogic->getHumanName(true, true) . '</span>';
