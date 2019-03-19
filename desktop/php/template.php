@@ -11,12 +11,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
    <div class="col-xs-12 eqLogicThumbnailDisplay" style="padding-left: 25px;">
   <legend><i class="fa fa-cog"></i>  {{Gestion}}</legend>
   <div class="eqLogicThumbnailContainer">
-      <div class="cursor eqLogicAction" data-action="add">
+      <div class="cursor eqLogicAction logoPrimary" data-action="add">
         <i class="fas fa-plus-circle"></i>
         <br>
         <span>{{Ajouter}}</span>
     </div>
-      <div class="cursor eqLogicAction" data-action="gotoPluginConf">
+      <div class="cursor eqLogicAction logoSecondar" data-action="gotoPluginConf">
       <i class="fas fa-wrench"></i>
     <br>
     <span>{{Configuration}}</span>
@@ -29,7 +29,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 foreach ($eqLogics as $eqLogic) {
 	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="' . $opacity . '" >';
-	echo '<img src="' . $plugin->getPathImgIcon() . '" height="105" width="95" />';
+	echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
 	echo "<br>";
 	echo '<span>' . $eqLogic->getHumanName(true, true) . '</span>';
 	echo '</div>';
