@@ -16,7 +16,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
         <br>
         <span>{{Ajouter}}</span>
     </div>
-      <div class="cursor eqLogicAction logoSecondar" data-action="gotoPluginConf">
+      <div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
       <i class="fas fa-wrench"></i>
     <br>
     <span>{{Configuration}}</span>
