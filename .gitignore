@@ -10,3 +10,4 @@ Thumbs.db
 docs/_site/
 docs/Gemfile.lock
 docs/.sass-cache/
+.remote-sync.json
