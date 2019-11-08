@@ -120,7 +120,7 @@ obligatoire) :
     veut plus rapidement
 
 -   display : permet de spécifier le nom du fichier php (qui doit se
-    trouver dans le dossier desktop/php) devant c pour afficher le panel
+    trouver dans le dossier desktop/php) devant être appelé pour afficher le panel
     (lien dans le sous-menu accueil)
 
 -   mobile : permet de spécifier le nom du fichier html (qui doit se
