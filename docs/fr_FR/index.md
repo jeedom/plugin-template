@@ -159,13 +159,13 @@ utilisée ici indique que le fichier appartient à Jeedom et qu’il est
 open source Ensuite vient l’inclusion du core de Jeedom (cela permet
 d’accéder aux fonctions internes) Ensuite viennent les 2 fonctions :
 
--   install\_pluginid() : méthode permettant d’installer le plugin. Ici
+-   pluginid\_install() : méthode permettant d’installer le plugin. Ici
     l’installation ajoute une tâche cron à Jeedom
 
--   update\_pluginid() : méthode permettant d’installer le plugin.
+-   pluginid\_update() : méthode permettant d’installer le plugin.
     Utilisé ici pour redémarrer la tache cron
 
--   remove\_pluginid() : méthode permettant de supprimer le plugin. Ici
+-   pluginid\_remove() : méthode permettant de supprimer le plugin. Ici
     la fonction supprime la tâche cron de Jeedom lors de la
     désinstallation
 
