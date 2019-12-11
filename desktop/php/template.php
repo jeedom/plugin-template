@@ -42,10 +42,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			<table id="table_eqLogicList" class="table table-bordered table-condensed tablesorter">
 				<thead>
 					<tr>
-						<th>{{Template}}</th>
 						<th>{{Objet parent}}</th>
 						<th>{{Nom}}</th>
-						<th>{{Adresse Physique}}</th>
+						<th>{{LogicalId}}</th>
 						<th>{{Catégorie}}</th>
 						<th>{{Activer}}</th>
 						<th>{{Visible}}</th>
@@ -56,11 +55,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					<?php
 						foreach ($eqLogics as $eqLogic) {
 							echo '<tr class="eqLogicDisplay" data-eqLogic_id="' . $eqLogic->getId() . '">';
-							$file='plugins/eibd/core/config/devices/'.$eqLogic->getConfiguration('typeTemplate').'.png';
-							if(file_exists($file))
-								echo '<td><div style="display: none;">'.$eqLogic->getConfiguration('typeTemplate').'</div><img src="'.$file.'" height="45"  /></td>';
-							else
-								echo '<td><img src="plugins/eibd/plugin_info/eibd_icon.png" height="45" /></td>';
 							echo '<td class="eqLogicDisplayAttr" data-l1key="object">' . $eqLogic->getObject()->getHumanName(true,true) . '</td>';
 							echo '<td><span class="label label-info eqLogicDisplayAttr" data-l1key="name">' . $eqLogic->getName() . '</span></td>';
 							echo '<td><span class="label label-info eqLogicDisplayAttr" data-l1key="logicalId"> ' . $eqLogic->getLogicalId() . '</span></td>';
