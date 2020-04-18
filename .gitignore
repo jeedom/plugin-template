@@ -7,3 +7,7 @@ sftp-config.json
 .DS_Store
 Thumbs.db
 *.php~
+docs/_site/
+docs/Gemfile.lock
+docs/.sass-cache/
+.remote-sync.json

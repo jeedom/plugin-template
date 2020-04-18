@@ -48,7 +48,7 @@ suivants :
 -   plugin\_info : contient les fichiers permettant à Jeedom de
     qualifier le plugin, de faire son installation et sa configuration
 
-    -   info.xml : fichier contenant les informations de base du plugin
+    -   info.json : fichier contenant les informations de base du plugin
         (il est obligatoire sinon Jeedom ne verra pas le plugin), il
         contient entre autre l’identifiant du module, la description,
         les instructions d’installation…​
