@@ -1,10 +1,15 @@
-Description 
+---
+layout: default
+lang: fr_FR
+---
+
+Description
 ===
 
 Plugin servant de base pour les plugins. Attention lors de l’utilisation
 à bien remplacer tous les templates par l’id de votre plugin.
 
-Création plugin partie 1 : l’arborescence 
+Création plugin partie 1 : l’arborescence
 ===
 
 Voici sa structure: tout d’abord un dossier du nom de votre plugin (son
@@ -92,10 +97,10 @@ Voici les recommandations :
 -   le nom du fichier JS (s’il y en a un) de la première page de vue du
     plugin doit être l’ID du plugin
 
-Création plugin partie 2 : plugin info 
+Création plugin partie 2 : plugin info
 ===
 
-### info.json 
+### info.json
 
 Fichier de base du plugin, c’est dans celui-ci que Jeedom récupère
 toutes les informations relatives au plugin :
@@ -148,7 +153,7 @@ Exemple :
         "documentation" : "https://jeedom.github.io/plugin-template/#language#/"
     }
 
-### installation.php 
+### installation.php
 
 Fichier donnant les instructions d’installation d’un plugin :
 
@@ -224,7 +229,7 @@ Exemple :
     }
     ?>
 
-### configuration.php 
+### configuration.php
 
 Fichier permettant de demander des informations de configuration à
 l’utilisateur :
@@ -293,10 +298,10 @@ Exemple :
          </fieldset>
      </form>
 
-Création plugin partie 3 : dossier desktop 
+Création plugin partie 3 : dossier desktop
 ===
 
-### PHP 
+### PHP
 
 Ce dossier contient la vue à proprement parler. Dedans on retrouve
 obligatoirement la page de configuration du plugin (celle qui apparaîtra
@@ -367,7 +372,7 @@ cmdAttr qui doivent être dans un élément de classe cmd. Toutes les
 commandes d’un équipement doivent se trouver dans l’élément ayant la
 classe eqLogic correspondante
 
-### JS 
+### JS
 
 Tous les fichiers JS doivent se trouver dans le dossier JS (facile !!!).
 Il est conseillé de le nommer du même ID que votre plugin (dans la
@@ -496,7 +501,7 @@ c’est le dossier père du dossier JS), le deuxième le nom de votre
 javascript, le troisième indique à Jeedom que c’est un fichier JS et le
 dernier dans quel plugin il se trouve.
 
-### CSS 
+### CSS
 
 Ce dossier contient vos fichiers CSS (il ne devrait pas être trop
 utilisé) , voici comment les inclure sur votre page :
@@ -508,7 +513,7 @@ c’est le dossier père du dossier CSS), le deuxième le nom de votre
 fichier css, le troisième indique à Jeedom que c’est un fichier CSS et
 le dernier dans quel plugin il se trouve.
 
-### MODAL 
+### MODAL
 
 Le dossier modal vous permet de stocker vos fichiers php destinés à
 afficher des modals. Voici comment les appeler à partir de votre page
@@ -525,7 +530,7 @@ La deuxième ligne charge votre modal et l’affichage. La syntaxe est
 assez simple : plugin, l’id de votre plugin, modal, le nom de votre
 modal sans le php et ensuite les paramètres que vous voulez lui passer
 
-### API JS 
+### API JS
 
 Ce n’est pas un dossier mais dans les dernières versions de Jeedom
 celui-ci offre au développeur toute une api javascript (cela évite
@@ -538,7 +543,7 @@ des plus complets (j’essayerai de le compléter en fonction des
 différentes demandes reçues) mais j’espère que grâce à lui vous pourrez
 commencer à faire des plugins pour Jeedom.
 
-### Trucs et astuces 
+### Trucs et astuces
 
 **Assitant cron.**
 
@@ -554,7 +559,7 @@ Quand on clique sur le bouton assistant, on récupère l’input dans lequel
 l’assistant, le résultat est récuperé puis écrit dans l’input
 précédemment selectionné
 
-Création plugin partie 4 : dossier core 
+Création plugin partie 4 : dossier core
 ===
 
 De loin le dossier le plus important de votre plugin, il peut comporter
@@ -563,27 +568,27 @@ De loin le dossier le plus important de votre plugin, il peut comporter
 Note : tous le long de cette partie l’id de votre plugin sera referencé
 par : plugin\_id
 
-### PHP 
+### PHP
 
 Contient les fichiers PHP annexes, j’ai pris l’habitude de mettre par
 exemple un fichier d’inclusion si, bien sur, vous avez plusieurs
 fichiers de class ou des 3rparty à inclure
 
-### Template 
+### Template
 
 Qui peut contenir 2 sous-dossiers, dashboard et mobile, c’est un dossier
 que Jeedom scanne automatiquement à la recherche de widget, donc si vous
 utilisez des widgets specifiques c’est ici qu’il faut mettre leur
 fichier HTML
 
-### i18n 
+### i18n
 
 C’est ici que votre traduction doit se trouver sous forme de fichier
 json (le mieux et de regarder par exemple le plugin
 [zwave](https://github.com/jeedom/plugin-zwave) pour voir la forme du
 fichier)
 
-### ajax 
+### ajax
 
 Ce dossier est pour tout vos fichiers ajax, voici un squelette de
 fichier ajax :
@@ -626,7 +631,7 @@ fichier ajax :
     }
     ?>
 
-### class 
+### class
 
 Dossier très important, c’est le moteur de votre plugin. C’est là que
 viennent les 2 classes obligatoires de votre plugin :

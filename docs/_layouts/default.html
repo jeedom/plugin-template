@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="{{page.lang}}">
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/{{site.github.project_title}}/assets/css/styles.css">
   <link rel="stylesheet" href="/{{site.github.project_title}}/assets/css/materialize.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Content-Language" content="pt-br">
+  <meta http-equiv="Content-Language" content="{{page.lang}}">
 </head>
 <body>
   <div class="navbar-fixed hide-on-print">
     <nav>
       <div class="nav-wrapper container">
-        <a id="logo-container" href="https://www.jeedom.com/doc" class="brand-logo center"><img src="/{{site.github.project_title}}/assets/images/logo.png" style="height:50px;margin-top:5px"></a>
+        <a id="logo-container" href="{{site.doc}}" class="brand-logo center"><img src="/{{site.github.project_title}}/assets/images/logo.png" style="height:50px;margin-top:5px"></a>
         <ul class="left hide-on-med-and-down">
-          <li><a href="https://www.jeedom.com/doc">Jeedom Documentation</a></li>
+          <li><a href="{{site.doc}}">Jeedom Documentation</a></li>
         </ul>
-        <a href="https://www.jeedom.com/doc" data-activates="nav-mobile" class="button-collapse btn-floating btn-large waves-effect waves-light jeedomcolorbg"><i class="material-icons">menu</i></a>
+        <a href="{{site.doc}}" data-activates="nav-mobile" class="button-collapse btn-floating btn-large waves-effect waves-light jeedomcolorbg"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="https://www.jeedom.com/site">Site</a></li>
-          <li><a href="https://www.jeedom.com/blog">Blog</a></li>
-          <li><a href="https://www.jeedom.com/forum">Forum</a></li>
-          <li><a href="https://www.jeedom.com/market">Market</a></li>
-          <li class="active"><a href="https://www.jeedom.com/doc">Doc</a></li>
+          <li><a href="https://www.jeedom.com">Site</a></li>
+          <li><a href="{{site.blog}}">Blog</a></li>
+          <li><a href="{{site.community}}">Community</a></li>
+          <li><a href="{{site.market}}">Market</a></li>
+          <li class="active"><a href="{{site.doc}}">Doc</a></li>
         </ul>
         <ul class="side-nav" id="nav-mobile">
-          <li><a href="https://www.jeedom.com/blog">Blog</a></li>
-          <li><a href="https://www.jeedom.com/forum">Forum</a></li>
-          <li><a href="https://www.jeedom.com/market">Market</a></li>
-          <li class="active"><a href="https://www.jeedom.com/doc">Doc</a></li>
+          <li><a href="{{site.blog}}">Blog</a></li>
+          <li><a href="{{site.community}}">Community</a></li>
+          <li><a href="{{site.market}}">Market</a></li>
+          <li class="active"><a href="{{site.doc}}">Doc</a></li>
         </ul>
       </div>
     </nav>
@@ -89,7 +89,7 @@
    document.title = 'Documentation Jeedom | '+ title[0].toUpperCase() + title.substring(1)
    $(".button-collapse").sideNav();
    $('meta[name=description]').remove();
-   $('head').append( '<meta name="description" content="Ceci est la documentation du plugin "'+ title[0].toUpperCase() + title.substring(1)+'", lier à la solution domotique Jeedom.">' ); 
+   $('head').append( '<meta name="description" content="Ceci est la documentation du plugin "'+ title[0].toUpperCase() + title.substring(1)+'", lier à la solution domotique Jeedom.">' );
    $('img').addClass('responsive-img');
    $('#div_content table').addClass('striped');
    init();
@@ -147,14 +147,14 @@
   if($(this)[0].tagName.toLowerCase() == 'h1'){
     $('#'+$(this).attr('id')).text(i + ') ' + $(this).text());
     i++;
-  } 
+  }
   if($(this)[0].tagName.toLowerCase() == 'h2'){
-    $('#'+$(this).attr('id')).text( (i-1) + '.' + j + ') ' + $(this).text()); 
+    $('#'+$(this).attr('id')).text( (i-1) + '.' + j + ') ' + $(this).text());
     j++;
   }else{
     j = 1;
   }
-});  
+});
 });
 
   var idChapitre = null, nbrChapitre = 0, idAncre = null;
