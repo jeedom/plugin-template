@@ -49,6 +49,12 @@ class template extends eqLogic {
      */
     
     /*
+     * Fonction exécutée automatiquement toutes les 15 minutes par Jeedom
+      public static function cron15() {
+      }
+     */
+    
+    /*
      * Fonction exécutée automatiquement toutes les 30 minutes par Jeedom
       public static function cron30() {
       }
