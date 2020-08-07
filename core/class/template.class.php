@@ -21,84 +21,110 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
 
 class template extends eqLogic {
     /*     * *************************Attributs****************************** */
-
-
-
+    
+  /*
+   * Permet de définir les possibilités de personnalisation du widget (en cas d'utilisation de la fonction 'toHtml' par exemple)
+   * Tableau multidimensionnel - exemple: array('custom' => true, 'custom::layout' => false)
+	public static $_widgetPossibility = array();
+   */
+    
     /*     * ***********************Methode static*************************** */
 
     /*
      * Fonction exécutée automatiquement toutes les minutes par Jeedom
       public static function cron() {
-
       }
      */
 
+    /*
+     * Fonction exécutée automatiquement toutes les 5 minutes par Jeedom
+      public static function cron5() {
+      }
+     */
 
+    /*
+     * Fonction exécutée automatiquement toutes les 10 minutes par Jeedom
+      public static function cron10() {
+      }
+     */
+    
+    /*
+     * Fonction exécutée automatiquement toutes les 30 minutes par Jeedom
+      public static function cron30() {
+      }
+     */
+    
     /*
      * Fonction exécutée automatiquement toutes les heures par Jeedom
       public static function cronHourly() {
-
       }
      */
 
     /*
      * Fonction exécutée automatiquement tous les jours par Jeedom
       public static function cronDaily() {
-
       }
      */
 
 
 
     /*     * *********************Méthodes d'instance************************* */
-
+    
+ // Fonction exécutée automatiquement avant la création de l'équipement 
     public function preInsert() {
         
     }
 
+ // Fonction exécutée automatiquement après la création de l'équipement 
     public function postInsert() {
         
     }
 
-    public function preSave() {
-        
-    }
-
-    public function postSave() {
-        
-    }
-
+ // Fonction exécutée automatiquement avant la mise à jour de l'équipement 
     public function preUpdate() {
         
     }
 
+ // Fonction exécutée automatiquement après la mise à jour de l'équipement 
     public function postUpdate() {
         
     }
 
+ // Fonction exécutée automatiquement avant la sauvegarde (création ou mise à jour) de l'équipement 
+    public function preSave() {
+        
+    }
+
+ // Fonction exécutée automatiquement après la sauvegarde (création ou mise à jour) de l'équipement 
+    public function postSave() {
+        
+    }
+
+ // Fonction exécutée automatiquement avant la suppression de l'équipement 
     public function preRemove() {
         
     }
 
+ // Fonction exécutée automatiquement après la suppression de l'équipement 
     public function postRemove() {
         
     }
 
     /*
-     * Non obligatoire mais permet de modifier l'affichage du widget si vous en avez besoin
+     * Non obligatoire : permet de modifier l'affichage du widget (également utilisable par les commandes)
       public function toHtml($_version = 'dashboard') {
 
       }
      */
 
     /*
-     * Non obligatoire mais ca permet de déclencher une action après modification de variable de configuration
+     * Non obligatoire : permet de déclencher une action après modification de variable de configuration
     public static function postConfig_<Variable>() {
     }
      */
 
     /*
-     * Non obligatoire mais ca permet de déclencher une action avant modification de variable de configuration
+     * Non obligatoire : permet de déclencher une action avant modification de variable de configuration
     public static function preConfig_<Variable>() {
     }
      */
@@ -108,8 +134,11 @@ class template extends eqLogic {
 
 class templateCmd extends cmd {
     /*     * *************************Attributs****************************** */
-
-
+    
+    /*
+      public static $_widgetPossibility = array();
+    */
+    
     /*     * ***********************Methode static*************************** */
 
 
@@ -122,9 +151,10 @@ class templateCmd extends cmd {
       }
      */
 
-    public function execute($_options = array()) {
+  // Exécution d'une commande  
+     public function execute($_options = array()) {
         
-    }
+     }
 
     /*     * **********************Getteur Setteur*************************** */
 }
