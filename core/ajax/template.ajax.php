@@ -24,6 +24,10 @@ try {
         throw new Exception(__('401 - Accès non autorisé', __FILE__));
     }
     
+  /* Fonction permettant l'envoi de l'entête 'Content-Type: application/json'
+    En V3 : indiquer l'argument 'true' pour contrôler le token d'accès Jeedom
+    En V4 : autoriser l'exécution d'une méthode 'action' en GET en indiquant le(s) nom(s) de(s) action(s) dans un tableau en argument
+  */  
     ajax::init();
 
 

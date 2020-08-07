@@ -18,8 +18,9 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
-function template_pre_update() {
-    /** fonction executer automatiquement avant mise à jour du plugin. **/
-}
+// Fonction exécutée automatiquement avant la mise à jour du plugin
+  function template_pre_update() {
 
+  }
+  
 ?>
