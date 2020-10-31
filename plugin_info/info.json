@@ -1,20 +1,20 @@
 {
-	"id" : "template",
-	"name" : "Template",
-	"description" : "Plugin template pour la création de plugin",
+	"id" : "CovidAttest",
+	"name" : "Covid Attestation Generator",
+	"description" : "Generateur de l'attestation dérogatoire au confinement",
 	"licence" : "AGPL",
-	"author" : "Jeedom SAS",
-	"require" : "3.2",
-	"category" : "programming",
+	"author" : "Bben",
+	"require" : "4.0",
+	"category" : "organization",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
+	"changelog" : "https://github.com/Bbillyben/CovidAttest/blob/master/docs/fr_FR/changelog.md",
+	"documentation" : "https://github.com/Bbillyben/CovidAttest/blob/master/README.md",
 	"link" : {
 		"forum":"Lien vers le forum",
 		"video" : "Lien vers une video"
 	},
-	"language" : ["fr_FR","en_US","de_DE","sp_SP"],
+	"language" : ["fr_FR"],
 	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
 }
