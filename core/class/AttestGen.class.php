@@ -259,7 +259,7 @@ class ATTESTGEN {
 
         if($secondPage){
             $pdf->addPage();
-		    $pdf->Image($path.'/qrcode_attest'.$fname.'.png', 20, 20, 100, 100);
+		    $pdf->Image($path.'/qrcode_attest'.urlencode($fname).'.png', 20, 20, 100, 100);
         }
         // enregistrement
 
