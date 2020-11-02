@@ -261,7 +261,8 @@ class CovidAttest extends eqLogic {
 			return false;
 		}
 
-        $optionsFormat=str_replace("#files#", $pdfURL.",".$pngURL, $optionsFormat);
+        $optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
+      	$optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
         log::add('CovidAttest','debug', 'Option de la commande d\'envoi :'.$optionsFormat);
         $optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
 
