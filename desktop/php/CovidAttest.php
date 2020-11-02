@@ -148,7 +148,7 @@ foreach (jeeObject::all() as $object) {
 		</div>
 	</div>
     <div class="form-group">
-           <label class="col-sm-3 control-label help" data-help="{{utiliser #files#}}">{{Option de la commande}}</label>
+           <label class="col-sm-3 control-label help" data-help="{{utiliser #pdfURL#, et #qrcURL# pour sepcifier les url des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
         <div class="col-sm-3">
             <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#"/>
         </div>
