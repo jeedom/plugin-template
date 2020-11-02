@@ -124,7 +124,7 @@ foreach (jeeObject::all() as $object) {
                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
                  </div>
              </div>
-	<div class="adress_group" style="display: none;">
+	<div class="adress_group" style="display: ;">
     <div class="form-group">
            <label class="col-sm-3 control-label">{{Adresse}}</label>
         <div class="col-sm-3">
