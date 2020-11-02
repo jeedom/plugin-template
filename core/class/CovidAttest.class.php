@@ -267,23 +267,53 @@ class CovidAttest extends eqLogic {
 		}
         log::add('CovidAttest','debug', 'commande d\'envoir :'.$this->getHumanName());
 
-        $optionsFormat=$this->getConfiguration('option_sendcmd', '');
-        if ($optionsFormat === '') {
-			log::add('CovidAttest', 'error', "Option de la commande d'envoie non configuré {$this->getHumanName()}.");
-			return false;
-		}
+        
+      $sendPDF = $this->getConfiguration('option_sendPDF', '1');
+      $sendQRC = $this->getConfiguration('option_sendQRC', '1');
+      log::add('CovidAttest','debug',' choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendQRC);
+      // choix selon le type d'équipement:
+      $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
+      switch ($typeCmd) {
+          /// si telegram
+          case 'telegram':
+          		$str='file=';
+          		if($sendPDF)$str.=$pdfURL;
+          		if($sendQRC)$str.=(strlen($str)>6?',':'').$pngURL;
+           		log::add('CovidAttest','debug','telegram : string envoyée :'.$str);
+              	 $optionsSendCmd= array('title'=>$str,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+              break;
+          
+          
+          /// si c'est un mail
+          case 'mail':
+          		$filesA=array();
+          		if($sendPDF)array_push($filesA,$pdfURL);
+          		if($sendQRC)array_push($filesA,$pngURL);
+          		 $optionsSendCmd= array('files'=>$filesA,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+            
+              break;
+          case "custom":
+          			$optionsFormat=$this->getConfiguration('option_sendcmd', '');
+                    if ($optionsFormat === '') {
+                        log::add('CovidAttest', 'error', "Option de la commande d'envoie non configuré {$this->getHumanName()}.");
+                        return false;
+                    }
+          			$optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
+                    $optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
+                    $optionEmplacement=$this->getConfiguration('option_conf', 'titre');
+          			
+                    log::add('CovidAttest','debug', 'Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
+                    if($optionEmplacement=='title'){
+                        $optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+                    }else{
+                        $optionsSendCmd= array('title'=>'', 'message'=> $optionsFormat);
+                    }
+              break;
+      }
 
-        $optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
-      	$optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
-      	$optionEmplacement=$this->getConfiguration('option_conf', 'titre');
+        
       
       
-        log::add('CovidAttest','debug', 'Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
-      	if($optionEmplacement=='title'){
-        	$optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
-        }else{
-        	$optionsSendCmd= array('title'=>'', 'message'=> $optionsFormat);
-        }
 
         $cmd = cmd::byId(str_replace('#', '', $sendCmd));
         if (!is_object($cmd)) {
@@ -294,7 +324,7 @@ class CovidAttest extends eqLogic {
         }
 
         // suppressiond es fichiers
-        $successDelete=$ag->deleteAllFiles();
+        //$successDelete=$ag->deleteAllFiles();
         log::add('CovidAttest','debug','Suppression des fichier : '.($successDelete?'ok':'echoue'));
 
     }
