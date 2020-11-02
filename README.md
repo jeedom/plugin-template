@@ -6,7 +6,8 @@ Utilise les librairies :
  *  Setasign / FPDI : https://github.com/Setasign/FPDI
  
  
- -------------|utilisation|-------------
+ -------------|Paramétrage|-------------
+ 
  1/ activer le plug in
  
  2/ créer un équipement par membre à notifier,
@@ -32,7 +33,11 @@ Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : date d'att
 => Si vous renseigner ces valeurs, elle seront utilisées pour l'attestation.
 une fois utilisé, elle seront réinitialisée à 0.
 
+ -------------|Utilisation|-------------
+
+Utilisez simplement les commandes crées, qui correspondent chacune à un type de motif de dérogation.
 
 ToDo : 
 * une commande general pour envoyer plusieurs motif d'un coup
+* paramètre général avec le nom du certificat à utiliser.
 
