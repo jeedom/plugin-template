@@ -150,7 +150,7 @@ foreach (jeeObject::all() as $object) {
     <div class="form-group">
            <label class="col-sm-3 control-label help" data-help="{{utiliser #files#}}">{{Option de la commande}}</label>
         <div class="col-sm-3">
-            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#files#"/>
+            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#"/>
         </div>
     </div>
 
