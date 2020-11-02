@@ -17,7 +17,9 @@ Utilise les librairies :
 
 pour renvoyer le pdf et le qrcode.
 
-Dans l'equipement, il y a 1 commande par type de motif.
+Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : date d'attestation et heure d'attestation.
+=> Si vous renseigner ces valeurs, elle seront utilisées pour l'attestation.
+une fois utilisé, elle seront réinitialisée à 0.
 
 
 ToDo : 
