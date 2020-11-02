@@ -279,7 +279,7 @@ class CovidAttest extends eqLogic {
       
       
         log::add('CovidAttest','debug', 'Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
-      	if($optionEmplacement=='titre'){
+      	if($optionEmplacement=='title'){
         	$optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
         }else{
         	$optionsSendCmd= array('title'=>'', 'message'=> $optionsFormat);
