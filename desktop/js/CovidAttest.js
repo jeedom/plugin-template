@@ -69,6 +69,7 @@ $(".eqLogicAttr[data-l2key='use_jeeadd']").on('click', function () {
   $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().show();
   $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().show();
   }
-  
-    
+});
+$( document ).ready(function() {
+  	$(".eqLogicAttr[data-l2key='use_jeeadd']").trigger( "click" );
 });
