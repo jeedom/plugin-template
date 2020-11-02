@@ -235,15 +235,27 @@ class CovidAttest extends eqLogic {
         $prenom=$this->getConfiguration('user_firstname', '');
         $date_naissance=$this->getConfiguration('user_ddn', '');
         $lieu_naissance=$this->getConfiguration('user_btown', '');
+      
+      // addresse
+      if($this->getConfiguration('use_jeeadd', '')){
+        $adresse = config::byKey('info::address');
+        $code_postal = config::byKey('info::postalCode');
+        $ville = config::byKey('info::city');
+      }else{
+        
         $adresse=$this->getConfiguration('user_adress', '');
         $code_postal=$this->getConfiguration('user_zip', '');
         $ville=$this->getConfiguration('user_ctown', '');
+      }
 
         log::add('CovidAttest','debug', "Cree le: ".$dateAttest.";\n Nom: ".$nom.";\n Prenom: ".$prenom.";\n Naissance: ".$date_naissance." a ".$lieu_naissance.";\n Adresse: ".$adresse." ".$code_postal." ".$ville.";\n Sortie: ".$dateAttest."\n Motifs: ".$motifs);
-
+		// récupération de l'option seconde page
+      	$secondpage=$this->getConfiguration('option_addpage', '');
+      log::add('CovidAttest', 'debug', 'ajout de la seconde page :'.$secondpage);
+      
         // creation de l'instance
         $ag=new ATTESTGEN();
-        $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest);
+        $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage);
         log::add('CovidAttest','debug', 'pdf url :'.$pdfURL);
         $pngURL =$ag->getPNGURL();
         log::add('CovidAttest','debug', 'png url :'.$pngURL);
@@ -263,8 +275,15 @@ class CovidAttest extends eqLogic {
 
         $optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
       	$optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
-        log::add('CovidAttest','debug', 'Option de la commande d\'envoi :'.$optionsFormat);
-        $optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+      	$optionEmplacement=$this->getConfiguration('option_conf', 'titre');
+      
+      
+        log::add('CovidAttest','debug', 'Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
+      	if($optionEmplacement=='titre'){
+        	$optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+        }else{
+        	$optionsSendCmd= array('title'=>'', 'message'=> $optionsFormat);
+        }
 
         $cmd = cmd::byId(str_replace('#', '', $sendCmd));
         if (!is_object($cmd)) {

@@ -59,3 +59,16 @@ $(".listCmdActionMessage").on('click', function () {
         calcul.atCaret('insert', result.human);
     });
 });
+$(".eqLogicAttr[data-l2key='use_jeeadd']").on('click', function () {
+  if(this.checked){
+    $(".eqLogicAttr[data-l2key='user_adress']").parent().parent().hide();
+  $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().hide();
+  $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().hide();
+  }else{
+     $(".eqLogicAttr[data-l2key='user_adress']").parent().parent().show();
+  $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().show();
+  $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().show();
+  }
+  
+    
+});
