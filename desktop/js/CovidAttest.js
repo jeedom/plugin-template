@@ -74,3 +74,11 @@ $(".eqLogicAttr[data-l2key='use_jeeadd']").on('change', function () {
      $(".adress_group").show();
   }
 });
+
+$(".eqLogicAttr[data-l2key='option_typeEq']").on('change', function () {
+  if($(this).children("option:selected").val()!='custom'){
+    $(".send_option_group").hide();
+  }else{
+     $(".send_option_group").show();
+  }
+});
