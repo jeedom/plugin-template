@@ -214,7 +214,7 @@ class ATTESTGEN {
 
         ///// pour les motif
 
-        $pdf->SetFont('Arial', '', $posDef['QRcode']['crossSize']);
+        $pdf->SetFont('Arial', '', $posDef['crossSize']);
         $isOk = true;
       	
         foreach ($motifs as $motif){
