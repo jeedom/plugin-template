@@ -192,24 +192,22 @@ foreach (jeeObject::all() as $object) {
     </div>
     
 </div>
-<div class="form-group">
-       <label class="col-sm-3 control-label help" data-help="{{si coché, envoi le pdf}}">{{Envoi du PDF}}</label>
-          <div class="col-sm-9">
-            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPDF"/>
-          </div>
-    </div>
- <div class="form-group">
-       <label class="col-sm-3 control-label help" data-help="{{si coché, envoi le png du QRcode}}">{{Envoi du QRcode}}</label>
-          <div class="col-sm-9">
-            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>
-          </div>
-    </div>
-<div class="form-group">
-       <label class="col-sm-3 control-label help" data-help="{{si coché, ajoute une seconde page au pdf avec le QRcode en grand}}">{{Ajout de la seconde page}}</label>
-          <div class="col-sm-9">
-            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_addpage"/>
-          </div>
-    </div>
+
+  <div class="form-group">
+           <label class="col-sm-3 control-label">{{Options}}</label>
+           <div class="col-sm-9">
+            	<label class="checkbox-inline help" data-help="{{si coché, envoi le pdf}}">
+           		<input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPDF"/>{{Envoi du PDF}}
+                </label>
+                <label class="checkbox-inline help" data-help="{{si coché, envoi le png du QRcode}}">
+                <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>{{Envoi du QRcode}}
+                </label>
+                <label class="checkbox-inline help" data-help="{{si coché, ajoute une seconde page au pdf avec le QRcode en grand}}">
+                <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_addpage"/>{{Ajout de la seconde page}}
+                </label>
+           </div>
+  </div>
+ 
 </fieldset>
 </form>
 </div>
