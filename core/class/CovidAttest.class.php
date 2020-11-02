@@ -327,7 +327,7 @@ class CovidAttest extends eqLogic {
         }
 
         // suppressiond es fichiers
-        //$successDelete=$ag->deleteAllFiles();
+        $successDelete=$ag->deleteAllFiles();
         log::add('CovidAttest','debug','Suppression des fichier : '.($successDelete?'ok':'echoue'));
 
     }
