@@ -71,5 +71,5 @@ $(".eqLogicAttr[data-l2key='use_jeeadd']").on('click', function () {
   }
 });
 $( document ).ready(function() {
-  	$(".eqLogicAttr[data-l2key='use_jeeadd']").trigger( "click" );
+  	//$(".eqLogicAttr[data-l2key='use_jeeadd']").trigger( "click" );
 });
