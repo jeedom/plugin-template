@@ -4,11 +4,11 @@ use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfReader;
 //use QRcode;
 
-require_once(dirname(__FILE__).'/../../3rdparty/FPDF/fpdf.php');
-require_once(dirname(__FILE__).'/../../3rdparty/FPDI/autoload.php');
+require_once(dirname(__FILE__) . '/../../3rdparty/FPDF/fpdf.php');
+require_once(dirname(__FILE__) . '/../../3rdparty/FPDI/autoload.php');
 require_once(dirname(__FILE__) . '/../../3rdparty/phpqrcode/phpqrcode.php');
 
-require_once __DIR__  . '/../../../../core/php/core.inc.php';
+//require_once __DIR__  . '/../../../../core/php/core.inc.php';
 
 class ATTESTGEN {
 
@@ -29,24 +29,24 @@ class ATTESTGEN {
     public $generate_attest = 'generate_attest';
 
     protected $idPos; // array avec les positions des identifiants
-    protected $motPos; // array avec les position des cases à cocher motif
+    protected $motPos; // array avec les position des cases ? cocher motif
 
     protected $url_qrcode; // addresse du Ppng du qrcode au besoin
     protected $url_pdf; // addresse du Ppng du qrcode au besoin
-    protected $certifNamePerso; // si on défini une url perso
+    protected $certifNamePerso; // si on d?fini une url perso
 
     function __construct()
     {
     }
 
-    // retourne l'url du png du QR code une fois le fichier créé
+    // retourne l'url du png du QR code une fois le fichier cr??
     public function getPNGURL(){
         if (!isset($this->url_qrcode)){
             return false;
         }
         return $this->url_qrcode;
     }
-    //retourne l'URL du pdf une fois le fichier créé
+    //retourne l'URL du pdf une fois le fichier cr??
     public function getPDFURL(){
         if (!isset($this->url_pdf)){
             return false;
@@ -54,7 +54,7 @@ class ATTESTGEN {
         return $this->url_pdf;
     }
 
-    // detruit le fichier PDF si créé
+    // detruit le fichier PDF si cr??
     public function deletePDFFile(){
         if (!isset($this->url_pdf)){
             return false;
@@ -66,7 +66,7 @@ class ATTESTGEN {
         return unlink($this->url_pdf);
 
     }
-    // detruit le fichier QR code png créé
+    // detruit le fichier QR code png cr??
     public function deleteQRFile(){
         if (!isset($this->url_qrcode)){
             return false;
@@ -78,12 +78,12 @@ class ATTESTGEN {
         return unlink($this->url_qrcode);
 
     }
-    // détruit les 2 fichiers
+    // d?truit les 2 fichiers
     public function deleteAllFiles(){
         return $this->deletePDFFile() && $this->deleteQRFile();
     }
 
-    // changement du certif utilisé
+    // changement du certif utilis?
     public function setCertif($name){
         if(is_file(dirname(__FILE__) . '/Certificate/'.$name)){
             $this->certifNamePerso=$name;
@@ -103,14 +103,14 @@ class ATTESTGEN {
         // verification si le motif est bien un array
         if(!is_array($motifs)){
             if(is_string($motifs)){
-                $motifs=array($motifs); // si c'est une string on le met dans un array pour le traiter ultérieurement
+                $motifs=array($motifs); // si c'est une string on le met dans un array pour le traiter ult?rieurement
             }else{
                 log::add('CovidAttest', 'error', 'Error Motif provided is not an array or a string');
                 return false;
             }
         }
         $path=realpath(dirname(__FILE__). '/../../').'/3rdparty/Certificate/position.json';
-        log::add('CovidAttest','debug', 'file :'.$path);
+        
         // load du json pour les positions
         if(!is_file($path)){
             log::add('CovidAttest', 'error', 'Error positions definition not found ('.$path.')');
@@ -118,7 +118,7 @@ class ATTESTGEN {
         }
         $stringPos = file_get_contents($path);
         $json_pos = json_decode($stringPos, true);
-
+		log::add('CovidAttest','debug', 'json def file file :'.$path);
         // choix du certif mis en place
         if(isset($this->certifNamePerso)){
             $cn = $this->certifNamePerso;
@@ -132,31 +132,39 @@ class ATTESTGEN {
 
         }else{
             log::add('CovidAttest', 'error', 'certificate name not found in json');
-            $posDef = $json_pos[ATTESTGEN::certiFName]; // par défaut on utilise celui du certif par défaut
+            $posDef = $json_pos[ATTESTGEN::certiFName]; // par d?faut on utilise celui du certif par d?faut
         }
+      
 
 
-        // vérificaiton existance du dossier
+        // v?rificaiton existance du dossier
         $path=realpath(dirname(__FILE__). '/../../').'/EXPORT';
         if(!is_dir($path)){
             mkdir($path);
         }
-        // génération du QR code
+        // g?n?ration du QR code
         $date_time=$dateAttest.' a '.$timeAttest;
         $qrcode="Cree le: ".$date_time.";\n Nom: ".$name.";\n Prenom: ".$fname.";\n Naissance: ".$ddn." a ".$lieu_ddn.";\n Adresse: ".$address." ".$zip." ".$ville.";\n Sortie: ".$date_time."\n Motifs: ".implode (",", $motifs);
 
         $this->url_qrcode = $path.'/qrcode_attest'.$fname.'.png';
         $qrcode= stripslashes($qrcode);
+      try{
         $qrFile = QRcode::png($qrcode,$this->url_qrcode, 'M');
+      } catch (Exception $e) {
+            log::add('CovidAttest', 'error', 'Error creating PNG file ('.$e->getMessage().')');
+        }
+		log::add('CovidAttest','debug', 'QR code generated filepath :'.$this->url_qrcode);
 
 
 
 
-
-        // génération du PDF
+        // g?n?ration du PDF
         try {
             $pdf = new FPDI();
             $pdf->addPage();
+          	if(!is_file(realpath(dirname(__FILE__). '/../../').'/3rdparty/Certificate/'.$cn)){
+              log::add('CovidAttest', 'error','certificate not found');
+            }
 
             $pageCount = $pdf->setSourceFile(realpath(dirname(__FILE__). '/../../').'/3rdparty/Certificate/'.$cn);
             $pageId = $pdf->importPage(1);
@@ -167,6 +175,7 @@ class ATTESTGEN {
         catch (Exception $e) {
             log::add('CovidAttest', 'error', 'Error creating PDF file ('.$e->getMessage().')');
         }
+      	log::add('CovidAttest','debug','pdf source copies');
         // ecriture
         $pdf->SetFont('Arial', '', '13');
         $pdf->SetTextColor(0,0,0);
@@ -207,7 +216,9 @@ class ATTESTGEN {
 
         $pdf->SetFont('Arial', '', $posDef['QRcode']['crossSize']);
         $isOk = true;
+      	
         foreach ($motifs as $motif){
+          	log::add('CovidAttest','debug','motif testÃ© :'.$motif);
             switch ($motif) {
                 case ATTESTGEN::TRAVAIL:
                     $pdf->SetXY($posDef['TRAVAIL']["x"], $posDef['TRAVAIL']["y"]);

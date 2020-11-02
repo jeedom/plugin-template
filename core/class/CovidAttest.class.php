@@ -21,57 +21,6 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
 require_once __DIR__  . '/AttestGen.class.php';
 
 class CovidAttest extends eqLogic {
-    /*     * *************************Attributs****************************** */
-
-  /*
-   * Permet de définir les possibilités de personnalisation du widget (en cas d'utilisation de la fonction 'toHtml' par exemple)
-   * Tableau multidimensionnel - exemple: array('custom' => true, 'custom::layout' => false)
-	public static $_widgetPossibility = array();
-   */
-
-    /*     * ***********************Methode static*************************** */
-
-    /*
-     * Fonction exécutée automatiquement toutes les minutes par Jeedom
-      public static function cron() {
-      }
-     */
-
-    /*
-     * Fonction exécutée automatiquement toutes les 5 minutes par Jeedom
-      public static function cron5() {
-      }
-     */
-
-    /*
-     * Fonction exécutée automatiquement toutes les 10 minutes par Jeedom
-      public static function cron10() {
-      }
-     */
-
-    /*
-     * Fonction exécutée automatiquement toutes les 15 minutes par Jeedom
-      public static function cron15() {
-      }
-     */
-
-    /*
-     * Fonction exécutée automatiquement toutes les 30 minutes par Jeedom
-      public static function cron30() {
-      }
-     */
-
-    /*
-     * Fonction exécutée automatiquement toutes les heures par Jeedom
-      public static function cronHourly() {
-      }
-     */
-
-    /*
-     * Fonction exécutée automatiquement tous les jours par Jeedom
-      public static function cronDaily() {
-      }
-     */
 
 
 
@@ -104,31 +53,7 @@ class CovidAttest extends eqLogic {
 
  // Fonction exécutée automatiquement après la sauvegarde (création ou mise à jour) de l'équipement
     public function postSave() {
-        /*$createAttest = $this->getCmd(null, 'createDirectPDF');
-		if (!is_object($createAttest)) {
-			$createAttest = new CovidAttestCmd();
-			$createAttest->setLogicalId('createDirectPDF');
-			$createAttest->setIsVisible(1);
-			$createAttest->setName(__('Créer Attestation Direct', __FILE__));
-		}
-        $createAttest->setType('action');
-		$createAttest->setSubType('message');
-		$createAttest->setEqLogic_id($this->getId());
-		$createAttest->save();
-
-        $createTempAttest = $this->getCmd(null, 'createTempPDF');
-		if (!is_object($createTempAttest)) {
-			$createTempAttest = new CovidAttestCmd();
-			$createTempAttest->setLogicalId('createTempPDF');
-			$createTempAttest->setIsVisible(1);
-			$createTempAttest->setName(__('Créer Attestation A date', __FILE__));
-		}
-        $createTempAttest->setType('action');
-		$createTempAttest->setSubType('message');
-		$createTempAttest->setEqLogic_id($this->getId());
-		$createTempAttest->save();
-        */
-
+       
         $dateAttest = $this->getCmd(null, 'dateAttest');
 		if (!is_object($dateAttest)) {
 			$dateAttest = new CovidAttestCmd();
@@ -278,18 +203,32 @@ class CovidAttest extends eqLogic {
 
     public function createDirectPDF($motifs){
         log::add('CovidAttest','debug','createDirectPDF called for motif :'.$motifs);
+      
+      	$cmdDate = $this->getCmd(null, 'dateAttest');
+      
 
-        $dateAttest= $this->getConfiguration( 'dateAttest', null);
-        if (!is_object($dateAttest)) {
+        if(is_object($cmdDate)){
+          $dateAttest= $cmdDate->execCmd();
+        }
+        if ($dateAttest=='') {
             $dateAttest=strftime("%d/%m/%G");
         }
-
-        $timeAttest= $this->getConfiguration('dateAttest', null);
-        if (!is_object($timeAttest)) {
+      
+     	$cmdTime = $this->getCmd(null, 'heureAttest');
+		if(is_object($cmdTime)){
+          $timeAttest= $cmdTime->execCmd();
+        }
+        
+        if ($timeAttest=='') {
             $timeAttest=strftime("%Hh%M");
         }
         log::add('CovidAttest','debug', 'date :'.$dateAttest.' / time : '.$timeAttest.' / motif : '.$motifs);
         $this->createPDF($dateAttest, $timeAttest, $motifs);
+      	
+      	// on remet à 0 les valerus de date et time
+      if(is_object($cmdDate))$cmdDate->event('');
+      if(is_object($cmdTime))$cmdTime->event('');
+      
     }
     public function createPDF($dateAttest, $timeAttest, $motifs){
         $nom=$this->getConfiguration('user_name', '');
@@ -304,7 +243,7 @@ class CovidAttest extends eqLogic {
 
         // creation de l'instance
         $ag=new ATTESTGEN();
-        $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $dateAttest, $timeAttest, $motifs);
+        $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest);
         log::add('CovidAttest','debug', 'pdf url :'.$pdfURL);
         $pngURL =$ag->getPNGURL();
         log::add('CovidAttest','debug', 'png url :'.$pngURL);
@@ -322,7 +261,7 @@ class CovidAttest extends eqLogic {
 			return false;
 		}
 
-        $optionsFormat=str_replace("#files#", "'".$pdfURL."'".",'".$pngURL."'", $optionsFormat);
+        $optionsFormat=str_replace("#files#", $pdfURL.",".$pngURL, $optionsFormat);
         log::add('CovidAttest','debug', 'Option de la commande d\'envoi :'.$optionsFormat);
         $optionsSendCmd= array('title'=>$optionsFormat, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
 
@@ -340,46 +279,11 @@ class CovidAttest extends eqLogic {
 
     }
 
-    /*
-     * Non obligatoire : permet de modifier l'affichage du widget (également utilisable par les commandes)
-      public function toHtml($_version = 'dashboard') {
-
-      }
-     */
-
-    /*
-     * Non obligatoire : permet de déclencher une action après modification de variable de configuration
-    public static function postConfig_<Variable>() {
-    }
-     */
-
-    /*
-     * Non obligatoire : permet de déclencher une action avant modification de variable de configuration
-    public static function preConfig_<Variable>() {
-    }
-     */
-
-    /*     * **********************Getteur Setteur*************************** */
+   
 }
 
 class CovidAttestCmd extends cmd {
-    /*     * *************************Attributs****************************** */
-
-    /*
-      public static $_widgetPossibility = array();
-    */
-
-    /*     * ***********************Methode static*************************** */
-
-
-    /*     * *********************Methode d'instance************************* */
-
-    /*
-     * Non obligatoire permet de demander de ne pas supprimer les commandes même si elles ne sont pas dans la nouvelle configuration de l'équipement envoyé en JS
-      public function dontRemoveCmd() {
-      return true;
-      }
-     */
+   
 
   // Exécution d'une commande
      public function execute($_options = array()) {
@@ -421,5 +325,3 @@ class CovidAttestCmd extends cmd {
 
     /*     * **********************Getteur Setteur*************************** */
 }
-
-
