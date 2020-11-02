@@ -230,9 +230,12 @@ class CovidAttest extends eqLogic {
       if(is_object($cmdTime))$cmdTime->event('');
       
     }
+  
     public function createPDF($dateAttest, $timeAttest, $motifs){
-        $nom=$this->getConfiguration('user_name', '');
-        $prenom=$this->getConfiguration('user_firstname', '');
+      
+      	$nom=( $this->getConfiguration('user_name', ''));
+        $prenom=( $this->getConfiguration('user_firstname', ''));
+      
         $date_naissance=$this->getConfiguration('user_ddn', '');
         $lieu_naissance=$this->getConfiguration('user_btown', '');
       
@@ -328,7 +331,10 @@ class CovidAttest extends eqLogic {
         log::add('CovidAttest','debug','Suppression des fichier : '.($successDelete?'ok':'echoue'));
 
     }
-
+  
+  
+ 
+  
    
 }
 
