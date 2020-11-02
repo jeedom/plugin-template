@@ -119,7 +119,7 @@ foreach (jeeObject::all() as $object) {
         </div>
     </div>
     <div class="form-group">
-                  <label class="col-sm-3 control-label help" data-help="{{si coché, Récupère automatiquement l\'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
+                  <label class="col-sm-3 control-label help" data-help="{{si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
                   <div class="col-sm-9">
                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
                  </div>
