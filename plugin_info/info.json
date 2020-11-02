@@ -4,7 +4,7 @@
 	"description" : "Generateur de l'attestation dérogatoire au confinement",
 	"licence" : "AGPL",
 	"author" : "Bben",
-	"require" : "4.0",
+	"require" : "3.3",
 	"category" : "organization",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
