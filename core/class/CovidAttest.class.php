@@ -181,7 +181,7 @@ class CovidAttest extends eqLogic {
 			$motif = new CovidAttestCmd();
 			$motif->setLogicalId('send_motif_ENFANTS');
 			$motif->setIsVisible(1);
-			$motif->setName(__('send_motif_ENFANTS MISSIONS', __FILE__));
+			$motif->setName(__('Envoi motif ENFANTS', __FILE__));
 		}
         $motif->setType('action');
 		$motif->setSubType('other');
