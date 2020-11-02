@@ -61,15 +61,16 @@ $(".listCmdActionMessage").on('click', function () {
 });
 $(".eqLogicAttr[data-l2key='use_jeeadd']").on('click', function () {
   if(this.checked){
-    $(".eqLogicAttr[data-l2key='user_adress']").parent().parent().hide();
-  $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().hide();
-  $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().hide();
+    $(".adress_group").hide();
   }else{
-     $(".eqLogicAttr[data-l2key='user_adress']").parent().parent().show();
-  $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().show();
-  $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().show();
+     $(".adress_group").show();
   }
 });
-$( document ).ready(function() {
-  	//$(".eqLogicAttr[data-l2key='use_jeeadd']").trigger( "click" );
+
+$(".eqLogicAttr[data-l2key='use_jeeadd']").on('change', function () {
+    if(this.checked){
+    $(".adress_group").hide();
+  }else{
+     $(".adress_group").show();
+  }
 });
