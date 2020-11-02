@@ -119,7 +119,7 @@ foreach (jeeObject::all() as $object) {
         </div>
     </div>
     <div class="form-group">
-                  <label class="col-sm-3 control-label help" data-help="{{si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
+                  <label class="col-sm-3 control-label help" data-help="{{si coché, Récupère automatiquement l\'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
                   <div class="col-sm-9">
                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
                  </div>
@@ -155,12 +155,30 @@ foreach (jeeObject::all() as $object) {
 			</div>
 		</div>
 	</div>
+    
+    <div class="form-group">
+        <label class="col-sm-3 control-label help" data-help="{{choisissez le type d'équipement}}">{{Type Equipement}}</label>
+            <div class="col-sm-3">
+
+              <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_typeEq">
+              	<option value='telegram'>Telegram</option>
+              	<option value='mail'>Mail</option>
+              	<option value='custom'>Custom</option>
+              </select>
+
+        </div>
+    </div>
+    
+<div class="send_option_group" > 
     <div class="form-group">
          <label class="col-sm-3 control-label help" data-help="{{utiliser #pdfURL#, et #qrcURL# pour sepcifier les url des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
         <div class="col-sm-3">
             <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#"/>
         </div>
     </div>
+    
+              
+       
    	<div class="form-group">
            <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers}}">{{destination}}</label>
            <div class="col-sm-3">
@@ -172,13 +190,26 @@ foreach (jeeObject::all() as $object) {
            
         </div>
     </div>
-    <div class="form-group">
+    
+</div>
+<div class="form-group">
+       <label class="col-sm-3 control-label help" data-help="{{si coché, envoi le pdf}}">{{Envoi du PDF}}</label>
+          <div class="col-sm-9">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPDF"/>
+          </div>
+    </div>
+ <div class="form-group">
+       <label class="col-sm-3 control-label help" data-help="{{si coché, envoi le png du QRcode}}">{{Envoi du QRcode}}</label>
+          <div class="col-sm-9">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>
+          </div>
+    </div>
+<div class="form-group">
        <label class="col-sm-3 control-label help" data-help="{{si coché, ajoute une seconde page au pdf avec le QRcode en grand}}">{{Ajout de la seconde page}}</label>
           <div class="col-sm-9">
             <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_addpage"/>
           </div>
     </div>
-
 </fieldset>
 </form>
 </div>
