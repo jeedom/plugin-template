@@ -37,6 +37,7 @@ function addCmdToTable(_cmd) {
     tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
     tr += '</td>';
     tr += '<td>';
+   tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
     if (is_numeric(_cmd.id)) {
         tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fas fa-cogs"></i></a> ';
         tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fas fa-rss"></i> {{Tester}}</a>';
@@ -61,15 +62,24 @@ $(".listCmdActionMessage").on('click', function () {
 });
 $(".eqLogicAttr[data-l2key='use_jeeadd']").on('click', function () {
   if(this.checked){
-    $(".eqLogicAttr[data-l2key='user_adress']").parent().parent().hide();
-  $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().hide();
-  $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().hide();
+    $(".adress_group").hide();
   }else{
-     $(".eqLogicAttr[data-l2key='user_adress']").parent().parent().show();
-  $(".eqLogicAttr[data-l2key='user_zip']").parent().parent().show();
-  $(".eqLogicAttr[data-l2key='user_ctown']").parent().parent().show();
+     $(".adress_group").show();
   }
 });
-$( document ).ready(function() {
-  	$(".eqLogicAttr[data-l2key='use_jeeadd']").trigger( "click" );
+
+$(".eqLogicAttr[data-l2key='use_jeeadd']").on('change', function () {
+    if(this.checked){
+    $(".adress_group").hide();
+  }else{
+     $(".adress_group").show();
+  }
+});
+
+$(".eqLogicAttr[data-l2key='option_typeEq']").on('change', function () {
+  if($(this).children("option:selected").val()!='custom'){
+    $(".send_option_group").hide();
+  }else{
+     $(".send_option_group").show();
+  }
 });

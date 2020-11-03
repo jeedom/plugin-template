@@ -8,7 +8,8 @@ require_once(dirname(__FILE__) . '/../../3rdparty/FPDF/fpdf.php');
 require_once(dirname(__FILE__) . '/../../3rdparty/FPDI/autoload.php');
 require_once(dirname(__FILE__) . '/../../3rdparty/phpqrcode/phpqrcode.php');
 
-//require_once __DIR__  . '/../../../../core/php/core.inc.php';
+require_once __DIR__  . '/../../../../core/php/core.inc.php';
+
 
 class ATTESTGEN {
 
@@ -182,7 +183,7 @@ class ATTESTGEN {
 
         // NOM
         $pdf->SetXY($posDef['NOM']["x"], $posDef['NOM']["y"]);
-        $pdf->Write(0, $fname.' '.$name);
+        $pdf->Write(0, utf8_decode($fname.' '.$name));
 
         //DDN
         $pdf->SetXY($posDef['DDN']["x"], $posDef['DDN']["y"]);
@@ -190,19 +191,19 @@ class ATTESTGEN {
 
         //LIEU_DDN
         $pdf->SetXY($posDef['LIEU_DDN']["x"], $posDef['LIEU_DDN']["y"]);
-        $pdf->Write(0, $lieu_ddn);
+        $pdf->Write(0, utf8_decode($lieu_ddn));
 
         //adresse
         // en plus petit
         $pdf->SetFont('Arial', '', '10');
         $pdf->SetXY($posDef['ADRESSE']["x"], $posDef['ADRESSE']["y"]);
-        $pdf->Write(0, $address.' '.$zip.' '.$ville);
+        $pdf->Write(0, utf8_decode($address.' '.$zip.' '.$ville));
 
         // pour la signature
         //ville
         $pdf->SetFont('Arial', '', '13');
         $pdf->SetXY($posDef['SIG_VILLE']["x"], $posDef['SIG_VILLE']["y"]);
-        $pdf->Write(0, $ville);
+        $pdf->Write(0, utf8_decode($ville));
 
         // date
         $pdf->SetXY($posDef['SIG_DATE']["x"], $posDef['SIG_DATE']["y"]);
@@ -214,7 +215,7 @@ class ATTESTGEN {
 
         ///// pour les motif
 
-        $pdf->SetFont('Arial', '', $posDef['QRcode']['crossSize']);
+        $pdf->SetFont('Arial', '', $posDef['crossSize']);
         $isOk = true;
       	
         foreach ($motifs as $motif){
@@ -259,7 +260,7 @@ class ATTESTGEN {
 
         if($secondPage){
             $pdf->addPage();
-		    $pdf->Image($path.'/qrcode_attest'.$fname.'.png', 20, 20, 100, 100);
+		    $pdf->Image($path.'/qrcode_attest'.urlencode($fname).'.png', 20, 20, 100, 100);
         }
         // enregistrement
 
@@ -274,5 +275,7 @@ class ATTESTGEN {
         }
         return $this->url_pdf;
     }
+  
+   
 }
 ?>

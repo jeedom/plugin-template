@@ -119,12 +119,12 @@ foreach (jeeObject::all() as $object) {
         </div>
     </div>
     <div class="form-group">
-                  <label class="col-sm-3 control-label help" data-help="{{si coché, Récupère automatiquement l\'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
+                  <label class="col-sm-3 control-label help" data-help="{{Si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
                   <div class="col-sm-9">
                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
                  </div>
              </div>
-
+	<div class="adress_group" style="display: ;">
     <div class="form-group">
            <label class="col-sm-3 control-label">{{Adresse}}</label>
         <div class="col-sm-3">
@@ -143,6 +143,7 @@ foreach (jeeObject::all() as $object) {
             <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="user_ctown" placeholder="Here"/>
         </div>
     </div>
+  </div>
     <div class="form-group">
 		<label class="col-sm-3 control-label help" >{{Commande d'envoi}}</label>
 		<div class="col-sm-3">
@@ -154,14 +155,32 @@ foreach (jeeObject::all() as $object) {
 			</div>
 		</div>
 	</div>
+    
     <div class="form-group">
-         <label class="col-sm-3 control-label help" data-help="{{utilisez #pdfURL#, et #qrcURL# pour spécifier les url des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
+        <label class="col-sm-3 control-label help" data-help="{{choisissez le type d'équipement}}">{{Type Equipement}}</label>
+            <div class="col-sm-3">
+
+              <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_typeEq">
+              	<option value='telegram'>Telegram</option>
+              	<option value='mail'>Mail</option>
+              	<option value='custom'>Custom</option>
+              </select>
+
+        </div>
+    </div>
+    
+<div class="send_option_group" > 
+    <div class="form-group">
+         <label class="col-sm-3 control-label help" data-help="{{utilisez #pdfURL#, et #qrcURL# pour spécifier les urls des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
         <div class="col-sm-3">
             <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#"/>
         </div>
     </div>
+    
+              
+       
    	<div class="form-group">
-           <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers - telegram choisir titre}}">{{destination}}</label>
+           <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers}}">{{destination}}</label>
            <div class="col-sm-3">
           
             <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_conf">
@@ -171,13 +190,24 @@ foreach (jeeObject::all() as $object) {
            
         </div>
     </div>
-    <div class="form-group">
-       <label class="col-sm-3 control-label help" data-help="{{si coché, ajoute une seconde page au pdf avec le QRcode}}">{{Ajout de la seconde page}}</label>
-          <div class="col-sm-9">
-            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_addpage"/>
-          </div>
-    </div>
+    
+</div>
 
+  <div class="form-group">
+           <label class="col-sm-3 control-label">{{Options}}</label>
+           <div class="col-sm-9">
+            	<label class="checkbox-inline help" data-help="{{si cochée, envoi le pdf}}">
+           		<input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPDF"/>{{Envoi du PDF}}
+                </label>
+                <label class="checkbox-inline help" data-help="{{si cochée, envoi le png du QRcode}}">
+                <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>{{Envoi du QRcode}}
+                </label>
+                <label class="checkbox-inline help" data-help="{{si cochée, ajoute une seconde page au pdf avec le QRcode grand format}}">
+                <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_addpage"/>{{Ajout de la seconde page}}
+                </label>
+           </div>
+  </div>
+ 
 </fieldset>
 </form>
 </div>
