@@ -464,7 +464,7 @@ class CovidAttest extends eqLogic {
 			log::add('CovidAttest', 'error', "Commande denvoi non configurée {$this->getHumanName()}.");
 			return false;
 		}
-        log::add('CovidAttest','debug', 'commande d\'envoir :'.$this->getHumanName());
+        log::add('CovidAttest','debug', 'commande d\'envoi :'.$this->getHumanName());
 
         
       $sendPDF = $this->getConfiguration('option_sendPDF', '1');
@@ -494,7 +494,7 @@ class CovidAttest extends eqLogic {
           case "custom":
           			$optionsFormat=$this->getConfiguration('option_sendcmd', '');
                     if ($optionsFormat === '') {
-                        log::add('CovidAttest', 'error', "Option de la commande d'envoie non configuré {$this->getHumanName()}.");
+                        log::add('CovidAttest', 'error', "Option de la commande d'envoi non configurée {$this->getHumanName()}.");
                         return false;
                     }
           			$optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
@@ -516,15 +516,15 @@ class CovidAttest extends eqLogic {
 
         $cmd = cmd::byId(str_replace('#', '', $sendCmd));
         if (!is_object($cmd)) {
-            log::add('CovidAttest', 'error', "Commande {$nextCmdId} non trouvée, vérifiez la configuration pour la file {$this->getHumanName()}.");
+            log::add('CovidAttest', 'error', "Commande {$nextCmdId} non trouvée, vérifiez la configuration pour  {$this->getHumanName()}.");
          }else{
              $cmd ->execCmd($optionsSendCmd, $cache=0);
-             log::add('CovidAttest','debug','envoi des fichier');
+             log::add('CovidAttest','debug','envoi des fichiers');
         }
 
         // suppressiond es fichiers
         $successDelete=$ag->deleteAllFiles();
-        log::add('CovidAttest','debug','Suppression des fichier : '.($successDelete?'ok':'echoue'));
+        log::add('CovidAttest','debug','Suppression des fichiers : '.($successDelete?'ok':'echoue'));
 
     }
   
@@ -569,12 +569,12 @@ class CovidAttestCmd extends cmd {
                  break;
            case 'send_motif_MULTI':
              	if(!isset($_options['message']) | empty ($_options['message'])){
-                	 log::add('CovidAttest','error', 'Aucun motifs de défini');
+                	 log::add('CovidAttest','error', 'Aucun motif de défini pour un envoi mutliple, veuillez selectionner parmi les commandes info disponibles');
                 }
              	$motifsStr=str_replace(',', ';',$_options['message']);
              	$motifs=explode (';',$motifsStr);
              	
-             	log::add('CovidAttest', 'debug', 'motif multiples : '.implode('#',$motifs));
+             	log::add('CovidAttest', 'debug', 'motifs multiples : '.implode('#',$motifs));
              	$this->getEqLogic()->createDirectPDF($motifs);
              	break;
              Default:
