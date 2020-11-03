@@ -64,7 +64,7 @@ Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : __date d'a
 => Si vous renseignez ces valeurs, avant d'envoyer la commande, elles seront utilisées pour générer l'attestation.
 une fois utilisées, elle seront réinitialisée à 0.
 
-exemple :  ici on génère une attestation au 1er décembre 1970 à 8h44 avec les motifs 'enfants' et 'travail' de cochés 
+exemple :  ici on génère une attestation au *_1er décembre 1970_* à *_8h44_* avec les motifs *_enfants_* et *_travail_* de cochés 
 
 ![equip_image](/img_readme/scenario.PNG)  
 
