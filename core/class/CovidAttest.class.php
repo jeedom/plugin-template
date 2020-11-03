@@ -22,7 +22,20 @@ require_once __DIR__  . '/AttestGen.class.php';
 
 class CovidAttest extends eqLogic {
 
+  /*
+   public static function cron() {
+     		log::add('CovidAttest', 'debug', 'Launch CRON'); 
+   		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT';
+   		$files = glob($path.'/*'); // get all file names
+        foreach($files as $file){ // iterate files
+          if(is_file($file)){
+           	log::add('CovidAttest', 'debug', 'CRON could delete : '.$file); 
+          }
+            //unlink($file); // delete file
+        }
 
+      }
+     */
 
     /*     * *********************Méthodes d'instance************************* */
 
@@ -45,6 +58,8 @@ class CovidAttest extends eqLogic {
     public function postUpdate() {
 
     }
+  
+  
 
  // Fonction exécutée automatiquement avant la sauvegarde (création ou mise à jour) de l'équipement
     public function preSave() {
@@ -105,20 +120,7 @@ class CovidAttest extends eqLogic {
     }
 
  // Fonction exécutée automatiquement après la sauvegarde (création ou mise à jour) de l'équipement
-    public function postSave() {
-      
-      	/*$testAttest = $this->getCmd(null, 'testAutoInfo');
-		if (!is_object($testAttest)) {
-			$testAttest = new CovidAttestCmd();
-			$testAttest->setLogicalId('testAutoInfo');
-			$testAttest->setIsVisible(1);
-			$testAttest->setName(__('Test Auto Info', __FILE__));
-		}
-        $testAttest->setType('info');
-		$testAttest->setSubType('string');
-		$testAttest->setEqLogic_id($this->getId());
-		$testAttest->save();*/
-      
+    public function postSave() {      
        
         $dateAttest = $this->getCmd(null, 'dateAttest');
 		if (!is_object($dateAttest)) {
@@ -383,6 +385,18 @@ class CovidAttest extends eqLogic {
 		$motifType->setEqLogic_id($this->getId());
 		$motifType->save();
       
+      $removeCmd = $this->getCmd(null, 'remove_file');
+		if (!is_object($removeCmd)) {
+			$removeCmd = new CovidAttestCmd();
+			$removeCmd->setLogicalId('remove_file');
+			$removeCmd->setIsVisible(1);
+			$removeCmd->setName(__('Supprimer les fichiers', __FILE__));
+		}
+        $removeCmd->setType('action');
+		$removeCmd->setSubType('other');
+		$removeCmd->setEqLogic_id($this->getId());
+		$removeCmd->save();
+      
       
       //
     }
@@ -396,6 +410,31 @@ class CovidAttest extends eqLogic {
     public function postRemove() {
 
     }
+  
+  public function removeMyFiles(){
+    	$nom=( $this->getConfiguration('user_name', ''));
+        $prenom=($this->getConfiguration('user_firstname', ''));
+    
+  		log::add('CovidAttest', 'debug', 'remove My Files Call pour '.$prenom.' '.$nom); 
+   		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT';
+   		$files = glob($path.'/*'); 
+    
+    	$patternPDF='/attestation-[0-9-_]{15,18}_'.urlencode($prenom).'.'.urlencode($nom).'/'; 
+    	$patternQRCode='/qrcode_attest-[0-9-_]{15,18}_'.urlencode($prenom).'.'.urlencode($nom).'/'; 
+    	log::add('CovidAttest', 'debug', 'delette pattern pdf :'.$patternPDF.'  |  Qr :'.$patternQRCode);
+        foreach($files as $file){ // iterate files
+          if(is_file($file)){
+           	log::add('CovidAttest', 'debug', 'Check for delete : '.basename ($file).'  |  verif pdf pattern : '.preg_match($patternPDF,basename ($file)).'  | match qr pattern : '.preg_match($patternQRCode,basename ($file))); 
+            
+            if(preg_match($patternPDF,basename ($file)) | preg_match($patternQRCode,basename ($file))){
+              	log::add('CovidAttest', 'debug', 'Remove file  : '.basename ($file)); 
+              unlink($file);
+            }
+            
+          }
+            //unlink($file); // delete file
+        }
+  }
 
     public function createDirectPDF($motifs){
         log::add('CovidAttest','debug','|-----------------------> createDirectPDF called for motif :'.$motifs);
@@ -488,7 +527,7 @@ class CovidAttest extends eqLogic {
           		$filesA=array();
           		if($sendPDF)array_push($filesA,$pdfURL);
           		if($sendQRC)array_push($filesA,$pngURL);
-          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' de '.$prenom.' pour '.$motifs, 'message'=> 'Attestation Covid du '.$dateAttest.' à '.$timeAttest.' pour '.$motifs);
+          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' de '.$prenom.' pour '.$motifs, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
             
               break;
           case "custom":
@@ -523,8 +562,14 @@ class CovidAttest extends eqLogic {
         }
 
         // suppressiond es fichiers
-        $successDelete=$ag->deleteAllFiles();
-        log::add('CovidAttest','debug','Suppression des fichiers : '.($successDelete?'ok':'echoue'));
+      	$deactivate_autoremove = $this->getConfiguration('auto_remove', '1');
+      	log::add('CovidAttest','debug','suppression auto des fichiers statut :'.$deactivate_autoremove);
+      	if($deactivate_autoremove==0){
+          $successDelete=$ag->deleteAllFiles();
+          log::add('CovidAttest','debug','Suppression des fichiers : '.($successDelete?'ok':'echoue'));
+        }
+        
+        
 
     }
   
@@ -567,6 +612,9 @@ class CovidAttestCmd extends cmd {
              case 'send_motif_ENFANTS':
                  $this->getEqLogic()->createDirectPDF(ATTESTGEN::ENFANTS);
                  break;
+           case 'remove_file':
+             	$this->getEqLogic()->removeMyFiles();
+             	break;
            case 'send_motif_MULTI':
              	if(!isset($_options['message']) | empty ($_options['message'])){
                 	 log::add('CovidAttest','error', 'Aucun motif de défini pour un envoi mutliple, veuillez selectionner parmi les commandes info disponibles');
@@ -582,8 +630,9 @@ class CovidAttestCmd extends cmd {
                  log::add('CovidAttest','debug', 'Deafault call');
 
          }
-
+			return true;
      }
+  
 
     /*     * **********************Getteur Setteur*************************** */
 }
