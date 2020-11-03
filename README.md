@@ -68,12 +68,15 @@ exemple :
 ![equip_image](/img_readme/scenario.PNG)  
 
 
+## widget 
 
+Il est celui par défaut, il reprend les commandes d'envoi des notifications.
 
+![equip_image](/img_readme/widget.PNG) 
 
 Utilise les librairies :
  * phpQRcode library : http://phpqrcode.sourceforge.net/docs/html/index.html
  *  Setasign / FPDF : https://github.com/Setasign/FPDF
  *  Setasign / FPDI : https://github.com/Setasign/FPDI
 
-Merci Naboleo, jjl87 et tout les autres qui ont essuyé les premiers platres et passé le torchon.
+Merci Naboleo, jjl87 et tout les autres qui ont fait avancer le schnmilblic, essuyé les platres et passé le torchon,
