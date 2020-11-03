@@ -48,7 +48,8 @@ Permet de générer une attestation dérogatoire qu confinement en France. Gén�
    * Envoi du QRcode: si vous souhaitez recevoir l'image du QR code
    * Ajout de la seconde page: si vous souhaitez ajouter une seconde page dans l'attestation avec le QR code grand format (du type de l'attestation généré en ligne sur le site du gouvernement)
  
-
+* __Désactiver Auto remove__ : si cochée, la suppression automatique après l'appel à la commande d'envoi des fichier est désactivé. Pour supprimer les fichiers il faudra appeller la commande 'supprimer les fichiers' de l'équipement. 
+Peut être utile pour l'utiliser avec notification queue par exemple.
 
 
  # -------------|Utilisation|-------------
