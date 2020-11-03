@@ -35,7 +35,9 @@ une fois utilisé, elle seront réinitialisée à 0.
 
  -------------|Utilisation|-------------
 
-Utilisez simplement les commandes crées, qui correspondent chacune à un type de motif de dérogation.
+1/ direct : utilisez simplement les commandes crées, qui correspondent chacune à un type de motif de dérogation.
+
+2/ Pour cocher plusieurs motifs : utiliser la commande envoi Multiple, de type message, avec dans la partie 'message' les motifs séparés par une virgule (',') ou point virgule (';'). Les motifs sont accessible dans l'équipement par les commande info nommé par motif (motif TRAVAIL par exemple).
 
 ToDo : 
 * une commande general pour envoyer plusieurs motif d'un coup
