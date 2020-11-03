@@ -60,11 +60,12 @@ Permet de générer une attestation dérogatoire qu confinement en France. Gén�
 2. Pour cocher plusieurs motifs : utiliser la commande envoi Multiple, de type message, avec dans la partie 'message' les motifs séparés par une virgule (',') ou point virgule (';'). Les motifs sont accessible dans l'équipement par les commande info nommé par motif (motif TRAVAIL par exemple).
 
 ## Spécifier la date ou l'heure :
-Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : date d'attestation et heure d'attestation.
-=> Si vous renseignez ces valeurs, elle seront utilisées pour l'attestation.
-une fois utilisé, elle seront réinitialisée à 0.
+Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : __date d'attestation__ et __heure d'attestation__.
+=> Si vous renseignez ces valeurs, avant d'envoyer la commande, elles seront utilisées pour générer l'attestation.
+une fois utilisées, elle seront réinitialisée à 0.
 
-exemple : 
+exemple :  ici on génère une attestation au *_1er décembre 1970_* à *_8h44_* avec les motifs *_enfants_* et *_travail_* de cochés 
+
 ![equip_image](/img_readme/scenario.PNG)  
 
 

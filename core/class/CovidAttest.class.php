@@ -398,7 +398,7 @@ class CovidAttest extends eqLogic {
     }
 
     public function createDirectPDF($motifs){
-        log::add('CovidAttest','debug','createDirectPDF called for motif :'.$motifs);
+        log::add('CovidAttest','debug','|-----------------------> createDirectPDF called for motif :'.$motifs);
       
       	$cmdDate = $this->getCmd(null, 'dateAttest');
       
