@@ -11,3 +11,6 @@ docs/_site/
 docs/Gemfile.lock
 docs/.sass-cache/
 .remote-sync.json
+img_readme/equipement.PNG
+img_readme/scenario.PNG
+img_readme/widget.PNG
