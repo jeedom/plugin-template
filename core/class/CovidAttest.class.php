@@ -48,11 +48,77 @@ class CovidAttest extends eqLogic {
 
  // Fonction exécutée automatiquement avant la sauvegarde (création ou mise à jour) de l'équipement
     public function preSave() {
+      	$testAttest = $this->getCmd(null, 'motif_TRAVAIL');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::TRAVAIL);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_ACHATS');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::ACHATS);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_SANTE');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::SANTE);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_FAMILLE');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::FAMILLE);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_HANDICAP');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::HANDICAP);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_SPORT_ANIMAUX');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::SPORT_ANIMAUX);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_CONVOCATION');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::CONVOCATION);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_MISSIONS');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::MISSIONS);
+			$testAttest->save();
+		}
+      
+      $testAttest = $this->getCmd(null, 'motif_ENFANTS');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::ENFANTS);
+			$testAttest->save();
+		}
 
     }
 
  // Fonction exécutée automatiquement après la sauvegarde (création ou mise à jour) de l'équipement
     public function postSave() {
+      
+      	/*$testAttest = $this->getCmd(null, 'testAutoInfo');
+		if (!is_object($testAttest)) {
+			$testAttest = new CovidAttestCmd();
+			$testAttest->setLogicalId('testAutoInfo');
+			$testAttest->setIsVisible(1);
+			$testAttest->setName(__('Test Auto Info', __FILE__));
+		}
+        $testAttest->setType('info');
+		$testAttest->setSubType('string');
+		$testAttest->setEqLogic_id($this->getId());
+		$testAttest->save();*/
+      
        
         $dateAttest = $this->getCmd(null, 'dateAttest');
 		if (!is_object($dateAttest)) {
@@ -187,8 +253,138 @@ class CovidAttest extends eqLogic {
 		$motif->setSubType('other');
 		$motif->setEqLogic_id($this->getId());
 		$motif->save();
-
-
+      
+      $motif = $this->getCmd(null, 'send_motif_MULTI');
+		if (!is_object($motif)) {
+			$motif = new CovidAttestCmd();
+			$motif->setLogicalId('send_motif_MULTI');
+			$motif->setIsVisible(1);
+			$motif->setName(__('Envoi motif MULTIPLES', __FILE__));
+		}
+        $motif->setType('action');
+		$motif->setSubType('message');
+		$motif->setEqLogic_id($this->getId());
+		$motif->save();
+      
+      $motifType = $this->getCmd(null, 'motif_TRAVAIL');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_TRAVAIL');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif TRAVAIL', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_ACHATS');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_ACHATS');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif ACHATS', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_SANTE');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_SANTE');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif SANTE', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_FAMILLE');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_FAMILLE');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif FAMILLE', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_HANDICAP');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_HANDICAP');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif HANDICAP', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_SPORT_ANIMAUX');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_SPORT_ANIMAUX');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif SPORT_ANIMAUX', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_CONVOCATION');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_CONVOCATION');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif CONVOCATION', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_MISSIONS');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_MISSIONS');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif MISSIONS', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      $motifType = $this->getCmd(null, 'motif_ENFANTS');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_ENFANTS');
+			$motifType->setIsVisible(1);
+			$motifType->setName(__('motif ENFANTS', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+      
+      
+      //
     }
 
  // Fonction exécutée automatiquement avant la suppression de l'équipement
@@ -340,7 +536,6 @@ class CovidAttest extends eqLogic {
 
 class CovidAttestCmd extends cmd {
    
-
   // Exécution d'une commande
      public function execute($_options = array()) {
          log::add('CovidAttest','debug', 'execute CMD, logical id :'.$this->getLogicalId().'  options : '.print_r($_options));
@@ -372,6 +567,16 @@ class CovidAttestCmd extends cmd {
              case 'send_motif_ENFANTS':
                  $this->getEqLogic()->createDirectPDF(ATTESTGEN::ENFANTS);
                  break;
+           case 'send_motif_MULTI':
+             	if(!isset($_options['message']) | empty ($_options['message'])){
+                	 log::add('CovidAttest','error', 'Aucun motifs de défini');
+                }
+             	$motifsStr=str_replace(',', ';',$_options['message']);
+             	$motifs=explode (';',$motifsStr);
+             	
+             	log::add('CovidAttest', 'debug', 'motif multiples : '.implode('#',$motifs));
+             	$this->getEqLogic()->createDirectPDF($motifs);
+             	break;
              Default:
                  log::add('CovidAttest','debug', 'Deafault call');
 
