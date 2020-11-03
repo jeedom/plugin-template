@@ -572,6 +572,7 @@ class CovidAttestCmd extends cmd {
                 	 log::add('CovidAttest','error', 'Aucun motif de défini pour un envoi mutliple, veuillez selectionner parmi les commandes info disponibles');
                 }
              	$motifsStr=str_replace(',', ';',$_options['message']);
+             	$motifsStr=str_replace(' ', '',$_options['message']);
              	$motifs=explode (';',$motifsStr);
              	
              	log::add('CovidAttest', 'debug', 'motifs multiples : '.implode('#',$motifs));
