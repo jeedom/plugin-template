@@ -147,7 +147,7 @@ class ATTESTGEN {
         $date_time=$dateAttest.' a '.$timeAttest;
         $qrcode="Cree le: ".$date_time.";\n Nom: ".$name.";\n Prenom: ".$fname.";\n Naissance: ".$ddn." a ".$lieu_ddn.";\n Adresse: ".$address." ".$zip." ".$ville.";\n Sortie: ".$date_time."\n Motifs: ".implode (",", $motifs);
 
-        $this->url_qrcode = $path.'/qrcode_attest'.urlencode($fname).'.png';
+        $this->url_qrcode = $path.'/qrcode_attest'.urlencode(strftime("-%G-%m-%d_%H-%M")."_".$fname."_".$name).'.png';
         $qrcode= stripslashes($qrcode);
       try{
         $qrFile = QRcode::png($qrcode,$this->url_qrcode, 'M');
