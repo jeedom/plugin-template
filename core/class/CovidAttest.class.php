@@ -488,7 +488,7 @@ class CovidAttest extends eqLogic {
           		$filesA=array();
           		if($sendPDF)array_push($filesA,$pdfURL);
           		if($sendQRC)array_push($filesA,$pngURL);
-          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' de '.$prenom.' pour '.$motifs, 'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' de '.$prenom.' pour '.$motifs, 'message'=> 'Attestation Covid du '.$dateAttest.' à '.$timeAttest.' pour '.$motifs);
             
               break;
           case "custom":
