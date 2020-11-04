@@ -21,6 +21,8 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
 require_once __DIR__  . '/AttestGen.class.php';
 
 class CovidAttest extends eqLogic {
+  
+  const SUBFOLDER="AG_";
 
   /*
    public static function cron() {
@@ -416,28 +418,20 @@ class CovidAttest extends eqLogic {
         $prenom=($this->getConfiguration('user_firstname', ''));
     
   		log::add('CovidAttest', 'debug', 'remove My Files Call pour '.$prenom.' '.$nom); 
-   		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT';
+   		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT/'.self::SUBFOLDER.$this->getID();
    		$files = glob($path.'/*'); 
-    
-    	$patternPDF='/attestation-[0-9-_]{15,18}_'.urlencode($prenom).'.'.urlencode($nom).'/'; 
-    	$patternQRCode='/qrcode_attest-[0-9-_]{15,18}_'.urlencode($prenom).'.'.urlencode($nom).'/'; 
-    	log::add('CovidAttest', 'debug', 'delette pattern pdf :'.$patternPDF.'  |  Qr :'.$patternQRCode);
+    	
+    	log::add('CovidAttest', 'debug', 'Looking to delete files in '.$path);
         foreach($files as $file){ // iterate files
           if(is_file($file)){
-           	log::add('CovidAttest', 'debug', 'Check for delete : '.basename ($file).'  |  verif pdf pattern : '.preg_match($patternPDF,basename ($file)).'  | match qr pattern : '.preg_match($patternQRCode,basename ($file))); 
-            
-            if(preg_match($patternPDF,basename ($file)) | preg_match($patternQRCode,basename ($file))){
-              	log::add('CovidAttest', 'debug', 'Remove file  : '.basename ($file)); 
-              unlink($file);
-            }
-            
+           	log::add('CovidAttest', 'debug', ' delete File : '.basename ($file).'  |  in : '.self::SUBFOLDER.$this->getID());
+            unlink($file);
           }
-            //unlink($file); // delete file
         }
   }
 
     public function createDirectPDF($motifs){
-        log::add('CovidAttest','debug','|-----------------------> createDirectPDF called for motif :'.$motifs);
+        log::add('CovidAttest','debug','|---------'.$this->getId().'--------------> createDirectPDF called for motif :'.$motifs);
       
       	$cmdDate = $this->getCmd(null, 'dateAttest');
       
@@ -493,7 +487,7 @@ class CovidAttest extends eqLogic {
       
         // creation de l'instance
         $ag=new ATTESTGEN();
-        $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage);
+        $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage, self::SUBFOLDER.$this->getId());
         log::add('CovidAttest','debug', 'pdf url :'.$pdfURL);
         $pngURL =$ag->getPNGURL();
         log::add('CovidAttest','debug', 'png url :'.$pngURL);
