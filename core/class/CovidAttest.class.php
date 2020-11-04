@@ -23,6 +23,24 @@ require_once __DIR__  . '/AttestGen.class.php';
 class CovidAttest extends eqLogic {
   
   const SUBFOLDER="AG_";
+  
+  public static function DELETE_ALL(){
+    	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT';
+    	log::add('CovidAttest', 'debug', 'CALL REMOVE ALL FILES to '.$path);
+    	 if(!is_dir($path)){
+            log::add('CovidAttest', 'debug', 'Path  not found');
+           return true;
+        }
+    	$success = self::delTree($path);
+    	log::add('CovidAttest', 'debug', 'delete folder :'.$success);
+  }
+  public static function delTree($dir) { 
+   $files = array_diff(scandir($dir), array('.','..')); 
+    foreach ($files as $file) { 
+      (is_dir("$dir/$file")) ? self::delTree("$dir/$file") : unlink("$dir/$file"); 
+    } 
+    return rmdir($dir); 
+  } 
 
   /*
    public static function cron() {
