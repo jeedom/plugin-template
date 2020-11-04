@@ -145,7 +145,7 @@ class ATTESTGEN {
         }
         // g?n?ration du QR code
         $date_time=$dateAttest.' a '.$timeAttest;
-        $qrcode="Cree le: ".$date_time.";\n Nom: ".$name.";\n Prenom: ".$fname.";\n Naissance: ".$ddn." a ".$lieu_ddn.";\n Adresse: ".$address." ".$zip." ".$ville.";\n Sortie: ".$date_time."\n Motifs: ".implode (",", $motifs);
+        $qrcode="Cree le: ".$date_time.";\n Nom: ".$name.";\n Prenom: ".$fname.";\n Naissance: ".$ddn." a ".$lieu_ddn.";\n Adresse: ".$address." ".$zip." ".$ville.";\n Sortie: ".$date_time.";\n Motifs: ".implode (",", $motifs).';';
 
         $this->url_qrcode = $path.'/qrcode_attest'.urlencode($fname).'.png';
         $qrcode= stripslashes($qrcode);
