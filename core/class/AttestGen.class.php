@@ -195,7 +195,7 @@ class ATTESTGEN {
 
         //adresse
         // en plus petit
-        $pdf->SetFont('Arial', '', '10');
+        //$pdf->SetFont('Arial', '', '10');
         $pdf->SetXY($posDef['ADRESSE']["x"], $posDef['ADRESSE']["y"]);
         $pdf->Write(0, utf8_decode($address.' '.$zip.' '.$ville));
 
