@@ -202,7 +202,7 @@ foreach (jeeObject::all() as $object) {
                 <label class="checkbox-inline help" data-help="{{si cochée, envoi le png du QRcode}}">
                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>{{Envoi du QRcode}}
                 </label>
-                <label class="checkbox-inline help" data-help="{{si cochée, ajoute une seconde page au pdf avec le QRcode en grand}}">
+                <label class="checkbox-inline help" data-help="{{si cochée, ajoute une seconde page au pdf avec le QRcode grand format}}">
                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_addpage"/>{{Ajout de la seconde page}}
                 </label>
            </div>
