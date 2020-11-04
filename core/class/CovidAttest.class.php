@@ -473,7 +473,7 @@ class CovidAttest extends eqLogic {
       // choix selon le type d'équipement:
       $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
 	    // pour le formattage des motif dans les notification, si c'est un motif multiple=> envoi un array
-	  if is_array($motifs){
+	  if (is_array($motifs)){
 		  $motifStr =implode (',', $motifs);
 	  }else{
 		  $motifStr = $motifs;
