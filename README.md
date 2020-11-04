@@ -4,7 +4,7 @@
   <img width="100" src="/plugin_info/CovidAttest_icon.png">
 </p>
 
-Permet de générer une attestation dérogatoire qu confinement en France. Génère un document PDF de l'attestation ainsi qu'une image (png) du QRcode reprenant les informations
+Permet de générer une attestation dérogatoire au confinement en France. Génère un document PDF de l'attestation ainsi qu'une image (png) du QRcode reprenant les informations
 
 *__!! n'a pas encore testé en controle !! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
@@ -82,4 +82,4 @@ Utilise les librairies :
  *  Setasign / FPDF : https://github.com/Setasign/FPDF
  *  Setasign / FPDI : https://github.com/Setasign/FPDI
 
-Merci Naboleo, jjl87 et tout les autres qui ont fait avancer le schnmilblic, essuyé les platres et passé le torchon,
+Merci Naboleo, jjl87, Ludo, arnog23, benj29 et tout les autres qui ont fait avancer le schnmilblic, essuyé les platres et passé le torchon,
