@@ -1,6 +1,8 @@
 # Covid Attest plugin pour Jeedom
 
-![Logo_image](/plugin_info/CovidAttest_icon.png)
+<p align="center">
+  <img width="100" src="/plugin_info/CovidAttest_icon.png">
+</p>
 
 Permet de générer une attestation dérogatoire qu confinement en France. Génère un document PDF de l'attestation ainsi qu'une image (png) du QRcode reprenant les informations
 
