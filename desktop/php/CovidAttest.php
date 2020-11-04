@@ -119,7 +119,7 @@ foreach (jeeObject::all() as $object) {
         </div>
     </div>
     <div class="form-group">
-                  <label class="col-sm-3 control-label help" data-help="{{Si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
+                  <label class="col-sm-3 control-label help" data-help="{{si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
                   <div class="col-sm-9">
                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
                  </div>
@@ -207,6 +207,15 @@ foreach (jeeObject::all() as $object) {
                 </label>
            </div>
   </div>
+                  
+ <div class="form-group">
+                  <label class="col-sm-3 control-label help" data-help="{{Désactiver la suppression auto des fichiers, nécessitera une action manuelle pour la suppression}}">{{Désactiver la Supression auto}}</label>
+                  <div class="col-sm-9">
+                   <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="auto_remove"/>
+                   <span class='warning_autoremove' style="display: none;color:orange;">Attention, vous devrez supprimer manuellement les fichiers par la commande 'supprimer les fichiers'</span>
+                 </div>
+                
+             </div>
  
 </fieldset>
 </form>
