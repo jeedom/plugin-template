@@ -472,6 +472,13 @@ class CovidAttest extends eqLogic {
       log::add('CovidAttest','debug',' choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendQRC);
       // choix selon le type d'équipement:
       $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
+	    // pour le formattage des motif dans les notification, si c'est un motif multiple=> envoi un array
+	  if is_array($motifs){
+		  $motifStr =implode (',', $motifs);
+	  }else{
+		  $motifStr = $motifs;
+	  }
+	  
       switch ($typeCmd) {
           /// si telegram
           case 'telegram':
@@ -479,7 +486,7 @@ class CovidAttest extends eqLogic {
           		if($sendPDF)$str.=$pdfURL;
           		if($sendQRC)$str.=(strlen($str)>6?',':'').$pngURL;
            		log::add('CovidAttest','debug','telegram : string envoyée :'.$str);
-              	 $optionsSendCmd= array('title'=>$str,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifs);
+              	 $optionsSendCmd= array('title'=>$str,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifStr);
               break;
           
           
@@ -488,7 +495,7 @@ class CovidAttest extends eqLogic {
           		$filesA=array();
           		if($sendPDF)array_push($filesA,$pdfURL);
           		if($sendQRC)array_push($filesA,$pngURL);
-          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifs, 'message'=> " ");
+          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> " ");
             
               break;
           case "custom":
