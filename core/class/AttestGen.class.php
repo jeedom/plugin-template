@@ -145,7 +145,7 @@ class ATTESTGEN {
         }
         // g?n?ration du QR code
         $date_time=$dateAttest.' a '.$timeAttest;
-        $qrcode="Cree le: ".$date_time.";\n Nom: ".$name.";\n Prenom: ".$fname.";\n Naissance: ".$ddn." a ".$lieu_ddn.";\n Adresse: ".$address." ".$zip." ".$ville.";\n Sortie: ".$date_time."\n Motifs: ".implode (",", $motifs);
+        $qrcode="Cree le: ".$date_time.";\n Nom: ".$name.";\n Prenom: ".$fname.";\n Naissance: ".$ddn." a ".$lieu_ddn.";\n Adresse: ".$address." ".$zip." ".$ville.";\n Sortie: ".$date_time.";\n Motifs: ".implode (",", $motifs).';';
 
         $this->url_qrcode = $path.'/qrcode_attest'.urlencode(strftime("-%G-%m-%d_%H-%M")."_".$fname."_".$name).'.png';
         $qrcode= stripslashes($qrcode);
@@ -195,7 +195,7 @@ class ATTESTGEN {
 
         //adresse
         // en plus petit
-        $pdf->SetFont('Arial', '', '10');
+        //$pdf->SetFont('Arial', '', '10');
         $pdf->SetXY($posDef['ADRESSE']["x"], $posDef['ADRESSE']["y"]);
         $pdf->Write(0, utf8_decode($address.' '.$zip.' '.$ville));
 
