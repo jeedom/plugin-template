@@ -8,11 +8,16 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
 
 *__!! n'a pas encore testé en controle !! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
- 
- 
+# -------------|Configuration|-------------
+  
+  1. activer le plug in rien de plus
+  
+  2. Il y a un bouton qui permet de supprimer tous les fichiers d'attestation présents pour tous les équipements créés, pour faire le ménage, particulièrement si la suppression auto est désactivée
+  
+  
  # -------------|Paramétrage|-------------
  
- 1/ activer le plug in
+
  
  2/ créer un équipement par membre à notifier,
  
