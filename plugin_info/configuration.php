@@ -36,11 +36,6 @@ if (!isConnect()) {
 </form>
 
 <script>
-   $('#bt_syncconfigBlea').on('click', function () {
-  	if (!confirm('{{Supprimer tous les fichiers attestations conservés de tous les équipement CovidAttest ?}}')) {
-      	$('#div_alert').showAlert({message: '{{Opération annulée}}', level: 'success'});
-        return false;
-    }
 	 $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/CovidAttest/core/ajax/CovidAttest.ajax.php", // url du fichier php
