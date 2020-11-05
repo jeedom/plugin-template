@@ -29,14 +29,14 @@ if (!isConnect()) {
         <div class="form-group">
 			<label class="col-lg-4 control-label">{{Supprimer tous les fichiers Attestations}}</label>
 			<div class="col-lg-5">
-				<a class="btn btn-warning" id="bt_syncconfigBlea"><i class="fas fa-sync-alt"></i> {{Effacer}}</a>
+				<a class="btn btn-warning" id="bt_deleteAllCA_Btn"><i class="fas fa-sync-alt"></i> {{Effacer}}</a>
 			</div>
 		</div>
   </fieldset>
 </form>
 
 <script>
-   $('#bt_syncconfigBlea').on('click', function () {
+	$('#bt_deleteAllCA_Btn').on('click', function () {
   	if (!confirm('{{Supprimer tous les fichiers attestations conservés de tous les équipement CovidAttest ?}}')) {
       	$('#div_alert').showAlert({message: '{{Opération annulée}}', level: 'success'});
         return false;

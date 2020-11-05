@@ -25,7 +25,6 @@ try {
     }
   	ajax::init();
     if (init('action') == 'delete_allFiles') {
-		$eqLogics = eqLogic::byType('CovidAttest');
 		CovidAttest::DELETE_ALL();
 		ajax::success();
 	}

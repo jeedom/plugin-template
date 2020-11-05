@@ -6,7 +6,7 @@
 
 Permet de générer une attestation dérogatoire au confinement en France. Génère un document PDF de l'attestation ainsi qu'une image (png) du QRcode reprenant les informations
 
-*__!! n'a pas encore testé en controle !! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
+*__!! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
 # -------------|Configuration|-------------
   
