@@ -23,7 +23,7 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
  
  3/ dans la configuration de l'équipement, renseigner les informations à faire figurer sur l'attestation
       
-![equip_image](/img_readme/widget.PNG)     
+![equip_image](/img_readme/equipement.PNG)     
  
  * __Nom de l'équipement__ 
  * __Objet parent__ 
