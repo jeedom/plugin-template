@@ -88,4 +88,4 @@ Utilise les librairies :
  *  Setasign / FPDF : https://github.com/Setasign/FPDF
  *  Setasign / FPDI : https://github.com/Setasign/FPDI
 
-Merci Naboleo, jjl87, Ludo, arnog23, benj29 et tout les autres qui ont fait avancer le schnmilblic, essuyé les platres et passé le torchon,
+Avec les contributions de Naboleo, jjl87, Ludo, arnog23, benj29 et tout les autres qui ont fait avancer le schnmilblic, essuyé les platres et passé le torchon,
