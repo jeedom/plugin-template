@@ -42,20 +42,30 @@ class CovidAttest extends eqLogic {
     return rmdir($dir); 
   } 
 
-  /*
-   public static function cron() {
-     		log::add('CovidAttest', 'debug', 'Launch CRON'); 
-   		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT';
-   		$files = glob($path.'/*'); // get all file names
-        foreach($files as $file){ // iterate files
-          if(is_file($file)){
-           	log::add('CovidAttest', 'debug', 'CRON could delete : '.$file); 
-          }
-            //unlink($file); // delete file
-        }
+  public static function generate_test($filename){
+	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT/TEST/'; 
+	if(is_dir($path)){
+		log::add('CovidAttest', 'debug', 'clear test path');
+		$success = self::delTree($path);
+	}
+	$ag = new ATTESTGEN();
+	$ag->setCertif($filename);
 
-      }
-     */
+	$name='DUPONT';
+	$fname='Camille';
+	$ddn='01/01/1970';
+	$lieu_ddn='Bruère-Allichamps';
+	$address='01 rue de la mouette';
+	$zip='00 001';
+	$ville='Saint-Amand-Montrond';
+	$motifs=array(ATTESTGEN::TRAVAIL ,ATTESTGEN::ACHATS ,ATTESTGEN::SANTE ,ATTESTGEN::FAMILLE ,ATTESTGEN::HANDICAP ,ATTESTGEN::SPORT_ANIMAUX ,ATTESTGEN::CONVOCATION ,ATTESTGEN::MISSIONS ,ATTESTGEN::ENFANTS);
+	$dateAttest='12/12/2012';
+	$timeAttest='12h12';
+	$ag->generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, 'TEST');
+	return '/plugins/CovidAttest/EXPORT/TEST/'.basename($ag->getPDFURL());
+	
+}
+
 
     /*     * *********************Méthodes d'instance************************* */
 
@@ -146,7 +156,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($dateAttest)) {
 			$dateAttest = new CovidAttestCmd();
 			$dateAttest->setLogicalId('dateAttest');
-			$dateAttest->setIsVisible(1);
+			$dateAttest->setIsVisible(0);
 			$dateAttest->setName(__('Date de l\'attestation', __FILE__));
 		}
         $dateAttest->setType('info');
@@ -159,7 +169,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($heureAttest)) {
 			$heureAttest = new CovidAttestCmd();
 			$heureAttest->setLogicalId('heureAttest');
-			$heureAttest->setIsVisible(1);
+			$heureAttest->setIsVisible(0);
 			$heureAttest->setName(__('Heure de l\'attestation', __FILE__));
 		}
         $heureAttest->setType('info');
@@ -292,7 +302,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_TRAVAIL');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif TRAVAIL', __FILE__));
 		}
         $motifType->setType('info');
@@ -305,7 +315,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_ACHATS');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif ACHATS', __FILE__));
 		}
         $motifType->setType('info');
@@ -318,7 +328,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_SANTE');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif SANTE', __FILE__));
 		}
         $motifType->setType('info');
@@ -331,7 +341,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_FAMILLE');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif FAMILLE', __FILE__));
 		}
         $motifType->setType('info');
@@ -344,7 +354,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_HANDICAP');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif HANDICAP', __FILE__));
 		}
         $motifType->setType('info');
@@ -357,7 +367,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_SPORT_ANIMAUX');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif SPORT_ANIMAUX', __FILE__));
 		}
         $motifType->setType('info');
@@ -370,7 +380,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_CONVOCATION');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif CONVOCATION', __FILE__));
 		}
         $motifType->setType('info');
@@ -383,7 +393,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_MISSIONS');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif MISSIONS', __FILE__));
 		}
         $motifType->setType('info');
@@ -396,7 +406,7 @@ class CovidAttest extends eqLogic {
 		if (!is_object($motifType)) {
 			$motifType = new CovidAttestCmd();
 			$motifType->setLogicalId('motif_ENFANTS');
-			$motifType->setIsVisible(1);
+			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif ENFANTS', __FILE__));
 		}
         $motifType->setType('info');
@@ -501,10 +511,20 @@ class CovidAttest extends eqLogic {
         log::add('CovidAttest','debug', "Cree le: ".$dateAttest.";\n Nom: ".$nom.";\n Prenom: ".$prenom.";\n Naissance: ".$date_naissance." a ".$lieu_naissance.";\n Adresse: ".$adresse." ".$code_postal." ".$ville.";\n Sortie: ".$dateAttest."\n Motifs: ".$motifs);
 		// récupération de l'option seconde page
       	$secondpage=$this->getConfiguration('option_addpage', '');
-      log::add('CovidAttest', 'debug', 'ajout de la seconde page :'.$secondpage);
-      
-        // creation de l'instance
-        $ag=new ATTESTGEN();
+	  	log::add('CovidAttest', 'debug', 'ajout de la seconde page :'.$secondpage);
+		  
+		  // creation de l'instance
+		  $ag=new ATTESTGEN();
+
+		  // récupération du fichier défini en configuration
+		$certifFile=config::byKey('certificate_name', 'CovidAttest', 'none');
+		
+		if (!is_null($certifFile)){
+			log::add('CovidAttest', 'debug', 'Certificat utilisé :'.$certifFile);
+			$ag->setCertif($certifFile);
+		}
+
+        
         $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage, self::SUBFOLDER.$this->getId());
         log::add('CovidAttest','debug', 'pdf url :'.$pdfURL);
         $pngURL =$ag->getPNGURL();
