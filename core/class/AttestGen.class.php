@@ -281,7 +281,7 @@ class ATTESTGEN {
         }
 
         // le png
-        $pdf->Image($this->url_qrcode,$posDef['QRcode']["x"], $posDef['QRcode']["y"],32,32,'PNG');
+        $pdf->Image($this->url_qrcode,$posDef['QRcode']["x"], $posDef['QRcode']["y"],$posDef['QRcode']["size"],$posDef['QRcode']["size"],'PNG');
 
         if($secondPage){
             $pdf->addPage();
