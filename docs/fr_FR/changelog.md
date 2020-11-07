@@ -1,5 +1,5 @@
 
-### 07/11/2020 : Mofigication de la configuration
+### 07/11/2020 : *beta* Modigication de la configuration
 * ajout de la possibilité de selectionner un certificat (modèle de l'attestation) pour générer les attestation
 * ajout de la possibilité de modifier directement les configuration d'insert dans le certificat (position et taille)
 * export de la configuration (fichier certificat + json de configuration) pour partage, histoire de s'adapter rapidement au changement de modèle du gouvernement
