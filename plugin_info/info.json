@@ -1,7 +1,7 @@
 {
 	"id" : "CovidAttest",
 	"name" : "Covid Attestation Generator",
-	"description" : "Generateur de l'attestation dérogatoire au confinement",
+	"description" : "Generateur de l'attestation dérogatoire au confinement, Il vous permet de généré un fichier pdf semblable à celui officiel, QRCode compris et de le transmettre via une commande type plugin Telegram ou mail. Vous pouvez également transférer un png du QRcode directement ",
 	"licence" : "AGPL",
 	"author" : "Bben",
 	"require" : "3.3",
@@ -12,8 +12,7 @@
 	"changelog" : "https://github.com/Bbillyben/CovidAttest/blob/master/docs/fr_FR/changelog.md",
 	"documentation" : "https://github.com/Bbillyben/CovidAttest/blob/master/README.md",
 	"link" : {
-		"forum":"Lien vers le forum",
-		"video" : "Lien vers une video"
+		"forum":"https://community.jeedom.com/t/plugin-covidattest-generateur-dattestation-derogatoire-au-confinement-en-france/41362"
 	},
 	"language" : ["fr_FR"],
 	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
