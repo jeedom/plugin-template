@@ -519,9 +519,11 @@ class CovidAttest extends eqLogic {
 		  // récupération du fichier défini en configuration
 		$certifFile=config::byKey('certificate_name', 'CovidAttest', 'none');
 		
-		if (!is_null($certifFile)){
+		if (!is_null($certifFile) && $certifFile!= 'none'){
 			log::add('CovidAttest', 'debug', 'Certificat utilisé :'.$certifFile);
 			$ag->setCertif($certifFile);
+		}else{
+			log::add('CovidAttest', 'debug', 'Certificat utilisé : DEFAULT');
 		}
 
         
