@@ -69,7 +69,7 @@ if (!isConnect('admin')) {
 
   
 </div>
-<div class="form-group"><i class="arrowCA down" id="arrowCA"></i><span class="toggle-ca"> {{ajouter un fichier de configuration}}</span></div>
+<div class="form-group toggle-ca"><i class="arrowCA down" id="arrowCA"></i><span class="toggle-ca"> {{ajouter un fichier de configuration}}</span></div>
 <div class="form-group" id="uploadGroupJSON" style="display:none">
   <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
 
@@ -96,7 +96,8 @@ $('#jsonfile').on('change', function () {
 });
 
 
-$('.toggle-ca').on('click', function () {
+$('.toggle-ca').on('click', function (event) {
+    event.stopPropagation();
     if($('#uploadGroupJSON').is(":visible")){
         $('#uploadGroupJSON').hide(200);
         $('#arrowCA').addClass('down');
