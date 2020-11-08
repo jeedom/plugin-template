@@ -29,7 +29,7 @@ try {
     }
     ajax::init();
     
-    log::add('CovidAttest','debug','action required :'.init('action'));
+    log::add('CovidAttest','debug','╔═══ #################### AJAX action required :'.init('action'));
 
 
     if (init('action') == 'delete_allFiles') {
@@ -50,13 +50,13 @@ try {
     }
     if (init('action') == 'test_file') { 
       //send file
-      log::add('CovidAttest', 'debug','call test file :'.init('file'));
+      log::add('CovidAttest', 'debug','╠════ call test file :'.init('file'));
       $filename=CovidAttest::generate_test(init('file'));
       ajax::success($filename);
     }
     if (init('action') == 'share_conf') { 
       //send file
-      log::add('CovidAttest', 'debug','call share file :'.init('file'));
+      log::add('CovidAttest', 'debug','╠════ call share file :'.init('file'));
       $filename=ATTESTJSON::share_conf_file(init('file'));
       if($filename!=false){
         ajax::success($filename);
