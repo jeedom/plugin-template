@@ -26,26 +26,29 @@ class CovidAttest extends eqLogic {
   
   public static function DELETE_ALL(){
     	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT';
-    	log::add('CovidAttest', 'debug', 'CALL REMOVE ALL FILES to '.$path);
+    	log::add('CovidAttest', 'debug', '╔═══════════════════════ CALL REMOVE ALL FILES to '.$path);
     	 if(!is_dir($path)){
-            log::add('CovidAttest', 'debug', 'Path  not found');
+            log::add('CovidAttest', 'debug', '╠════ Path  not found');
            return true;
         }
     	$success = self::delTree($path);
-    	log::add('CovidAttest', 'debug', 'delete folder :'.$success);
+		log::add('CovidAttest', 'debug', '╠════ delete folder :'.$path.' | success :'.$success);
+		log::add('CovidAttest', 'debug', '╚═══════════════════════ End Files Remove ');
   }
   public static function delTree($dir) { 
    $files = array_diff(scandir($dir), array('.','..')); 
     foreach ($files as $file) { 
+		log::add('CovidAttest', 'debug', '╠════ delete folder/file :'.$file.' from :'.$dir);
       (is_dir("$dir/$file")) ? self::delTree("$dir/$file") : unlink("$dir/$file"); 
-    } 
+	}
     return rmdir($dir); 
   } 
 
   public static function generate_test($filename){
+	log::add('CovidAttest', 'debug', '╔═══════════════════════ Generating Test File');
 	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT/TEST/'; 
 	if(is_dir($path)){
-		log::add('CovidAttest', 'debug', 'clear test path');
+		log::add('CovidAttest', 'debug', '╠════ clear test path :'.$path);
 		$success = self::delTree($path);
 	}
 	$ag = new ATTESTGEN();
@@ -61,8 +64,12 @@ class CovidAttest extends eqLogic {
 	$motifs=array(ATTESTGEN::TRAVAIL ,ATTESTGEN::ACHATS ,ATTESTGEN::SANTE ,ATTESTGEN::FAMILLE ,ATTESTGEN::HANDICAP ,ATTESTGEN::SPORT_ANIMAUX ,ATTESTGEN::CONVOCATION ,ATTESTGEN::MISSIONS ,ATTESTGEN::ENFANTS);
 	$dateAttest='12/12/2012';
 	$timeAttest='12h12';
-	$ag->generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, 'TEST');
-	return '/plugins/CovidAttest/EXPORT/TEST/'.basename($ag->getPDFURL());
+	$testPATH = $ag->generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, 'TEST');
+	$testURL ='/plugins/CovidAttest/EXPORT/TEST/'.basename($testPATH);
+	log::add('CovidAttest', 'debug', '╠════ Test créé '.$testPATH);
+	log::add('CovidAttest', 'debug', '╠════ URL '.$testURL);
+	log::add('CovidAttest', 'debug', '╚═══════════════════════ generation test file');
+	return $testURL;
 	
 }
 
@@ -445,22 +452,20 @@ class CovidAttest extends eqLogic {
     	$nom=( $this->getConfiguration('user_name', ''));
         $prenom=($this->getConfiguration('user_firstname', ''));
     
-  		log::add('CovidAttest', 'debug', 'remove My Files Call pour '.$prenom.' '.$nom); 
-   		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT/'.self::SUBFOLDER.$this->getID();
-   		$files = glob($path.'/*'); 
-    	
-    	log::add('CovidAttest', 'debug', 'Looking to delete files in '.$path);
-        foreach($files as $file){ // iterate files
-          if(is_file($file)){
-           	log::add('CovidAttest', 'debug', ' delete File : '.basename ($file).'  |  in : '.self::SUBFOLDER.$this->getID());
-            unlink($file);
-          }
-        }
+		log::add('CovidAttest', 'debug', '╔═══════════════════════ remove My Files Call pour '.$prenom.' '.$nom); 
+		
+		$path = realpath(dirname(__FILE__). '/../../').'/EXPORT/'.self::SUBFOLDER.$this->getID();
+		log::add('CovidAttest', 'debug', '╠════ path à supprimer '.$path); 
+
+		$success = self::delTree($path);
+		log::add('CovidAttest', 'debug', '╠════ delete folder :'.$path.' | success :'.$success);
+		log::add('CovidAttest', 'debug', '╚═══════════════════════ End Files Remove pour '.$prenom.' '.$nom);
+		
   }
 
     public function createDirectPDF($motifs){
-        log::add('CovidAttest','debug','|---------'.$this->getId().'--------------> createDirectPDF called for motif :'.$motifs);
-      
+        log::add('CovidAttest','debug','╠════ createDirectPDF called for motif :'.$motifs);
+		log::add('CovidAttest','debug','╠════ Id equipement :'.$this->getId());
       	$cmdDate = $this->getCmd(null, 'dateAttest');
       
 
@@ -479,7 +484,7 @@ class CovidAttest extends eqLogic {
         if ($timeAttest=='') {
             $timeAttest=strftime("%Hh%M");
         }
-        log::add('CovidAttest','debug', 'date :'.$dateAttest.' / time : '.$timeAttest.' / motif : '.$motifs);
+        log::add('CovidAttest','debug', '╠════ date :'.$dateAttest.' / time : '.$timeAttest.' / motif : '.$motifs);
         $this->createPDF($dateAttest, $timeAttest, $motifs);
       	
       	// on remet à 0 les valerus de date et time
@@ -508,10 +513,10 @@ class CovidAttest extends eqLogic {
         $ville=$this->getConfiguration('user_ctown', '');
       }
 
-        log::add('CovidAttest','debug', "Cree le: ".$dateAttest.";\n Nom: ".$nom.";\n Prenom: ".$prenom.";\n Naissance: ".$date_naissance." a ".$lieu_naissance.";\n Adresse: ".$adresse." ".$code_postal." ".$ville.";\n Sortie: ".$dateAttest."\n Motifs: ".$motifs);
+        log::add('CovidAttest','debug', "╠════ Cree le: ".$dateAttest.";\n Nom: ".$nom.";\n Prenom: ".$prenom.";\n Naissance: ".$date_naissance." a ".$lieu_naissance.";\n Adresse: ".$adresse." ".$code_postal." ".$ville.";\n Sortie: ".$dateAttest."\n Motifs: ".$motifs);
 		// récupération de l'option seconde page
       	$secondpage=$this->getConfiguration('option_addpage', '');
-	  	log::add('CovidAttest', 'debug', 'ajout de la seconde page :'.$secondpage);
+	  	log::add('CovidAttest', 'debug', '╠════ ajout de la seconde page :'.$secondpage);
 		  
 		  // creation de l'instance
 		  $ag=new ATTESTGEN();
@@ -520,29 +525,29 @@ class CovidAttest extends eqLogic {
 		$certifFile=config::byKey('certificate_name', 'CovidAttest', 'none');
 		
 		if (!is_null($certifFile) && $certifFile!= 'none'){
-			log::add('CovidAttest', 'debug', 'Certificat utilisé :'.$certifFile);
+			log::add('CovidAttest', 'debug', '╠════ Certificat utilisé :'.$certifFile);
 			$ag->setCertif($certifFile);
 		}else{
-			log::add('CovidAttest', 'debug', 'Certificat utilisé : DEFAULT');
+			log::add('CovidAttest', 'debug', '╠════ Certificat utilisé : DEFAULT');
 		}
 
         
         $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage, self::SUBFOLDER.$this->getId());
-        log::add('CovidAttest','debug', 'pdf url :'.$pdfURL);
+        log::add('CovidAttest','debug', '╠════ pdf url :'.$pdfURL);
         $pngURL =$ag->getPNGURL();
-        log::add('CovidAttest','debug', 'png url :'.$pngURL);
+        log::add('CovidAttest','debug', '╠════ png url :'.$pngURL);
         $sendCmd =$this->getConfiguration('sendCmd', '');
 
 		if ($sendCmd === '') {
 			log::add('CovidAttest', 'error', "Commande denvoi non configurée {$this->getHumanName()}.");
 			return false;
 		}
-        log::add('CovidAttest','debug', 'commande d\'envoi :'.$this->getHumanName());
+        log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$this->getHumanName());
 
         
       $sendPDF = $this->getConfiguration('option_sendPDF', '1');
       $sendQRC = $this->getConfiguration('option_sendQRC', '1');
-      log::add('CovidAttest','debug',' choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendQRC);
+      log::add('CovidAttest','debug','╠════ choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendQRC);
       // choix selon le type d'équipement:
       $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
 	    // pour le formattage des motif dans les notification, si c'est un motif multiple=> envoi un array
@@ -558,7 +563,7 @@ class CovidAttest extends eqLogic {
           		$str='file=';
           		if($sendPDF)$str.=$pdfURL;
           		if($sendQRC)$str.=(strlen($str)>6?',':'').$pngURL;
-           		log::add('CovidAttest','debug','telegram : string envoyée :'.$str);
+           		log::add('CovidAttest','debug','╠════ telegram : string envoyée :'.$str);
               	 $optionsSendCmd= array('title'=>$str,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifStr);
               break;
           
@@ -568,7 +573,7 @@ class CovidAttest extends eqLogic {
           		$filesA=array();
           		if($sendPDF)array_push($filesA,$pdfURL);
           		if($sendQRC)array_push($filesA,$pngURL);
-
+				  log::add('CovidAttest','debug','╠════ MAIL : array  envoyée :'.implode(',', $filesA));
           		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> " ");
             
               break;
@@ -582,7 +587,7 @@ class CovidAttest extends eqLogic {
                     $optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
                     $optionEmplacement=$this->getConfiguration('option_conf', 'titre');
           			
-                    log::add('CovidAttest','debug', 'Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
+                    log::add('CovidAttest','debug', '╠════ Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
                     if($optionEmplacement=='title'){
                         $optionsSendCmd= array('title'=>$optionsFormat, 'message'=> '');
                     }else{
@@ -599,18 +604,18 @@ class CovidAttest extends eqLogic {
         if (!is_object($cmd)) {
             log::add('CovidAttest', 'error', "Commande {$nextCmdId} non trouvée, vérifiez la configuration pour  {$this->getHumanName()}.");
          }else{
+			log::add('CovidAttest','debug','╠════ envoi des fichiers par la commande :'.$cmd->getHumanName());
              $cmd ->execCmd($optionsSendCmd, $cache=0);
-             log::add('CovidAttest','debug','envoi des fichiers');
         }
 
         // suppressiond es fichiers
       	$deactivate_autoremove = $this->getConfiguration('auto_remove', '1');
-      	log::add('CovidAttest','debug','suppression auto des fichiers statut :'.$deactivate_autoremove);
+      	log::add('CovidAttest','debug','╠════ suppression auto des fichiers statut :'.$deactivate_autoremove);
       	if($deactivate_autoremove==0){
           $successDelete=$ag->deleteAllFiles();
-          log::add('CovidAttest','debug','Suppression des fichiers : '.($successDelete?'ok':'echoue'));
+          log::add('CovidAttest','debug','╠════ Suppression des fichiers : '.($successDelete?'ok':'echoue'));
         }
-        
+		
         
 
     }
@@ -625,7 +630,7 @@ class CovidAttestCmd extends cmd {
    
   // Exécution d'une commande
      public function execute($_options = array()) {
-         log::add('CovidAttest','debug', 'execute CMD, logical id :'.$this->getLogicalId().'  options : '.print_r($_options));
+         log::add('CovidAttest','debug', '╔═══════════════════════ execute CMD, logical id :'.$this->getLogicalId().'  options : '.print_r($_options));
          switch($this->getLogicalId()){
              case 'send_motif_TRAVAIL':
                  $this->getEqLogic()->createDirectPDF(ATTESTGEN::TRAVAIL);
@@ -665,13 +670,14 @@ class CovidAttestCmd extends cmd {
              	$motifsStr=str_replace(' ', '',$_options['message']);
              	$motifs=explode (';',$motifsStr);
              	
-             	log::add('CovidAttest', 'debug', 'motifs multiples : '.implode('#',$motifs));
+             	log::add('CovidAttest', 'debug', '╠════ motifs multiples : '.implode('#',$motifs));
              	$this->getEqLogic()->createDirectPDF($motifs);
              	break;
              Default:
-                 log::add('CovidAttest','debug', 'Deafault call');
+                 log::add('CovidAttest','debug', '╠════ Deafault call');
 
-         }
+		 }
+		 log::add('CovidAttest','debug','╚═══════════════════════ Fin Commande');
 			return true;
      }
   
