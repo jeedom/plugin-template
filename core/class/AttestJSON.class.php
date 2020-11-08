@@ -15,7 +15,7 @@ class ATTESTJSON {
         
 		$stringPos = file_get_contents($path);
         $posDef = json_decode($stringPos, true);
-		log::add('CovidAttest','debug', 'json def file file :'.$path);
+		log::add('CovidAttest','debug', '╠════ json def file file :'.$path);
 		
         return $posDef;
     }
@@ -24,13 +24,13 @@ class ATTESTJSON {
         
 
         $datas=str_replace('&','#',$datas);
-        log::add('CovidAttest', 'debug', ' save json :'.$datas);
+        log::add('CovidAttest', 'debug', '╔═══════════════════════ save json :'.$datas);
 
         $pattern='/([^\#\=]+)\=([^\#\=]+)/';
 
         preg_match_all($pattern,'#'.$datas.'#', $matches);
         
-        log::add('CovidAttest', 'debug', ' match count:'.count($matches[1]));
+        log::add('CovidAttest', 'debug', '╠════ match count:'.count($matches[1]));
         $newValue=array();
         for($i=0; $i<count($matches[1]); $i++){
             //log::add('CovidAttest', 'debug', ' match :'.$i.' - '.$matches[1][$i].' : '.$matches[2][$i]);
@@ -43,17 +43,17 @@ class ATTESTJSON {
             log::add('CovidAttest', 'error', 'Error Saving : positions definition not found ('.$path.')');
             return 'error json file not found';
         }
-        log::add('CovidAttest', 'debug', 'Json file found ('.$path.')');
+        log::add('CovidAttest', 'debug', '╠════ Json file found ('.$path.')');
         $stringPos = file_get_contents($path);
         $posDef = json_decode($stringPos, true);
 
         foreach($posDef as $case_name => $props){
             foreach($props as $prop_name => $prop_value){
                 if(array_key_exists($case_name.'_'.$prop_name, $newValue)){
-                    log::add('CovidAttest', 'debug', 'new prop value :'.$case_name.'_'.$prop_name.' | '.$newValue[$case_name.'_'.$prop_name]);
+                    log::add('CovidAttest', 'debug', '╠════ new prop value :'.$case_name.'_'.$prop_name.' | '.$newValue[$case_name.'_'.$prop_name]);
                     $posDef[$case_name][$prop_name]=$newValue[$case_name.'_'.$prop_name];
                 }else{
-                    log::add('CovidAttest', 'debug', 'new prop value NOT FOUND :'.$case_name.'_'.$prop_name);
+                    log::add('CovidAttest', 'debug', '╠════ new prop value NOT FOUND :'.$case_name.'_'.$prop_name);
                 }
                 
             }
@@ -61,15 +61,15 @@ class ATTESTJSON {
 
         // saving json
         $jsonencoded=json_encode($posDef);
-
+        
         $fp = fopen($path, 'w');
         fwrite($fp, $jsonencoded);
         fclose($fp);
-
+        log::add('CovidAttest', 'debug', '╚═══════════════════════ json SAVED :'.$path);
     }
 
     public static function share_conf_file($filename){
-        log::add('CovidAttest', 'debug', ' receive share file '.$filename);
+        log::add('CovidAttest', 'debug', '╔═══════════════════════ receive share file '.$filename);
         $pathCertif=realpath(dirname(__FILE__). '/../../').'/3rdparty/Certificate/';
         if(!is_dir($pathCertif)){
             log::add('CovidAttest', 'error', ' Certificate path not found');
@@ -99,7 +99,7 @@ class ATTESTJSON {
         }
 
 
-        log::add('CovidAttest','debug','création du ZIP :'.$zipName);
+        log::add('CovidAttest','debug','╠════ création du ZIP :'.$zipName);
         $zip = new ZipArchive();
         if(is_file($zipName)){
             if ($zip->open($zipName, ZipArchive::OVERWRITE)!==TRUE) {
@@ -117,7 +117,11 @@ class ATTESTJSON {
         $zip->addFile($certifPath, basename($certifPath));
         $zip->addFile($jsonPath, basename($jsonPath));
         $zip->close();
-        return  '/plugins/CovidAttest/EXPORT/TEST/'.basename($zipName);
+        $zipURL ='/plugins/CovidAttest/EXPORT/TEST/'.basename($zipName);
+        log::add('CovidAttest', 'debug', '╠════ Zip créé '.$zipName);
+        log::add('CovidAttest', 'debug', '╠════ URL '.$zipURL);
+        log::add('CovidAttest', 'debug', '╚═══════════════════════ Fin Export ZIP');
+        return  $zipURL;
     }
 	
 }
