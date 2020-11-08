@@ -8,7 +8,7 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
 
 *__!! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
-# -------------|Configuration|-------------
+# |Configuration|
   
   1. activer le plugin
   
@@ -33,13 +33,13 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
   
   * bouton __Share Configuration__ : permet de télécharger un zip avec le fichier de certificat plus la configuration selectionné. => Vous pouvez alors le partager sur le forum de jeedom!
   
- # -------------|Paramétrage|-------------
+ # |Paramétrage|
  
 
  
- 2/ créer un équipement par membre à notifier,
+ 1/ créer un équipement par membre à notifier,
  
- 3/ dans la configuration de l'équipement, renseigner les informations à faire figurer sur l'attestation
+ 2/ dans la configuration de l'équipement, renseigner les informations à faire figurer sur l'attestation
       
 ![equip_image](/img_readme/equipement.PNG)     
  
@@ -77,7 +77,7 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
 Peut être utile pour l'utiliser avec notification queue par exemple.
 
 
- # -------------|Utilisation|-------------
+ # |Utilisation|
  
  ## envoi des documents
 
