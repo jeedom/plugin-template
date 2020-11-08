@@ -89,7 +89,7 @@ class ATTESTGEN {
     public function setCertif($name){
         
         if(is_file(realpath(dirname(__FILE__) . '/../../').'/3rdparty/Certificate/'.$name)){
-            log::add('CovidAttest', 'debug', 'change certif name to :'.$name);
+            log::add('CovidAttest', 'debug', '╠════ ## change certif name to :'.$name);
             $this->certifNamePerso=$name;
             return true;
         }else{
@@ -103,7 +103,7 @@ class ATTESTGEN {
     }
     
     function generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, $subFolder='') {
-
+        log::add('CovidAttest', 'debug', '║ ╔══════════════════════ Start Generating Attestation :'.$jsonFile);
         // verification si le motif est bien un array
         if(!is_array($motifs)){
             if(is_string($motifs)){
@@ -122,7 +122,7 @@ class ATTESTGEN {
 
         $jsonFile=basename($cn,'.pdf').'.json';
 
-        log::add('CovidAttest', 'debug', 'json file to be used :'.$jsonFile);
+        log::add('CovidAttest', 'debug', '║ ╠════ json file to be used :'.$jsonFile);
         $path=realpath(dirname(__FILE__). '/../../').'/3rdparty/Certificate/'.$jsonFile;
         
         // load du json pour les positions
@@ -137,7 +137,7 @@ class ATTESTGEN {
         }
         $stringPos = file_get_contents($path);
         $posDef = json_decode($stringPos, true);
-		log::add('CovidAttest','debug', 'json def file file :'.$path);      
+		log::add('CovidAttest','debug', '║ ╠════ json def file file :'.$path);      
 
 
         // v?rificaiton existance du dossier
@@ -164,7 +164,7 @@ class ATTESTGEN {
       } catch (Exception $e) {
             log::add('CovidAttest', 'error', 'Error creating PNG file ('.$e->getMessage().')');
         }
-		log::add('CovidAttest','debug', 'QR code generated filepath :'.$this->url_qrcode);
+		log::add('CovidAttest','debug', '║ ╠════ QR code generated filepath :'.$this->url_qrcode);
 
 
 
@@ -187,7 +187,7 @@ class ATTESTGEN {
         catch (Exception $e) {
             log::add('CovidAttest', 'error', 'Error creating PDF file ('.$e->getMessage().')');
         }
-      	log::add('CovidAttest','debug','pdf source copies');
+      	log::add('CovidAttest','debug','║ ╠════ pdf source copies');
         // ecriture
         //$pdf->SetFont('Arial', '', '13');
         $pdf->SetTextColor(0,0,0);
@@ -235,7 +235,7 @@ class ATTESTGEN {
         $isOk = true;
       	
         foreach ($motifs as $motif){
-          	log::add('CovidAttest','debug','motif testé :'.$motif);
+          	log::add('CovidAttest','debug','║ ╠════ motif testé :'.$motif);
             switch ($motif) {
                 case ATTESTGEN::TRAVAIL:
                     $pdf->SetFont('Arial', '', $posDef['TRAVAIL']['size']);
@@ -299,6 +299,8 @@ class ATTESTGEN {
         catch (Exception $e) {
             log::add('CovidAttest', 'error', 'Error saving PDF file ('.$e->getMessage().')');
         }
+
+        log::add('CovidAttest','debug','║ ╚═══════════════════════ Fin génération Attestation :'.$this->url_pdf);
         return $this->url_pdf;
     }
   
