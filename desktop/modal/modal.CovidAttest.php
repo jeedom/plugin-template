@@ -52,7 +52,7 @@ if (!isConnect('admin')) {
 }
 $fName=$_GET['cname']; 
 $arrPart = ATTESTJSON::extract_json_from_filename($fName);
-log::add("CovidAttest", 'debug', 'json loaded : ');
+log::add("CovidAttest", 'debug', '╠════ json loaded : ');
 
 
 echo '<div id="" class="col-xs-12 eqLogic">';
