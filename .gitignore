@@ -12,3 +12,4 @@ docs/Gemfile.lock
 docs/.sass-cache/
 .remote-sync.json
 img_readme/*
+core/class/.htaccess
