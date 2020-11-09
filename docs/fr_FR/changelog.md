@@ -1,4 +1,6 @@
 
+### 09/11/2020 : correction bug sur commande envoi multi et motifs séparés par une virgule
+
 ### 04/11/2020 : 
   * Ajout de la suppression de tous les fichiers générés pour les attestation dans la page de configuration
   * Les fichiers générés sont dans des sous dossiers liés à chaque équipement (éviter les suppression pour 2 équipements avec même nom et prénoms)
