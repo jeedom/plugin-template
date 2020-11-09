@@ -8,20 +8,38 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
 
 *__!! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
-# -------------|Configuration|-------------
+# |Configuration|
   
-  1. activer le plug in rien de plus
+  1. activer le plugin
   
-  2. Il y a un bouton qui permet de supprimer tous les fichiers d'attestation présents pour tous les équipements créés, pour faire le ménage, particulièrement si la suppression auto est désactivée
+  ![equip_image](/img_readme/conf_1.png)  
   
   
- # -------------|Paramétrage|-------------
+  
+  * bouton __Effacer__ : permet de supprimer tous les fichiers d'attestation présents pour tous les équipements créés, pour faire le ménage, particulièrement si la suppression auto est désactivée
+  
+  * __Selecteur__ : vous permet de choisir quel certificat doit être utilisé pour généré l'attestation
+  
+  * bouton __Upload New File__ : permet de télécharger un nouveau certificat au format pdf. Vous pouvez également charger un fichier de configuration au format json. Si vous charger un fichier certificat pdf sans fichier de configuration un fichier par défaut sera créé.
+  
+  ![equip_image](/img_readme/conf_new.png) 
+  
+  * bouton __File Parameter__ : ouvre une fenetre dans laquelle vous pourrez modifier la position de insert, ainsi que la taille du texte inséré.
+  
+  ![equip_image](/img_readme/conf_2.png) 
+  
+  
+  * bouton __Test Params__ : Permet de générer une attestation test avec les paramètre sauvés
+  
+  * bouton __Share Configuration__ : permet de télécharger un zip avec le fichier de certificat plus la configuration selectionné. => Vous pouvez alors le partager sur le forum de jeedom!
+  
+ # |Paramétrage|
  
 
  
- 2/ créer un équipement par membre à notifier,
+ 1/ créer un équipement par membre à notifier,
  
- 3/ dans la configuration de l'équipement, renseigner les informations à faire figurer sur l'attestation
+ 2/ dans la configuration de l'équipement, renseigner les informations à faire figurer sur l'attestation
       
 ![equip_image](/img_readme/equipement.PNG)     
  
@@ -59,7 +77,7 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
 Peut être utile pour l'utiliser avec notification queue par exemple.
 
 
- # -------------|Utilisation|-------------
+ # |Utilisation|
  
  ## envoi des documents
 

@@ -18,16 +18,53 @@
 
 try {
     require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+    //require_once dirname(__FILE__) . '/../class/AttestUpload.class.php';
+    require_once dirname(__FILE__) . '/../class/AttestJSON.class.php';
+    require_once dirname(__FILE__) . '/../class/AttestGen.class.php';
+    require_once dirname(__FILE__) . '/../class/CovidAttest.class.php';
     include_file('core', 'authentification', 'php');
-
+    
     if (!isConnect('admin')) {
         throw new Exception(__('401 - Accès non autorisé', __FILE__));
     }
-  	ajax::init();
+    ajax::init();
+    
+    log::add('CovidAttest','debug','╔═══ #################### AJAX action required :'.init('action'));
+
+
     if (init('action') == 'delete_allFiles') {
-		CovidAttest::DELETE_ALL();
-		ajax::success();
-	}
+      CovidAttest::DELETE_ALL();
+      ajax::success();
+    }
+    if (init('action') == 'upload_files') { 
+      //$img = $_FILES['file']['name'];
+      //$tmp = $_FILES['file']['tmp_name'];
+      log::add('CovidAttest','debug','pdf file :'.init('files'));
+      //AttestUpload::UPLOAD_FILE(init('file'));
+      ajax::success();
+    }
+    
+    if (init('action') == 'save_json') { 
+      ATTESTJSON::save_json(init('data'));
+      ajax::success();
+    }
+    if (init('action') == 'test_file') { 
+      //send file
+      log::add('CovidAttest', 'debug','╠════ call test file :'.init('file'));
+      $filename=CovidAttest::generate_test(init('file'));
+      ajax::success($filename);
+    }
+    if (init('action') == 'share_conf') { 
+      //send file
+      log::add('CovidAttest', 'debug','╠════ call share file :'.init('file'));
+      $filename=ATTESTJSON::share_conf_file(init('file'));
+      if($filename!=false){
+        ajax::success($filename);
+      }else{
+        ajax::error("impossible de créer le zip", 666666);
+      }
+      
+    }
   /* Fonction permettant l'envoi de l'entête 'Content-Type: application/json'
     En V3 : indiquer l'argument 'true' pour contrôler le token d'accès Jeedom
     En V4 : autoriser l'exécution d'une méthode 'action' en GET en indiquant le(s) nom(s) de(s) action(s) dans un tableau en argument

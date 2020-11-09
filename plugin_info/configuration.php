@@ -33,10 +33,50 @@ if (!isConnect()) {
 			</div>
 		</div>
   </fieldset>
-</form>
+    <fieldset>
+        <div class="form-group">
+			<label class="col-lg-4 control-label">{{Fichier de Certificat}}</label>
+            <div class="col-lg-2">
+                <select class="configKey form-control eqLogicAttr" data-l1key="certificate_name">
+                <?php
+                    $path=realpath(dirname(__FILE__). '/../').'/3rdparty/Certificate';
+                    if (!is_dir($path)){
+                        log::add('CovidAttest', 'error', '[CONF] path :'.$path.' Not FOUND ');
+                    }
+                    $files = glob($path.'/*');
+                    foreach($files as $file){ // iterate files
+                        if(is_file($file) && preg_match('/\.pdf$/', basename ($file))){
+                             
+                          $fname = basename ($file);
+                          log::add('CovidAttest', 'debug', ' pdf file found '.basename ($file));
+                          echo '<option value="'.$fname.'">'.$fname."</option>";
 
+                        }
+                      }
+                    
+                ?>
+                </select>
+            </div>
+            <div class="col-lg-5">
+				<a class="btn btn-info" id="bt_modalUpload_CA"><i class="fas fa-download"></i> {{Upload new File}}</a>
+				<a class="btn btn-warning" id="bt_modal_CA"><i class="fas jeedomapp-preset"></i> {{File Parameters}}</a>
+                <a class="btn btn-info" id="bt_tests_CA"><i class="fas fa-eye"></i> {{Test Params}}</a>
+                <a class="btn btn-info" id="bt_zip_CA"><i class="fas fa-eject"></i> {{share configuration}}</a>
+
+			</div>
+		</div>
+  </fieldset>
+</form>
 <script>
-	$('#bt_deleteAllCA_Btn').on('click', function () {
+$('#bt_modal_CA').on('click', function () {
+        $('#md_modal').dialog({title: "Configuration pour "+$('.eqLogicAttr[data-l1key=certificate_name]').value()});
+        $('#md_modal').load('index.php?v=d&plugin=CovidAttest&modal=modal.CovidAttest&cname=' + $('.eqLogicAttr[data-l1key=certificate_name]').value()).dialog('open');
+});
+$('#bt_modalUpload_CA').on('click', function () {
+        $('#md_modal').dialog({title: "Chargement nouveau certificat"});
+        $('#md_modal').load('index.php?v=d&plugin=CovidAttest&modal=modal.upload_ca').dialog('open').parent().width(750).height(200);
+});
+$('#bt_deleteAllCA_Btn').on('click', function () {
   	if (!confirm('{{Supprimer tous les fichiers attestations conservés de tous les équipement CovidAttest ?}}')) {
       	$('#div_alert').showAlert({message: '{{Opération annulée}}', level: 'success'});
         return false;
@@ -46,7 +86,6 @@ if (!isConnect()) {
             url: "plugins/CovidAttest/core/ajax/CovidAttest.ajax.php", // url du fichier php
             data: {
                 action: "delete_allFiles",
-				level : $(this).attr('data-log')
             },
             dataType: 'json',
             error: function (request, status, error) {
@@ -60,6 +99,56 @@ if (!isConnect()) {
                 $('#div_alert').showAlert({message: '{{Réussie}}', level: 'success'});
             }
         });
+
+       
+});
+$('#bt_tests_CA').on('click', function () {
+    $.ajax({// fonction permettant de faire de l'ajax
+            type: "POST", // methode de transmission des données au fichier php
+            url: "plugins/CovidAttest/core/ajax/CovidAttest.ajax.php", // url du fichier php
+            data: {
+                action: "test_file",
+                file:$('.eqLogicAttr[data-l1key=certificate_name]').value()
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error);
+            },
+            success: function (data) { // si l'appel a bien fonctionné
+                if (data.state != 'ok') {
+                    $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                    return;
+                }
+                window.open(data.result); 
+                
+                $('#div_alert').showAlert({message: '{{Réussie}}', level: 'success'});
+            }
+        });
+});
+
+$('#bt_zip_CA').on('click', function () {  
+    $.ajax({// fonction permettant de faire de l'ajax
+            type: "POST", // methode de transmission des données au fichier php
+            url: "plugins/CovidAttest/core/ajax/CovidAttest.ajax.php", // url du fichier php
+            data: {
+                action: "share_conf",
+                file:$('.eqLogicAttr[data-l1key=certificate_name]').value()
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error);
+            },
+            success: function (data) { // si l'appel a bien fonctionné
+                if (data.state != 'ok') {
+                    $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                    return;
+                }
+                window.open(data.result); 
+                $('#div_alert').showAlert({message: '{{Réussie}}', level: 'success'});
+            }
+            
+        });
+        
 });
 
 </script>
