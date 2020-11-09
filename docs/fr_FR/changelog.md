@@ -1,4 +1,7 @@
 
+
+### 09/11/2020 : correction bug sur commande envoi multi et motifs séparés par une virgule
+
 ### 07/11/2020 : *beta* Modification de la configuration
 * ajout de la possibilité de selectionner un certificat (modèle de l'attestation) pour générer les attestation
 * ajout de la possibilité de modifier directement les configuration d'insert dans le certificat (position et taille)
