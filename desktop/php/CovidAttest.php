@@ -163,6 +163,7 @@ foreach (jeeObject::all() as $object) {
               <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_typeEq">
               	<option value='telegram'>Telegram</option>
               	<option value='mail'>Mail</option>
+		<option value='pushover'>Pushover</option>
               	<option value='custom'>Custom</option>
               </select>
 
