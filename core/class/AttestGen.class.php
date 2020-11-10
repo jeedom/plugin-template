@@ -274,6 +274,7 @@ class ATTESTGEN {
                     $pdf->SetXY($posDef['MIG']["x"], $posDef['MIG']["y"]);
                     break;
                 default:
+		log::add('CovidAttest', 'debug', '║ ╠════ !! motif non trouvé <---------');
                     $isOk=false;
                     break;
             }
