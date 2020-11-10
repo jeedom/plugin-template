@@ -577,6 +577,16 @@ class CovidAttest extends eqLogic {
           		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> " ");
             
               break;
+	/// si pushover
+          case 'pushover':
+          		$filesA=array();
+          		if($sendPDF)array_push($filesA,$pdfURL);
+          		if($sendQRC)array_push($filesA,$pngURL);
+		      	
+				  log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $filesA));
+          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> "message");
+            
+              break;
           case "custom":
           			$optionsFormat=$this->getConfiguration('option_sendcmd', '');
                     if ($optionsFormat === '') {
