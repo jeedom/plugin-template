@@ -21,9 +21,34 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
 require_once __DIR__  . '/AttestGen.class.php';
 
 class CovidAttest extends eqLogic {
+	
   
   const SUBFOLDER="AG_";
-  
+
+
+
+/* --------------------------  Méthode static pour dépendances -------------------------------------- */
+  public static function dependancy_info() {
+	$return = array();
+	$return['log'] = 'CovidAttest';
+	$return['progress_file'] = '/tmp/dependancy_covidattest_in_progress';
+	$return['state'] = 'ok';
+	if (exec('which imagemagick | wc -l') == 0) {
+		if (exec(" dpkg --get-selections | grep -v deinstall | grep -E 'imagemagick' | wc -l") != 2) {
+			$return['state'] = 'nok';
+		} 
+	} 
+	return $return;
+}
+
+public static function dependancy_install() {
+	log::remove(__CLASS__ . '_update');
+	return array('script' => dirname(__FILE__) . '/../../resources/install_#stype#.sh ' . jeedom::getTmpFolder('CovidAttest') . '/dependance', 'log' => log::getPathToLog(__CLASS__ . '_update'));
+}
+
+
+
+  /* --------------------------  Méthode static pour gestion des fichiers généraux -------------------------------------- */
   public static function DELETE_ALL(){
     	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT';
     	log::add('CovidAttest', 'debug', '╔═══════════════════════ CALL REMOVE ALL FILES to '.$path);
@@ -44,6 +69,8 @@ class CovidAttest extends eqLogic {
     return rmdir($dir); 
   } 
 
+
+// génération d'une attestation de test pour la section configuration
   public static function generate_test($filename){
 	log::add('CovidAttest', 'debug', '╔═══════════════════════ Generating Test File');
 	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT/TEST/'; 
