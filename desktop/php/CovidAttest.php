@@ -101,7 +101,7 @@ foreach (jeeObject::all() as $object) {
         </div>
        </div>
        <div class="form-group">
-           <label class="col-sm-3 control-label">{{Prenom de l'utilisateur}}</label>
+           <label class="col-sm-3 control-label">{{Prénom de l'utilisateur}}</label>
         <div class="col-sm-3">
             <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="user_firstname" placeholder="Camille"/>
         </div>
@@ -209,7 +209,7 @@ foreach (jeeObject::all() as $object) {
   </div>
                   
  <div class="form-group">
-                  <label class="col-sm-3 control-label help" data-help="{{Désactiver la suppression auto des fichiers, nécessitera une action manuelle pour la suppression}}">{{Désactiver la Supression auto}}</label>
+                  <label class="col-sm-3 control-label help" data-help="{{Désactiver la suppression auto des fichiers, nécessitera une action manuelle pour la suppression}}">{{Désactiver la Suppression auto}}</label>
                   <div class="col-sm-9">
                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="auto_remove"/>
                    <span class='warning_autoremove' style="display: none;color:orange;">Attention, vous devrez supprimer manuellement les fichiers par la commande 'supprimer les fichiers'</span>
