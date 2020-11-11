@@ -41,6 +41,22 @@ class ATTESTGEN {
     {
     }
 
+    /* ----------------------------------------  utilitaire de classe static ------------------------ */
+    public static function convert_pdf_to_png($fileURL){
+        $basePath= pathinfo($fileURL)['dirname'];
+        $fileNAME = basename($fileURL);
+        $pngName = basename($fileURL,  pathinfo($fileURL)['extension']).'png';
+        $cmdIg ='convert -density 200 '.$fileURL.' -fill "#FFFFFFFF" -opaque none -flatten -alpha flatten -alpha remove '.$basePath.'/'.$pngName;
+        log::add('CovidAttest', 'debug', "╠════ ## Convert file $fileNAME to image $pngName by commande $cmdIg");
+        shell_exec($cmdIg);
+        if(is_file($basePath.'/'.$pngName)){
+            return $basePath.'/'.$pngName;
+        }else{
+            return false;
+        }
+
+    }
+    /* ----------------------------------------  Fonction d'instance  ------------------------ */
     // retourne l'url du png du QR code une fois le fichier cr??
     public function getPNGURL(){
         if (!isset($this->url_qrcode)){
@@ -311,6 +327,7 @@ class ATTESTGEN {
 
     return $string;
 }
+
   
    
 }
