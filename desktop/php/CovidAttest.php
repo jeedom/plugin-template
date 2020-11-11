@@ -163,6 +163,7 @@ foreach (jeeObject::all() as $object) {
               <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_typeEq">
               	<option value='telegram'>Telegram</option>
               	<option value='mail'>Mail</option>
+                <option value='pushover'>Pushover</option>
               	<option value='custom'>Custom</option>
               </select>
 
@@ -171,21 +172,23 @@ foreach (jeeObject::all() as $object) {
     
 <div class="send_option_group" > 
     <div class="form-group">
-         <label class="col-sm-3 control-label help" data-help="{{utilisez #pdfURL#, et #qrcURL# pour spécifier les urls des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
+         <label class="col-sm-3 control-label help" data-help="{{utilisez #pdfURL# (attestation pdf),#pngURL# (attestation format png) et  #qrcURL# (png du qr code) pour spécifier les urls des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
         <div class="col-sm-3">
-            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#"/>
+            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#,#pngURL#"/>
         </div>
     </div>
     
               
        
    	<div class="form-group">
-           <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers}}">{{destination}}</label>
+           <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers, ou transmis par un array avec les chemin des fichiers}}">{{destination}}</label>
            <div class="col-sm-3">
           
             <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_conf">
                         <option value="title">titre</option>
            				<option value="message">message</option>
+                        <option value="files_array">Files (array)</option>
+                        <option value="files_string">Files (string)</option>
             </select>
            
         </div>
@@ -198,6 +201,9 @@ foreach (jeeObject::all() as $object) {
            <div class="col-sm-9">
             	<label class="checkbox-inline help" data-help="{{si cochée, envoi le pdf}}">
            		<input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPDF"/>{{Envoi du PDF}}
+                </label>
+                <label class="checkbox-inline help" data-help="{{si cochée, envoi le png de l'attestation}}">
+                <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPNG"/>{{Envoi au format image}}
                 </label>
                 <label class="checkbox-inline help" data-help="{{si cochée, envoi le png du QRcode}}">
                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>{{Envoi du QRcode}}
