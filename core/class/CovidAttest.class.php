@@ -34,7 +34,7 @@ class CovidAttest extends eqLogic {
 	$return['progress_file'] = '/tmp/dependancy_covidattest_in_progress';
 	$return['state'] = 'ok';
 	if (exec('which imagemagick | wc -l') == 0) {
-		if (exec(" dpkg --get-selections | grep -v deinstall | grep -E 'imagemagick' | wc -l") != 2) {
+		if (exec(" dpkg --get-selections | grep -v deinstall | grep -E 'imagemagick' | wc -l") == 0) {
 			$return['state'] = 'nok';
 		} 
 	} 
