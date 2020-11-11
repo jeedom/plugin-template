@@ -18,8 +18,6 @@ echo "modify conf file"
 
 path=$(find /etc/ImageMagick* -name policy.xml -execdir pwd  \;)
 
-echo "path to conf file : $path"
-
 if [ -d "$path" ]
 then
         echo "policy.xml found in $path" > ${PROGRESS_FILE}
@@ -33,4 +31,4 @@ else
 fi
 
 echo 100 > ${PROGRESS_FILE}
-
+echo "Everything is successfully installed!"
