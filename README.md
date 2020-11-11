@@ -64,12 +64,15 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
  * __Type Equipement__ : le type de l'équipement qui permet l'envoi des documents, qui peut être de 3 types : 
    * __Telegram__ : si il s s'agit d'une commande du plugin telegram (lunarok)
    * __mail__ : si il s'agit d'une commande mail du plugin officiel mail (testé configuration SMTP seulement)
-   * __Custom__ : permet de genéré un comportement par défaut, prend alors 2 options : 
-     * __Option de la commande__ : qui permet de construire la chaine comprenant les chemins des fichiers générés. Utilisez les tags #pdfRUL# et #qrcURL# qui seront remplacé par les chemin relatifs qux fichiers générés
-     * __destination__ : deux choix : titre ou message : endroit de la commande type message ou sera inséré la chaine de caractère de l'option décrite ci-dessus.
+   * __Custom__ : permet de genéré un comportement par défaut, prend alors 4 options : 
+     * __Option de la commande__ : qui permet de construire la chaine comprenant les chemins des fichiers générés. Utilisez les tags #pdfRUL#, #pngURL# et #qrcURL# qui seront remplacé par les chemin relatifs aux fichiers générés
+     * __destination__ : 4 choix choix : 
+          * titre / message/ files (String): endroit de la commande type message ou sera inséré la chaine de caractère de l'option décrite ci-dessus, au format string avec les URL des fichiers
+          * files (Array): option de la commande contiendra un array 'files' avec les url des fichiers
      
  * __Cases à cocher *Options*__ :
    * Envoi du PDF: si vous souhaitez recevoir le pdf
+   * Envoi au format image: convertit le pdf de l'attestation en png pour l'envoi
    * Envoi du QRcode: si vous souhaitez recevoir l'image du QR code
    * Ajout de la seconde page: si vous souhaitez ajouter une seconde page dans l'attestation avec le QR code grand format (du type de l'attestation généré en ligne sur le site du gouvernement)
  
