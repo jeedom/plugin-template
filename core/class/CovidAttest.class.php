@@ -573,8 +573,17 @@ public static function dependancy_install() {
 
         
       $sendPDF = $this->getConfiguration('option_sendPDF', '1');
-      $sendQRC = $this->getConfiguration('option_sendQRC', '1');
-      log::add('CovidAttest','debug','╠════ choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendQRC);
+	  $sendQRC = $this->getConfiguration('option_sendQRC', '1');
+	  $sendPNG  = $this->getConfiguration('option_sendPNG', '1');
+
+	  if($sendPNG)$pdfImageURL=ATTESTGEN::convert_pdf_to_png($pdfURL);
+	  $sendPNG=($pdfImageURL!=false)?true:false;
+
+
+
+
+
+      log::add('CovidAttest','debug','╠════ choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendPNG.' | QRcode : '.$sendQRC);
       // choix selon le type d'équipement:
       $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
 	    // pour le formattage des motif dans les notification, si c'est un motif multiple=> envoi un array
@@ -589,7 +598,8 @@ public static function dependancy_install() {
           case 'telegram':
           		$str='file=';
           		if($sendPDF)$str.=$pdfURL;
-          		if($sendQRC)$str.=(strlen($str)>6?',':'').$pngURL;
+				  if($sendQRC)$str.=(strlen($str)>6?',':'').$pngURL;
+				  if($sendPNG)$str.=(strlen($str)>6?',':'').$pdfImageURL;
            		log::add('CovidAttest','debug','╠════ telegram : string envoyée :'.$str);
               	 $optionsSendCmd= array('title'=>$str,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifStr);
               break;
@@ -599,11 +609,25 @@ public static function dependancy_install() {
           case 'mail':
           		$filesA=array();
           		if($sendPDF)array_push($filesA,$pdfURL);
-          		if($sendQRC)array_push($filesA,$pngURL);
+				  if($sendQRC)array_push($filesA,$pngURL);
+				  if($sendPNG)array_push($filesA,$pdfImageURL);
 				  log::add('CovidAttest','debug','╠════ MAIL : array  envoyée :'.implode(',', $filesA));
           		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> " ");
             
-              break;
+			  break;
+		/// si pushover
+		
+		case 'pushover':
+			$filesA=array();
+			if($sendPDF)array_push($filesA,$pdfURL);
+			if($sendQRC)array_push($filesA,$pngURL);
+			if($sendPNG)array_push($filesA,$pdfImageURL);
+			
+			log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $filesA));
+			 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> y);
+	  
+		break;
+		
           case "custom":
           			$optionsFormat=$this->getConfiguration('option_sendcmd', '');
                     if ($optionsFormat === '') {
@@ -611,23 +635,41 @@ public static function dependancy_install() {
                         return false;
                     }
           			$optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
-                    $optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
+					$optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
+					$optionsFormat=str_replace("#pngURL#", $pngURL, $optionsFormat);
+					
                     $optionEmplacement=$this->getConfiguration('option_conf', 'titre');
           			
-                    log::add('CovidAttest','debug', '╠════ Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
-                    if($optionEmplacement=='title'){
-                        $optionsSendCmd= array('title'=>$optionsFormat, 'message'=> '');
-                    }else{
-                        $optionsSendCmd= array('title'=>'', 'message'=> $optionsFormat);
-                    }
+					log::add('CovidAttest','debug', '╠════ Option emplacement :'.$optionEmplacement.' options :'.$optionsFormat);
+					
+					switch ($optionEmplacement) {
+						/// si telegram
+						case 'title':
+							$optionsSendCmd= array('title'=>$optionsFormat, 'message'=> '');
+						break;
+
+						case 'message':
+							$optionsSendCmd= array('title'=>'', 'message'=> $optionsFormat);
+						break;
+
+						case 'files_array':
+							$filesA=array();
+								if($sendPDF)array_push($filesA,$pdfURL);
+								if($sendQRC)array_push($filesA,$pngURL);
+								if($sendPNG)array_push($filesA,$pdfImageURL);
+								$optionsSendCmd= array('title'=>'', 'message'=> '', 'files'=>$filesA);
+						break;
+
+						case 'files_string':
+							$optionsSendCmd= array('title'=>'', 'message'=> '', 'files'=>$optionsFormat);
+						break;
+
+						}
               break;
       }
 
-        
-      
-      
-
-        $cmd = cmd::byId(str_replace('#', '', $sendCmd));
+		$cmd = cmd::byId(str_replace('#', '', $sendCmd));
+		
         if (!is_object($cmd)) {
             log::add('CovidAttest', 'error', "Commande {$nextCmdId} non trouvée, vérifiez la configuration pour  {$this->getHumanName()}.");
          }else{
