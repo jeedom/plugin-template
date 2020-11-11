@@ -6,7 +6,7 @@
 	"author" : "Bben",
 	"require" : "3.3",
 	"category" : "organization",
-	"hasDependency" : false,
+	"hasDependency" : true,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
 	"changelog" : "https://github.com/Bbillyben/CovidAttest/blob/master/docs/fr_FR/changelog.md",
