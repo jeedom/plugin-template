@@ -624,7 +624,7 @@ public static function dependancy_install() {
 		if($sendPNG)array_push($filesA,$pdfImageURL);
 
 		log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $filesA));
-		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> y);
+		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> 'attestation :');
 
 	break;
 		
