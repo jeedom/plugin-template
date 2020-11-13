@@ -1,8 +1,12 @@
 
+### 13/11/2020 : ajout la possibilité de démarrer un scénario avec les tags correspondant aux chemin des fichiers au lieu de la commande d'envoi.
+
+### 11/11/2020 : Ajout génération d'une image du PDF pour envoi au format png
+
 
 ### 09/11/2020 : correction bug sur commande envoi multi et motifs séparés par une virgule
 
-### 07/11/2020 : *beta* Modification de la configuration
+### 07/11/2020 :  Modification de la configuration
 * ajout de la possibilité de selectionner un certificat (modèle de l'attestation) pour générer les attestation
 * ajout de la possibilité de modifier directement les configuration d'insert dans le certificat (position et taille)
 * export de la configuration (fichier certificat + json de configuration) pour partage, histoire de s'adapter rapidement au changement de modèle du gouvernement
