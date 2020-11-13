@@ -471,6 +471,7 @@ class CovidAttest extends eqLogic {
 
         if(is_object($cmdDate)){
           $dateAttest= $cmdDate->execCmd();
+	 $dateAttest=preg_replace("/[\'\"]/", "", $dateAttest);
         }
         if ($dateAttest=='') {
             $dateAttest=strftime("%d/%m/%G");
