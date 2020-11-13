@@ -81,7 +81,18 @@ $(".eqLogicAttr[data-l2key='option_typeEq']").on('change', function () {
 });
 
 $(".eqLogicAttr[data-l2key='auto_remove']").on('click', function () {
-  checkCAEquip();
+  if(!this.checked){
+    $(".warning_autoremove").hide();
+  }else{
+     $(".warning_autoremove").show();
+  }
+});
+$(".eqLogicAttr[data-l2key='auto_remove']").on('change', function () {
+    if(!this.checked){
+    $(".warning_autoremove").hide();
+  }else{
+     $(".warning_autoremove").show();
+  }
 });
 
 
