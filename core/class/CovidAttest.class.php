@@ -612,7 +612,11 @@ public function sendFilesByScenario($ag,$files){
 			log::add('CovidAttest', 'error', "Scenario denvoi non trouvé $scenarioID.");
 			return false;
 		}
-        log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$scenario->getHumanName());
+		log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$scenario->getHumanName());
+		
+		$files["#cmdID#"]=$this->getId();
+		$files["#cmdNAME#"]=$this->getHumanName();
+		log::add('CovidAttest','debug', '╠════ tags  :'.implode(',', $files));
 		$scenario->setTags($files);
 		$scenario->launch();
 
