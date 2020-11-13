@@ -64,7 +64,7 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
  
  * __Commande d'envoi__ : commande qui permet d'envoyer les documents
  
-    * __commande scénario__ : Si cochée, vous permet de choisir de déclencher un scénario. Les tags du scénario contiendrons les chemins des fichiers par les tags #pdfURL#, #pngURL#, #qrcURL#, selon les cases cochées pour l'envoi des fichiers ci-dessous.
+    * __commande scénario__ : Si cochée, vous permet de choisir de déclencher un scénario. Les tags du scénario contiendrons les chemins des fichiers par les tags #pdfURL#, #pngURL#, #qrcURL#, selon les cases cochées pour l'envoi des fichiers ci-dessous, ainsi que #cmdID# et #cmdNAME# avec l'id et le nom de l'équipement qui a envoyé l'&quipement.
     
  ![equip_image](/img_readme/scenario_cmd.png)  
  
