@@ -77,24 +77,38 @@ $(".eqLogicAttr[data-l2key='use_jeeadd']").on('change', function () {
 });
 
 $(".eqLogicAttr[data-l2key='option_typeEq']").on('change', function () {
-  if($(this).children("option:selected").val()!='custom'){
-    $(".send_option_group").hide();
-  }else{
-     $(".send_option_group").show();
-  }
+  checkCAEquip();
 });
 
 $(".eqLogicAttr[data-l2key='auto_remove']").on('click', function () {
-  if(!this.checked){
-    $(".warning_autoremove").hide();
-  }else{
-     $(".warning_autoremove").show();
-  }
+  checkCAEquip();
 });
-$(".eqLogicAttr[data-l2key='auto_remove']").on('change', function () {
-    if(!this.checked){
-    $(".warning_autoremove").hide();
-  }else{
-     $(".warning_autoremove").show();
-  }
+
+
+$(".eqLogicAttr[data-l2key='use_scenar']").on('click', function () {
+  checkCAEquip();
 });
+$(".eqLogicAttr[data-l2key='use_scenar']").on('change', function () {
+  checkCAEquip();
+});
+
+function checkCAEquip(){
+    var isScenar = $(".eqLogicAttr[data-l2key='use_scenar']").prop('checked');
+    var isCustom = ($(".eqLogicAttr[data-l2key='option_typeEq']").children("option:selected").val()=='custom');
+    console.log('CovidAttest isScenar :'+isScenar);
+    console.log('CovidAttest isCustom :'+isCustom);
+    if(isScenar){
+        $(".CA-cmd-el").hide();
+        $(".CA-scenar-el").show();
+        $(".send_option_group").hide();
+        $(".eqLogicAttr[data-l2key='auto_remove']").prop('checked', true).change();
+    }else if(isCustom){
+        $(".send_option_group").show();
+        $(".CA-cmd-el").show();
+        $(".CA-scenar-el").hide();
+    }else{
+        $(".CA-cmd-el").show();
+        $(".CA-scenar-el").hide();
+        $(".send_option_group").hide();
+    }
+}
