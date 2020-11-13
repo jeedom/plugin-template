@@ -515,8 +515,8 @@ public static function dependancy_install() {
         $this->createPDF($dateAttest, $timeAttest, $motifs);
       	
       	// on remet à 0 les valerus de date et time
-      //if(is_object($cmdDate))$cmdDate->event('');
-      //if(is_object($cmdTime))$cmdTime->event('');
+      if(is_object($cmdDate))$cmdDate->event('');
+      if(is_object($cmdTime))$cmdTime->event('');
       
     }
   
