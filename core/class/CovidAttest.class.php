@@ -497,7 +497,8 @@ public static function dependancy_install() {
 
       	$cmdDate = $this->getCmd(null, 'dateAttest');
         if(is_object($cmdDate)){
-          $dateAttest= $cmdDate->execCmd();
+		  $dateAttest= $cmdDate->execCmd();
+		  $dateAttest=preg_replace("/[\'\"]/", "", $dateAttest);
         }
         if ($dateAttest=='') {
             $dateAttest=strftime("%d/%m/%G");
