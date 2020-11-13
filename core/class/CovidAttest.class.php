@@ -594,14 +594,14 @@ public static function dependancy_install() {
 		$useScenarioCMD = $this->getConfiguration('use_scenar', '0');
 
 		if($useScenarioCMD){
-			$this->sendFilesByScenario($filesA);
+			$this->sendFilesByScenario($ag,$filesA);
 		}else{
-			$this->sendFileByCMD($filesA, $motifStr);
+			$this->sendFileByCMD($ag,$filesA, $motifStr);
 		}
 
 	}
 
-public function sendFilesByScenario($files){
+public function sendFilesByScenario($ag,$files){
 	$scenarioID=$this->getConfiguration('scenarCMD', '');
 	if ($scenarioID === '') {
 			log::add('CovidAttest', 'error', "Scenario denvoi non configurée {$this->getHumanName()}.");
@@ -617,11 +617,11 @@ public function sendFilesByScenario($files){
 		$scenario->launch();
 
 		// suppression des fichiers
-		$this->autoDeleteFiles();
+		$this->autoDeleteFiles($ag);
 }
 
 
- public function sendFileByCMD($files, $motifStr){     
+ public function sendFileByCMD($ag, $files, $motifStr){     
       // choix selon le type d'équipement:
       $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
 
@@ -646,7 +646,7 @@ public function sendFilesByScenario($files){
 	/// si pushover
 
 	case 'pushover':
-
+		$files=explode(',', implode(',', $files));
 		log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $files));
 		 $optionsSendCmd= array('files'=>$files,'title'=>$motifStr, 'message'=> 'Attestation :');
 
@@ -704,10 +704,10 @@ public function sendFilesByScenario($files){
 			log::add('CovidAttest','debug','╠════ envoi des fichiers par la commande :'.$cmd->getHumanName());
              $cmd ->execCmd($optionsSendCmd, $cache=0);
         }
-		$this->autoDeleteFiles();
+		$this->autoDeleteFiles($ag);
 	}
 
-public function autoDeleteFiles(){
+public function autoDeleteFiles($ag){
 
         // suppressiond es fichiers
       	$deactivate_autoremove = $this->getConfiguration('auto_remove', '1');
