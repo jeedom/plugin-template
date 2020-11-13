@@ -647,7 +647,6 @@ public function sendFilesByScenario($files){
 
 	case 'pushover':
 
-
 		log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $files));
 		 $optionsSendCmd= array('files'=>$files,'title'=>$motifStr, 'message'=> 'Attestation :');
 

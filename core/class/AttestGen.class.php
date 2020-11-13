@@ -131,7 +131,7 @@ class ATTESTGEN {
     }
     
     function generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, $subFolder='') {
-        log::add('CovidAttest', 'debug', '║ ╔══════════════════════ Start Generating Attestation :'.$jsonFile);
+        log::add('CovidAttest', 'debug', '║ ╔══════════════════════ Start Generating Attestation ════════════════════ ');
         // verification si le motif est bien un array
         if(!is_array($motifs)){
             if(is_string($motifs)){
