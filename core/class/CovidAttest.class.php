@@ -493,9 +493,9 @@ public static function dependancy_install() {
     public function createDirectPDF($motifs){
         log::add('CovidAttest','debug','╠════ createDirectPDF called for motif :'.$motifs);
 		log::add('CovidAttest','debug','╠════ Id equipement :'.$this->getId());
-      	$cmdDate = $this->getCmd(null, 'dateAttest');
-      
 
+
+      	$cmdDate = $this->getCmd(null, 'dateAttest');
         if(is_object($cmdDate)){
           $dateAttest= $cmdDate->execCmd();
         }
@@ -515,8 +515,8 @@ public static function dependancy_install() {
         $this->createPDF($dateAttest, $timeAttest, $motifs);
       	
       	// on remet à 0 les valerus de date et time
-      if(is_object($cmdDate))$cmdDate->event('');
-      if(is_object($cmdTime))$cmdTime->event('');
+      //if(is_object($cmdDate))$cmdDate->event('');
+      //if(is_object($cmdTime))$cmdTime->event('');
       
     }
   
@@ -562,7 +562,7 @@ public static function dependancy_install() {
         $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage, self::SUBFOLDER.$this->getId());
         log::add('CovidAttest','debug', '╠════ pdf url :'.$pdfURL);
         $qrcURL =$ag->getQRCURL();
-        log::add('CovidAttest','debug', '╠════ png url :'.$pngURL);
+        log::add('CovidAttest','debug', '╠════ png url :'.$qrcURL);
        
 
         
@@ -570,8 +570,10 @@ public static function dependancy_install() {
 	  $sendQRC = $this->getConfiguration('option_sendQRC', '1');
 	  $sendPNG  = $this->getConfiguration('option_sendPNG', '1');
 
-	  if($sendPNG)$pdfImageURL=ATTESTGEN::convert_pdf_to_png($pdfURL);
-	  $sendPNG=($pdfImageURL!=false)?true:false;
+	  if($sendPNG){
+		  $pdfImageURL=ATTESTGEN::convert_pdf_to_png($pdfURL);
+	  		 $sendPNG=($pdfImageURL!=false)?true:false;
+	  }
 	  log::add('CovidAttest','debug','╠════ choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendPNG.' | QRcode : '.$sendQRC);
 	  // creation de l'array des fichiers à envoyer
 		$filesA=array();
@@ -588,8 +590,6 @@ public static function dependancy_install() {
 	  }else{
 		  $motifStr .= $motifs;
 	  }
-
-
 
 		$useScenarioCMD = $this->getConfiguration('use_scenar', '0');
 
