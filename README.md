@@ -64,6 +64,11 @@ Permet de générer une attestation dérogatoire au confinement en France. Gén�
  
  * __Commande d'envoi__ : commande qui permet d'envoyer les documents
  
+    * __commande scénario__ : Si cochée, vous permet de choisir de déclencher un scénario. Les tags du scénario contiendrons les chemins des fichiers par les tags #pdfURL#, #pngURL#, #qrcURL#, selon les cases cochées pour l'envoi des fichiers ci-dessous.
+    
+ ![equip_image](/img_readme/scenario_cmd.png)  
+ 
+ 
  * __Type Equipement__ : le type de l'équipement qui permet l'envoi des documents, qui peut être de 3 types : 
    * __Telegram__ : si il s s'agit d'une commande du plugin telegram (lunarok)
    * __mail__ : si il s'agit d'une commande mail du plugin officiel mail (testé configuration SMTP seulement)
