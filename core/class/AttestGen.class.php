@@ -35,6 +35,7 @@ class ATTESTGEN {
 
     protected $url_qrcode; // addresse du Ppng du qrcode au besoin
     protected $url_pdf; // addresse du Ppng du qrcode au besoin
+    protected $url_png; // addresse du Ppng du qrcode au besoin
     protected $certifNamePerso; // si on d?fini une url perso
 
     function __construct()
@@ -58,11 +59,18 @@ class ATTESTGEN {
     }
     /* ----------------------------------------  Fonction d'instance  ------------------------ */
     // retourne l'url du png du QR code une fois le fichier cr??
-    public function getPNGURL(){
+    public function getQRCURL(){
         if (!isset($this->url_qrcode)){
             return false;
         }
         return $this->url_qrcode;
+    }
+    // retourne l'url du png du PDF une fois le fichier cr??
+     public function getPNGURL(){
+        if (!isset($this->url_png)){
+            return false;
+        }
+        return $this->url_png;
     }
     //retourne l'URL du pdf une fois le fichier cr??
     public function getPDFURL(){
@@ -116,6 +124,10 @@ class ATTESTGEN {
         $dateAttest=strftime("%d/%m/%G");
         $timeAttest=strftime("%Hh%M");
         return $this->generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest);
+    }
+    public function convertPDFtoPNG(){
+        if (!isset($this->url_pdf))return false;
+        $this->url_png=TTESTGEN::convert_pdf_to_png($this->url_pdf);
     }
     
     function generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, $subFolder='') {

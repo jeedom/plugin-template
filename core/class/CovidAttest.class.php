@@ -561,15 +561,9 @@ public static function dependancy_install() {
         
         $pdfURL = $ag->generate_attest($nom, $prenom, $date_naissance,$lieu_naissance,$adresse,$code_postal,$ville, $motifs, $dateAttest, $timeAttest, $secondpage, self::SUBFOLDER.$this->getId());
         log::add('CovidAttest','debug', '╠════ pdf url :'.$pdfURL);
-        $pngURL =$ag->getPNGURL();
+        $qrcURL =$ag->getQRCURL();
         log::add('CovidAttest','debug', '╠════ png url :'.$pngURL);
-        $sendCmd =$this->getConfiguration('sendCmd', '');
-
-		if ($sendCmd === '') {
-			log::add('CovidAttest', 'error', "Commande denvoi non configurée {$this->getHumanName()}.");
-			return false;
-		}
-        log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$this->getHumanName());
+       
 
         
       $sendPDF = $this->getConfiguration('option_sendPDF', '1');
@@ -578,53 +572,84 @@ public static function dependancy_install() {
 
 	  if($sendPNG)$pdfImageURL=ATTESTGEN::convert_pdf_to_png($pdfURL);
 	  $sendPNG=($pdfImageURL!=false)?true:false;
+	  log::add('CovidAttest','debug','╠════ choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendPNG.' | QRcode : '.$sendQRC);
+	  // creation de l'array des fichiers à envoyer
+		$filesA=array();
+		if($sendPDF)$filesA['#pdfURL#'] = $pdfURL;
+		if($sendQRC)$filesA['#qrcURL#'] = $qrcURL;
+		if($sendPNG)$filesA['#pngURL#'] = $pdfImageURL;
+		log::add('CovidAttest','debug','╠════ url des fichiers à envoyer - pdf :'.implode(', ',$filesA));
+
+
+		// motif string 
+		$motifStr = 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour ';
+		 if (is_array($motifs)){
+		  $motifStr .=implode (',', $motifs);
+	  }else{
+		  $motifStr .= $motifs;
+	  }
 
 
 
+		$useScenarioCMD = $this->getConfiguration('use_scenar', '0');
+
+		if($useScenarioCMD){
+			$this->sendFilesByScenario($filesA);
+		}else{
+			$this->sendFileByCMD($filesA, $motifStr);
+		}
+
+	}
+
+public function sendFilesByScenario($files){
+	$scenarioID=$this->getConfiguration('scenarCMD', '');
+	if ($scenarioID === '') {
+			log::add('CovidAttest', 'error', "Scenario denvoi non configurée {$this->getHumanName()}.");
+			return false;
+		}
+		$scenario=scenario::byId($scenarioID);
+		if(is_null($scenario)){
+			log::add('CovidAttest', 'error', "Scenario denvoi non trouvé $scenarioID.");
+			return false;
+		}
+        log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$scenario->getHumanName());
+		$scenario->setTags($files);
+		$scenario->launch();
+
+		// suppression des fichiers
+		$this->autoDeleteFiles();
+}
 
 
-      log::add('CovidAttest','debug','╠════ choix des fichiers à envoyer - pdf :'.$sendPDF.' | png : '.$sendPNG.' | QRcode : '.$sendQRC);
+ public function sendFileByCMD($files, $motifStr){     
       // choix selon le type d'équipement:
       $typeCmd=$this->getConfiguration('option_typeEq', 'custom');
+
 	    // pour le formattage des motif dans les notification, si c'est un motif multiple=> envoi un array
-	  if (is_array($motifs)){
-		  $motifStr =implode (',', $motifs);
-	  }else{
-		  $motifStr = $motifs;
-	  }
+	 
 	  
       switch ($typeCmd) {
           /// si telegram
           case 'telegram':
-          		$str='file=';
-          		if($sendPDF)$str.=$pdfURL;
-				  if($sendQRC)$str.=(strlen($str)>6?',':'').$pngURL;
-				  if($sendPNG)$str.=(strlen($str)>6?',':'').$pdfImageURL;
+          		$str='file='.implode(',',$files);
            		log::add('CovidAttest','debug','╠════ telegram : string envoyée :'.$str);
-              	 $optionsSendCmd= array('title'=>$str,'message'=> 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour '.$motifStr);
+              	 $optionsSendCmd= array('title'=>$str,'message'=> $motifStr);
               break;
           
           
           /// si c'est un mail
           case 'mail':
-          		$filesA=array();
-          		if($sendPDF)array_push($filesA,$pdfURL);
-				  if($sendQRC)array_push($filesA,$pngURL);
-				  if($sendPNG)array_push($filesA,$pdfImageURL);
-				  log::add('CovidAttest','debug','╠════ MAIL : array  envoyée :'.implode(',', $filesA));
-          		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> " ");
+				  log::add('CovidAttest','debug','╠════ MAIL : array  envoyée :'.implode(',', $files));
+          		 $optionsSendCmd= array('files'=>$files,'title'=>$motifStr, 'message'=> " ");
             
 			  break;
 	/// si pushover
 
 	case 'pushover':
-		$filesA=array();
-		if($sendPDF)array_push($filesA,$pdfURL);
-		if($sendQRC)array_push($filesA,$pngURL);
-		if($sendPNG)array_push($filesA,$pdfImageURL);
 
-		log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $filesA));
-		 $optionsSendCmd= array('files'=>$filesA,'title'=>'Attestation du '.$dateAttest.' a '.$timeAttest.' de '.$prenom.' pour '.$motifStr, 'message'=> y);
+
+		log::add('CovidAttest','debug','╠════ PUSHOVER : array  envoyée :'.implode(',', $files));
+		 $optionsSendCmd= array('files'=>$files,'title'=>$motifStr, 'message'=> 'Attestation :');
 
 	break;
 		
@@ -634,9 +659,9 @@ public static function dependancy_install() {
                         log::add('CovidAttest', 'error', "Option de la commande d'envoi non configurée {$this->getHumanName()}.");
                         return false;
                     }
-          			$optionsFormat=str_replace("#pdfURL#", $pdfURL, $optionsFormat);
-					$optionsFormat=str_replace("#qrcURL#", $pngURL, $optionsFormat);
-					$optionsFormat=str_replace("#pngURL#", $pngURL, $optionsFormat);
+          			if(array_key_exists('pdfURL', $files))$optionsFormat=str_replace("#pdfURL#", $files['#pdfURL#'], $optionsFormat);
+					if(array_key_exists('qrcURL', $files))$optionsFormat=str_replace("#qrcURL#", $files['#qrcURL#'], $optionsFormat);
+					if(array_key_exists('pngURL', $files))$optionsFormat=str_replace("#pngURL#", $files['#pngURL#'], $optionsFormat);
 					
                     $optionEmplacement=$this->getConfiguration('option_conf', 'titre');
           			
@@ -653,11 +678,7 @@ public static function dependancy_install() {
 						break;
 
 						case 'files_array':
-							$filesA=array();
-								if($sendPDF)array_push($filesA,$pdfURL);
-								if($sendQRC)array_push($filesA,$pngURL);
-								if($sendPNG)array_push($filesA,$pdfImageURL);
-								$optionsSendCmd= array('title'=>'', 'message'=> '', 'files'=>$filesA);
+								$optionsSendCmd= array('title'=>'', 'message'=> '', 'files'=>$files);
 						break;
 
 						case 'files_string':
@@ -668,14 +689,26 @@ public static function dependancy_install() {
               break;
       }
 
+	   $sendCmd =$this->getConfiguration('sendCmd', '');
+
+		if ($sendCmd === '') {
+			log::add('CovidAttest', 'error', "Commande denvoi non configurée {$this->getHumanName()}.");
+			return false;
+		}
+        log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$sendCmd);
+
 		$cmd = cmd::byId(str_replace('#', '', $sendCmd));
 		
         if (!is_object($cmd)) {
-            log::add('CovidAttest', 'error', "Commande {$nextCmdId} non trouvée, vérifiez la configuration pour  {$this->getHumanName()}.");
+            log::add('CovidAttest', 'error', "Commande {$sendCmd} non trouvée, vérifiez la configuration pour  {$this->getHumanName()}.");
          }else{
 			log::add('CovidAttest','debug','╠════ envoi des fichiers par la commande :'.$cmd->getHumanName());
              $cmd ->execCmd($optionsSendCmd, $cache=0);
         }
+		$this->autoDeleteFiles();
+	}
+
+public function autoDeleteFiles(){
 
         // suppressiond es fichiers
       	$deactivate_autoremove = $this->getConfiguration('auto_remove', '1');
@@ -683,9 +716,7 @@ public static function dependancy_install() {
       	if($deactivate_autoremove==0){
           $successDelete=$ag->deleteAllFiles();
           log::add('CovidAttest','debug','╠════ Suppression des fichiers : '.($successDelete?'ok':'echoue'));
-        }
-		
-        
+        }     
 
     }
   
