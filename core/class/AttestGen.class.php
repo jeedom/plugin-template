@@ -252,6 +252,7 @@ class ATTESTGEN {
         $pdf->SetFont('Arial', '', $posDef['SIG_DATE']['size']);
         $pdf->SetXY($posDef['SIG_DATE']["x"], $posDef['SIG_DATE']["y"]);
         $pdf->Write(0, $dateAttest);
+        
         //heure
         $pdf->SetFont('Arial', '', $posDef['SIG_HEURE']['size']);
         $pdf->SetXY($posDef['SIG_HEURE']["x"], $posDef['SIG_HEURE']["y"]);
