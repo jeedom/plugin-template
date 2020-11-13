@@ -490,7 +490,7 @@ public static function dependancy_install() {
 		
   }
 
-    public function createDirectPDF($motifs){
+    public function createDirectPDF($motifs, $cmdId, $cmdName){
         log::add('CovidAttest','debug','╠════ createDirectPDF called for motif :'.$motifs);
 		log::add('CovidAttest','debug','╠════ Id equipement :'.$this->getId());
 
@@ -512,7 +512,7 @@ public static function dependancy_install() {
             $timeAttest=strftime("%Hh%M");
         }
         log::add('CovidAttest','debug', '╠════ date :'.$dateAttest.' / time : '.$timeAttest.' / motif : '.$motifs);
-        $this->createPDF($dateAttest, $timeAttest, $motifs);
+        $this->createPDF($dateAttest, $timeAttest, $motifs,$cmdId, $cmdName);
       	
       	// on remet à 0 les valerus de date et time
       if(is_object($cmdDate))$cmdDate->event('');
@@ -520,7 +520,7 @@ public static function dependancy_install() {
       
     }
   
-    public function createPDF($dateAttest, $timeAttest, $motifs){
+    public function createPDF($dateAttest, $timeAttest, $motifs,$cmdId, $cmdName){
       
       	$nom=( $this->getConfiguration('user_name', ''));
         $prenom=( $this->getConfiguration('user_firstname', ''));
@@ -594,14 +594,14 @@ public static function dependancy_install() {
 		$useScenarioCMD = $this->getConfiguration('use_scenar', '0');
 
 		if($useScenarioCMD){
-			$this->sendFilesByScenario($ag,$filesA);
+			$this->sendFilesByScenario($ag,$filesA,$cmdId, $cmdName);
 		}else{
 			$this->sendFileByCMD($ag,$filesA, $motifStr);
 		}
 
 	}
 
-public function sendFilesByScenario($ag,$files){
+public function sendFilesByScenario($ag,$files,$cmdId, $cmdName){
 	$scenarioID=$this->getConfiguration('scenarCMD', '');
 	if ($scenarioID === '') {
 			log::add('CovidAttest', 'error', "Scenario denvoi non configurée {$this->getHumanName()}.");
@@ -614,8 +614,10 @@ public function sendFilesByScenario($ag,$files){
 		}
 		log::add('CovidAttest','debug', '╠════ commande d\'envoi :'.$scenario->getHumanName());
 		
-		$files["#cmdID#"]=$this->getId();
-		$files["#cmdNAME#"]=$this->getHumanName();
+		$files["#cmdID#"]=$cmdId;
+		$files["#cmdNAME#"]=$cmdName;
+		$files["#eqID#"]=$this->getId();
+		$files["#eqNAME#"]=$this->getHumanName();
 		log::add('CovidAttest','debug', '╠════ tags  :'.implode(',', $files));
 		$scenario->setTags($files);
 		$scenario->launch();
@@ -733,34 +735,36 @@ class CovidAttestCmd extends cmd {
    
   // Exécution d'une commande
      public function execute($_options = array()) {
-         log::add('CovidAttest','debug', '╔═══════════════════════ execute CMD, logical id :'.$this->getLogicalId().'  options : '.print_r($_options));
-         switch($this->getLogicalId()){
+         log::add('CovidAttest','debug', "╔═══════════════════════ execute CMD : ".$this->getId()." | ".$this->getHumanName().", logical id : ".$this->getLogicalId() ."options : ".print_r($_options));
+		 $cmdId=$this->getId();
+		 $cmdName=$this->getHumanName();
+		 switch($this->getLogicalId()){
              case 'send_motif_TRAVAIL':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::TRAVAIL);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::TRAVAIL, $cmdId, $cmdName);
                  break;
              case 'send_motif_ACHATS':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::ACHATS);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::ACHATS, $cmdId, $cmdName);
                  break;
              case 'send_motif_SANTE':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::SANTE);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::SANTE, $cmdId, $cmdName);
                  break;
              case 'send_motif_FAMILLE':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::FAMILLE);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::FAMILLE, $cmdId, $cmdName);
                  break;
              case 'send_motif_HANDICAP':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::HANDICAP);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::HANDICAP, $cmdId, $cmdName);
                  break;
              case 'send_motif_SPORT_ANIMAUX':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::SPORT_ANIMAUX);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::SPORT_ANIMAUX, $cmdId, $cmdName);
                  break;
              case 'send_motif_CONVOCATION':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::CONVOCATION);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::CONVOCATION, $cmdId, $cmdName);
                  break;
              case 'send_motif_MISSIONS':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::MISSIONS);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::MISSIONS, $cmdId, $cmdName);
                  break;
              case 'send_motif_ENFANTS':
-                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::ENFANTS);
+                 $this->getEqLogic()->createDirectPDF(ATTESTGEN::ENFANTS, $cmdId, $cmdName);
                  break;
            case 'remove_file':
              	$this->getEqLogic()->removeMyFiles();
@@ -774,7 +778,7 @@ class CovidAttestCmd extends cmd {
              	$motifs=explode (';',$motifsStr);
              	
              	log::add('CovidAttest', 'debug', '╠════ motifs multiples : '.implode('#',$motifs));
-             	$this->getEqLogic()->createDirectPDF($motifs);
+             	$this->getEqLogic()->createDirectPDF($motifs, $cmdId, $cmdName);
              	break;
              Default:
                  log::add('CovidAttest','debug', '╠════ Deafault call');
