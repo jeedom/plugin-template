@@ -35,18 +35,42 @@ class ATTESTGEN {
 
     protected $url_qrcode; // addresse du Ppng du qrcode au besoin
     protected $url_pdf; // addresse du Ppng du qrcode au besoin
+    protected $url_png; // addresse du Ppng du qrcode au besoin
     protected $certifNamePerso; // si on d?fini une url perso
 
     function __construct()
     {
     }
 
+    /* ----------------------------------------  utilitaire de classe static ------------------------ */
+    public static function convert_pdf_to_png($fileURL){
+        $basePath= pathinfo($fileURL)['dirname'];
+        $fileNAME = basename($fileURL);
+        $pngName = basename($fileURL,  pathinfo($fileURL)['extension']).'png';
+        $cmdIg ='convert -density 200 '.$fileURL.' -fill "#FFFFFFFF" -opaque none -flatten -alpha flatten -alpha remove '.$basePath.'/'.$pngName;
+        log::add('CovidAttest', 'debug', "╠════ ## Convert file $fileNAME to image $pngName by commande $cmdIg");
+        shell_exec($cmdIg);
+        if(is_file($basePath.'/'.$pngName)){
+            return $basePath.'/'.$pngName;
+        }else{
+            return false;
+        }
+
+    }
+    /* ----------------------------------------  Fonction d'instance  ------------------------ */
     // retourne l'url du png du QR code une fois le fichier cr??
-    public function getPNGURL(){
+    public function getQRCURL(){
         if (!isset($this->url_qrcode)){
             return false;
         }
         return $this->url_qrcode;
+    }
+    // retourne l'url du png du PDF une fois le fichier cr??
+     public function getPNGURL(){
+        if (!isset($this->url_png)){
+            return false;
+        }
+        return $this->url_png;
     }
     //retourne l'URL du pdf une fois le fichier cr??
     public function getPDFURL(){
@@ -101,9 +125,13 @@ class ATTESTGEN {
         $timeAttest=strftime("%Hh%M");
         return $this->generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest);
     }
+    public function convertPDFtoPNG(){
+        if (!isset($this->url_pdf))return false;
+        $this->url_png=TTESTGEN::convert_pdf_to_png($this->url_pdf);
+    }
     
     function generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, $subFolder='') {
-        log::add('CovidAttest', 'debug', '║ ╔══════════════════════ Start Generating Attestation :'.$jsonFile);
+        log::add('CovidAttest', 'debug', '║ ╔══════════════════════ Start Generating Attestation ════════════════════ ');
         // verification si le motif est bien un array
         if(!is_array($motifs)){
             if(is_string($motifs)){
@@ -224,6 +252,7 @@ class ATTESTGEN {
         $pdf->SetFont('Arial', '', $posDef['SIG_DATE']['size']);
         $pdf->SetXY($posDef['SIG_DATE']["x"], $posDef['SIG_DATE']["y"]);
         $pdf->Write(0, $dateAttest);
+        
         //heure
         $pdf->SetFont('Arial', '', $posDef['SIG_HEURE']['size']);
         $pdf->SetXY($posDef['SIG_HEURE']["x"], $posDef['SIG_HEURE']["y"]);
@@ -274,6 +303,7 @@ class ATTESTGEN {
                     $pdf->SetXY($posDef['MIG']["x"], $posDef['MIG']["y"]);
                     break;
                 default:
+		log::add('CovidAttest', 'debug', '║ ╠════ !! motif non trouvé <---------');
                     $isOk=false;
                     break;
             }
@@ -311,6 +341,7 @@ class ATTESTGEN {
 
     return $string;
 }
+
   
    
 }

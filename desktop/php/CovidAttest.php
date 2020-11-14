@@ -1,4 +1,6 @@
 <?php
+//require_once __DIR__ . '/../../core/php/core.inc.php';
+//require_once __DIR__ . '/../../core/class/scenario.class.php';
 if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
@@ -119,11 +121,11 @@ foreach (jeeObject::all() as $object) {
         </div>
     </div>
     <div class="form-group">
-                  <label class="col-sm-3 control-label help" data-help="{{si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
-                  <div class="col-sm-9">
-                   <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
-                 </div>
-             </div>
+        <label class="col-sm-3 control-label help" data-help="{{si cochée, récupère automatiquement l'addresse renseignée dans la configuration de jeedom}}">{{Utiliser l'adresse de jeedom}}</label>
+        <div class="col-sm-9">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_jeeadd"/>
+        </div>
+    </div>
 	<div class="adress_group" style="display: ;">
     <div class="form-group">
            <label class="col-sm-3 control-label">{{Adresse}}</label>
@@ -146,46 +148,62 @@ foreach (jeeObject::all() as $object) {
   </div>
     <div class="form-group">
 		<label class="col-sm-3 control-label help" >{{Commande d'envoi}}</label>
+        <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_scenar"/>
+         <label class="control-label help" data-help="Pour choisir un scénario à démarrer par la commande, avec les tags :<br> <ul><li>#pdfURL#, #pngURL#, #qrcURL# pour les chemin des fichier- pdf, pdf Image et QRCode</li><li>#eqID#, #eqNAME# pour l'équipement qui a lancé la scénario,</li><li>#cmdID#, #cmdNAME# pour la commande lancée </li></ul>(cf doc)">{{commande scénario}}</label>
+        
 		<div class="col-sm-3">
-			<div class="input-group">
+			<div class="input-group CA-cmd-el">
 				<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="sendCmd"/>
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default cursor listCmdActionMessage tooltips" title="{{Rechercher une commande}}" data-input="sendCmd"><i class="fas fa-list-alt"></i></button>
 				</span>
 			</div>
+            <div class="input-group CA-scenar-el" style="width:100%;">
+				<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="scenarCMD">
+              	<?php
+                // Affiche la liste des scénario
+                $scenarios=scenario::all(); //scenario::allOrderedByGroupObjectName();
+                foreach ($scenarios as $scenario) {
+	                echo "<option value='".$scenario->getId()."'>".$scenario->getHumanName()."</option>";
+                }
+                
+                ?>    
+              </select>
+			</div>
 		</div>
 	</div>
     
-    <div class="form-group">
+    <div class="form-group CA-cmd-el">
         <label class="col-sm-3 control-label help" data-help="{{choisissez le type d'équipement}}">{{Type Equipement}}</label>
             <div class="col-sm-3">
 
               <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_typeEq">
               	<option value='telegram'>Telegram</option>
               	<option value='mail'>Mail</option>
+                <option value='pushover'>Pushover</option>
               	<option value='custom'>Custom</option>
               </select>
 
         </div>
     </div>
     
-<div class="send_option_group" > 
+<div class="send_option_group CA-cmd-el" > 
     <div class="form-group">
-         <label class="col-sm-3 control-label help" data-help="{{utilisez #pdfURL#, et #qrcURL# pour spécifier les urls des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
+         <label class="col-sm-3 control-label help" data-help="{{utilisez #pdfURL# (attestation pdf),#pngURL# (attestation format png) et  #qrcURL# (png du qr code) pour spécifier les urls des fichiers du pdf de l'attestation et du png du QRcode}}">{{Option de la commande}}</label>
         <div class="col-sm-3">
-            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#"/>
+            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_sendcmd" placeholder="ex: file=#qrcURL#,#pdfURL#,#pngURL#"/>
         </div>
     </div>
-    
-              
        
    	<div class="form-group">
-           <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers}}">{{destination}}</label>
+           <label class="col-sm-3 control-label help" data-help="{{pour choisir si le titre ou le corps du message sera utilisé pour transmettre les fichiers, ou transmis par un array avec les chemin des fichiers}}">{{destination}}</label>
            <div class="col-sm-3">
           
             <select id="option_confId" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="option_conf">
                         <option value="title">titre</option>
            				<option value="message">message</option>
+                        <option value="files_array">Files (array)</option>
+                        <option value="files_string">Files (string)</option>
             </select>
            
         </div>
@@ -198,6 +216,9 @@ foreach (jeeObject::all() as $object) {
            <div class="col-sm-9">
             	<label class="checkbox-inline help" data-help="{{si cochée, envoi le pdf}}">
            		<input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPDF"/>{{Envoi du PDF}}
+                </label>
+                <label class="checkbox-inline help" data-help="{{si cochée, envoi le png de l'attestation}}">
+                <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendPNG"/>{{Envoi au format image}}
                 </label>
                 <label class="checkbox-inline help" data-help="{{si cochée, envoi le png du QRcode}}">
                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="option_sendQRC"/>{{Envoi du QRcode}}
