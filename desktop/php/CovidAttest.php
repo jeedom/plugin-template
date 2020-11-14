@@ -149,7 +149,7 @@ foreach (jeeObject::all() as $object) {
     <div class="form-group">
 		<label class="col-sm-3 control-label help" >{{Commande d'envoi}}</label>
         <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="use_scenar"/>
-         <label class="control-label">{{commande scénario}}</label>
+         <label class="control-label help" data-help="Pour choisir un scénario à démarrer par la commande, avec les tags :<br> <ul><li>#pdfURL#, #pngURL#, #qrcURL# pour les chemin des fichier- pdf, pdf Image et QRCode</li><li>#eqID#, #eqNAME# pour l'équipement qui a lancé la scénario,</li><li>#cmdID#, #cmdNAME# pour la commande lancée </li></ul>(cf doc)">{{commande scénario}}</label>
         
 		<div class="col-sm-3">
 			<div class="input-group CA-cmd-el">
