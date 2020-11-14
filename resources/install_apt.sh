@@ -5,7 +5,7 @@ fi
 touch ${PROGRESS_FILE}
 echo 0 > ${PROGRESS_FILE}
 echo 0 > ${PROGRESS_FILE}
-echo "Launch install of CovidAttest dependancy"
+echo "==== Launch install of CovidAttest dependancy ===="
 apt-get update
 echo 50 > ${PROGRESS_FILE}
 echo "Installation ImageMagick"
@@ -31,4 +31,4 @@ else
 fi
 
 echo 100 > ${PROGRESS_FILE}
-echo "Everything is successfully installed!"
+echo "====== END OF CovidAttest DEPENDENCY INSTALLATION ===="
