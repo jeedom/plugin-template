@@ -506,7 +506,8 @@ public static function dependancy_install() {
       
      	$cmdTime = $this->getCmd(null, 'heureAttest');
 		if(is_object($cmdTime)){
-          $timeAttest= $cmdTime->execCmd();
+		  $timeAttest= $cmdTime->execCmd();
+		  $timeAttest=preg_replace("/[\'\"]/", "", $timeAttest);
         }
         
         if ($timeAttest=='') {
