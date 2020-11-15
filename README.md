@@ -4,7 +4,7 @@
   <img width="100" src="/plugin_info/CovidAttest_icon.png">
 </p>
 
-Permet de générer une attestation dérogatoire au confinement en France. Génère un document PDF de l'attestation ainsi qu'une image (png) du QRcode reprenant les informations
+Permet de générer une attestation dérogatoire au confinement en France. Génère un document PDF et/ou PNG de l'attestation ainsi qu'une image (png) du QRcode
 
 *__!! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
