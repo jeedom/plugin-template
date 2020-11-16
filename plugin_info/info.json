@@ -12,7 +12,7 @@
 	"changelog" : "https://github.com/Bbillyben/CovidAttest/blob/master/docs/fr_FR/changelog.md",
 	"documentation" : "https://github.com/Bbillyben/CovidAttest/blob/master/README.md",
 	"link" : {
-		"forum":"https://community.jeedom.com/t/plugin-covidattest-generateur-dattestation-derogatoire-au-confinement-en-france/41362"
+		"forum":"https://community.jeedom.com/t/plugin-tiers-covidattest/41370"
 	},
 	"language" : ["fr_FR"],
 	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
