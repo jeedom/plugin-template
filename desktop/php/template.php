@@ -52,9 +52,10 @@ foreach ($eqLogics as $eqLogic) {
   </ul>
   <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
     <div role="tabpanel" class="tab-pane active" id="eqlogictab">
-      <br/>
-    <form class="form-horizontal">
-        <fieldset>
+			<br/>
+		<form class="form-horizontal col-md-6">
+				<fieldset>
+					<legend><i class="fas fa-wrench"></i> {{Général}}</legend>
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{Nom de l'équipement template}}</label>
                 <div class="col-sm-3">
