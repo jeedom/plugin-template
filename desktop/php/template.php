@@ -28,11 +28,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
   	<legend><i class="fas fa-table"></i> {{Mes templates}}</legend>
 		<!-- Champ de recherche -->
 		<div class="input-group" style="margin:5px;">
-		<input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic"/>
-		<div class="input-group-btn">
-			<a id="bt_resetSearch" class="btn roundedRight" style="width:30px"><i class="fas fa-times"></i></a>
+			<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic"/>
+			<div class="input-group-btn">
+				<a id="bt_resetSearch" class="btn roundedRight" style="width:30px"><i class="fas fa-times"></i></a>
+			</div>
 		</div>
-	</div>
 <!-- Liste des équipements du plugin -->
 	<div class="eqLogicThumbnailContainer">
     <?php
@@ -69,7 +69,7 @@ foreach ($eqLogics as $eqLogic) {
   <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
 <!-- Onglet de configuration de l'équipement -->
 		<div role="tabpanel" class="tab-pane active" id="eqlogictab">
-			<br/>
+		<br/>
 	<!-- Partie gauche de l'onglet "Equipements" -->
 	<!-- Paramètres généraux de l'équipement -->
 		<form class="form-horizontal col-lg-7">
@@ -109,14 +109,16 @@ foreach ($eqLogics as $eqLogic) {
                   ?>
                </div>
            </div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">{{Options}}</label>
-		<div class="col-sm-7">
-			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
-			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
-		</div>
-	</div>
-	<br>
+					 <div class="form-group">
+						 <label class="col-sm-3 control-label">{{Options}}</label>
+						 <div class="col-sm-7">
+							 <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+							 <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+						 </div>
+					 </div>
+
+	<br/>
+	<legend><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
 	<div class="form-group">
     <label class="col-sm-3 control-label">{{Paramètre n°1}}</label>
       <div class="col-sm-7">
@@ -126,18 +128,21 @@ foreach ($eqLogics as $eqLogic) {
 <!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
 <!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
 		<div class="form-group">
-			<label class="col-sm-3 control-label help" data-help="{{Fréquence de rafraîchissement de l'équipement}}">{{Auto-actualisation}}</label>
+			<label class="col-sm-3 control-label">{{Auto-actualisation}}
+				<sup><i class="fas fa-question-circle" title="{{Fréquence de rafraîchissement de l'équipement}}"></i></sup>
+			</label>
 			<div class="col-sm-7">
 			  <div class="input-group">
-			    <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="autorefresh" placeholder="{{Cliquer sur ? pour afficher l'assistant cron}}"/>
+			    <input type="text" class="eqLogicAttr form-control roundedLeft" data-l1key="configuration" data-l2key="autorefresh" placeholder="{{Cliquer sur ? pour afficher l'assistant cron}}"/>
 			    <span class="input-group-btn">
-			    <a class="btn btn-default cursor jeeHelper roundedRight" data-helper="cron">
-			    <i class="fas fa-question-circle"></i>
-			    </a>
+			    	<a class="btn btn-default cursor jeeHelper roundedRight" data-helper="cron" title="Assistant cron">
+			    	<i class="fas fa-question-circle"></i>
+			    	</a>
 			    </span>
 			  </div>
 			</div>
 		</div>
+		<br/>
 	</fieldset>
 </form>
 
@@ -154,12 +159,12 @@ foreach ($eqLogics as $eqLogic) {
 			</div>
 	</fieldset>
 </form>
-
 </div>
 
 <!-- Onglet des commandes de l'équipement -->
 <div role="tabpanel" class="tab-pane" id="commandtab">
-	<a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
+	<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une commande}}</a>
+	<br/><br/>
 	<div class="table-responsive">
 		<table id="table_cmd" class="table table-bordered table-condensed">
     	<thead>
@@ -182,7 +187,7 @@ foreach ($eqLogics as $eqLogic) {
 </div>
 </div>
 
-<!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, nom_du_plugin) -->
+<!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, id_du_plugin) -->
 <?php include_file('desktop', 'template', 'js', 'template');?>
 <!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
 <?php include_file('core', 'plugin.template', 'js');?>
