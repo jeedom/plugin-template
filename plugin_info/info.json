@@ -1,10 +1,10 @@
 {
 	"id" : "template",
 	"name" : "Template",
-	"description" : "Plugin template pour la création de plugin",
+	"description" : "Template servant de base à la création de plugins Jeedom",
 	"licence" : "AGPL",
 	"author" : "Jeedom SAS",
-	"require" : "3.2",
+	"require" : "3.3.39",
 	"category" : "programming",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
