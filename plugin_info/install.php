@@ -17,6 +17,9 @@
  */
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+
+require_once dirname(__FILE__) .'/../core/class/AttestGen.class.php';
 
 // Fonction exécutée automatiquement après l'installation du plugin
   function template_install() {
@@ -24,9 +27,12 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
   }
 
 // Fonction exécutée automatiquement après la mise à jour du plugin
-  function template_update() {
-
-  }
+function CovidAttest_update() {
+	
+  message::add('CovidAttest','mise à jour du certificat '.ATTESTGEN::certiFName);
+  log::add('CovidAttest', 'info', 'mise à jour du certificat '.ATTESTGEN::certiFName );
+  config::save('certificate_name',ATTESTGEN::certiFName, 'CovidAttest');
+}
 
 // Fonction exécutée automatiquement après la suppression du plugin
   function template_remove() {

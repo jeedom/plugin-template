@@ -48,6 +48,8 @@ public static function dependancy_install() {
 
 
 
+
+
   /* --------------------------  Méthode static pour gestion des fichiers généraux -------------------------------------- */
   public static function DELETE_ALL(){
     	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT';
@@ -191,7 +193,7 @@ public static function dependancy_install() {
 			$dateAttest = new CovidAttestCmd();
 			$dateAttest->setLogicalId('dateAttest');
 			$dateAttest->setIsVisible(0);
-			$dateAttest->setName(__('Date de l\'attestation', __FILE__));
+			$dateAttest->setName(__('Date attestation', __FILE__));
 		}
         $dateAttest->setType('info');
 		$dateAttest->setSubType('string');
@@ -204,7 +206,7 @@ public static function dependancy_install() {
 			$heureAttest = new CovidAttestCmd();
 			$heureAttest->setLogicalId('heureAttest');
 			$heureAttest->setIsVisible(0);
-			$heureAttest->setName(__('Heure de l\'attestation', __FILE__));
+			$heureAttest->setName(__('Heure attestation', __FILE__));
 		}
         $heureAttest->setType('info');
 		$heureAttest->setSubType('string');

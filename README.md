@@ -4,7 +4,7 @@
   <img width="100" src="/plugin_info/CovidAttest_icon.png">
 </p>
 
-Permet de générer une attestation dérogatoire au confinement en France. Génère un document PDF de l'attestation ainsi qu'une image (png) du QRcode reprenant les informations
+Permet de générer une attestation dérogatoire au confinement en France. Génère un document PDF et/ou PNG de l'attestation ainsi qu'une image (png) du QRcode
 
 *__!! l'auteur n'est pas responsable des amendes et sanctions que vous pourrez subir avec son utilisation !!__*
 
@@ -98,7 +98,7 @@ Peut être utile pour l'utiliser avec notification queue par exemple.
 2. Pour cocher plusieurs motifs : utiliser la commande envoi Multiple, de type message, avec dans la partie 'message' les motifs séparés par une virgule (',') ou point virgule (';'). Les motifs sont accessibles dans l'équipement par les commandes info nommées par motif (motif TRAVAIL par exemple).
 
 ## Spécifier la date ou l'heure :
-Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : __date d'attestation__ et __heure d'attestation__.
+Dans l'equipement, il y a 1 commande par type de motif, plus 2 info : __date attestation__ et __heure attestation__.
 => Si vous renseignez ces valeurs, avant d'envoyer la commande, elles seront utilisées pour générer l'attestation.
 une fois utilisées, elle seront réinitialisées à 0.
 
@@ -107,7 +107,7 @@ une fois utilisées, elle seront réinitialisées à 0.
 Exemple :  ici on génère une attestation au *_1er décembre 1970_* à *_8h44_* avec les motifs *_enfants_* et *_travail_* de cochés 
 
 ![equip_image](/img_readme/scenario.PNG)  
-
+**note : les nom des commandes info ont changé => __date attestation__ et __heure attestation__ par dédaut
 
 ## widget 
 

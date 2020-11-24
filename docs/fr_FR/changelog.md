@@ -1,7 +1,14 @@
+### 24/11/2020 
+Mise à jour du certificat vers le plus récent du site du gouvernement
 
-### 13/11/2020 : ajout la possibilité de démarrer un scénario avec les tags correspondant aux chemin des fichiers au lieu de la commande d'envoi.
+### 23/11/2020 
+suppression des apostrophes dans le nom des commandes info de date et d'heure (pb dans bloc code pour l'appel par nom => nécessité d'échapper l'apostrophe)
 
-### 11/11/2020 : Ajout génération d'une image du PDF pour envoi au format png
+### 13/11/2020 : Modif Commande d'envoi
+ajout la possibilité de démarrer un scénario avec les tags correspondant aux chemin des fichiers au lieu de la commande d'envoi.
+
+### 11/11/2020 : Ajout envoi Attestation format image
+Ajout génération d'une image du PDF pour envoi au format png
 
 
 ### 09/11/2020 : correction bug sur commande envoi multi et motifs séparés par une virgule
