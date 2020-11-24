@@ -48,6 +48,8 @@ public static function dependancy_install() {
 
 
 
+
+
   /* --------------------------  Méthode static pour gestion des fichiers généraux -------------------------------------- */
   public static function DELETE_ALL(){
     	$path=realpath(dirname(__FILE__). '/../../').'/EXPORT';
