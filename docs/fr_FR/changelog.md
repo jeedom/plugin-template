@@ -1,3 +1,6 @@
+### 24/11/2020 
+Mise à jour du certificat vers le plus récent du site du gouvernement
+
 ### 23/11/2020 
 suppression des apostrophes dans le nom des commandes info de date et d'heure (pb dans bloc code pour l'appel par nom => nécessité d'échapper l'apostrophe)
 
