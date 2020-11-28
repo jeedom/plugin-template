@@ -24,8 +24,9 @@ class ATTESTGEN {
     const CONVOCATION = 'convocation';
     const MISSIONS = 'missions';
     const ENFANTS = 'enfants';
+    const CULTURE = 'culture';
 
-    const certiFName = 'certificate_20_11_20.pdf';//'30-10-2020-attestation-de-deplacement-derogatoire.pdf'; //
+    const certiFName = 'certificat_28_11_20.pdf';//'30-10-2020-attestation-de-deplacement-derogatoire.pdf'; //
 
     //public $aMemberVar = 'aMemberVar Member Variable';
     public $generate_attest = 'generate_attest';
@@ -127,7 +128,7 @@ class ATTESTGEN {
     }
     public function convertPDFtoPNG(){
         if (!isset($this->url_pdf))return false;
-        $this->url_png=TTESTGEN::convert_pdf_to_png($this->url_pdf);
+        $this->url_png=ATTESTGEN::convert_pdf_to_png($this->url_pdf);
     }
     
     function generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, $subFolder='') {
@@ -302,6 +303,10 @@ class ATTESTGEN {
                 $pdf->SetFont('Arial', '', $posDef['MIG']['size']);
                     $pdf->SetXY($posDef['MIG']["x"], $posDef['MIG']["y"]);
                     break;
+                case ATTESTGEN::CULTURE:
+                    $pdf->SetFont('Arial', '', $posDef['CULTURE']['size']);
+                        $pdf->SetXY($posDef['CULTURE']["x"], $posDef['CULTURE']["y"]);
+                        break;
                 default:
 		log::add('CovidAttest', 'debug', '║ ╠════ !! motif non trouvé <---------');
                     $isOk=false;
