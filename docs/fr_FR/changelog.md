@@ -1,3 +1,9 @@
+### 28/11/2020 
+mise à jour vers la nouvelle attestation,
+Ajout du motif "CULTURE" pour les lieux de culture et lieux de culte
+=> Pensez à mettre à jour vos équipement (nouvelle sauvegarde) pour mettre à jour et ajouter la commande "Envoi Motif CULTURE"
+!! Attention le motif "Achats" N'existe plus sur cette attestation, il est conservé pour archive et futur attestation. Si vous l'utilisez, il enverra une attestation vide !!
+
 ### 24/11/2020 
 Mise à jour du certificat vers le plus récent du site du gouvernement
 
