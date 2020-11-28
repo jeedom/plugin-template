@@ -48,7 +48,7 @@ class ATTESTGEN {
         $basePath= pathinfo($fileURL)['dirname'];
         $fileNAME = basename($fileURL);
         $pngName = basename($fileURL,  pathinfo($fileURL)['extension']).'png';
-        $cmdIg ='convert -density 200 '.$fileURL.' -fill "#FFFFFFFF" -opaque none -flatten -alpha flatten -alpha remove '.$basePath.'/'.$pngName;
+        $cmdIg ='convert -density 200 '.$fileURL.'[0] -fill "#FFFFFFFF" -opaque none -flatten -alpha flatten -alpha remove -colorspace RGB '.$basePath.'/'.$pngName;
         log::add('CovidAttest', 'debug', "╠════ ## Convert file $fileNAME to image $pngName by commande $cmdIg");
         shell_exec($cmdIg);
         if(is_file($basePath.'/'.$pngName)){
