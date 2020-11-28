@@ -29,8 +29,9 @@ require_once dirname(__FILE__) .'/../core/class/AttestGen.class.php';
 // Fonction exécutée automatiquement après la mise à jour du plugin
 function CovidAttest_update() {
 	
-  message::add('CovidAttest','mise à jour du certificat '.ATTESTGEN::certiFName);
-  log::add('CovidAttest', 'info', 'mise à jour du certificat '.ATTESTGEN::certiFName );
+  message::add('CovidAttest','mise à jour du certificat vers :'.ATTESTGEN::certiFName);
+  message::add('Pensez à mettre à jour vos équipement (-> sauvegarde), un nouveau motif à été ajouté');
+  log::add('CovidAttest', 'info', 'mise à jour du certificat vers :'.ATTESTGEN::certiFName );
   config::save('certificate_name',ATTESTGEN::certiFName, 'CovidAttest');
 }
 
