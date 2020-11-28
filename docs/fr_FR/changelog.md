@@ -1,4 +1,7 @@
-### 28/11/2020 
+### 28/11/2020 19:00
+Correction erreur colorspace qd transformation en png du pdf de l'attestation
+
+### 28/11/2020 14:00
 mise à jour vers la nouvelle attestation,
 Ajout du motif "CULTURE" pour les lieux de culture et lieux de culte
 => Pensez à mettre à jour vos équipement (nouvelle sauvegarde) pour mettre à jour et ajouter la commande "Envoi Motif CULTURE"
