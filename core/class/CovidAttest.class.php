@@ -90,7 +90,7 @@ public static function dependancy_install() {
 	$address='01 rue de la mouette';
 	$zip='00 001';
 	$ville='Saint-Amand-Montrond';
-	$motifs=array(ATTESTGEN::TRAVAIL ,ATTESTGEN::ACHATS ,ATTESTGEN::SANTE ,ATTESTGEN::FAMILLE ,ATTESTGEN::HANDICAP ,ATTESTGEN::SPORT_ANIMAUX ,ATTESTGEN::CONVOCATION ,ATTESTGEN::MISSIONS ,ATTESTGEN::ENFANTS);
+	$motifs=array(ATTESTGEN::TRAVAIL ,ATTESTGEN::ACHATS ,ATTESTGEN::SANTE ,ATTESTGEN::FAMILLE ,ATTESTGEN::HANDICAP ,ATTESTGEN::SPORT_ANIMAUX ,ATTESTGEN::CONVOCATION ,ATTESTGEN::MISSIONS ,ATTESTGEN::ENFANTS,ATTESTGEN::CULTURE);
 	$dateAttest='12/12/2012';
 	$timeAttest='12h12';
 	$testPATH = $ag->generate_attest($name,$fname,$ddn,$lieu_ddn,$address,$zip,$ville, $motifs, $dateAttest, $timeAttest, $secondPage=false, 'TEST');
@@ -180,6 +180,11 @@ public static function dependancy_install() {
       $testAttest = $this->getCmd(null, 'motif_ENFANTS');
 		if (is_object($testAttest)) {
 			$testAttest->event(ATTESTGEN::ENFANTS);
+			$testAttest->save();
+		}
+	$testAttest = $this->getCmd(null, 'motif_CULTURE');
+		if (is_object($testAttest)) {
+			$testAttest->event(ATTESTGEN::CULTURE);
 			$testAttest->save();
 		}
 
@@ -321,6 +326,18 @@ public static function dependancy_install() {
 		$motif->setSubType('other');
 		$motif->setEqLogic_id($this->getId());
 		$motif->save();
+
+		$motif = $this->getCmd(null, 'send_motif_CULTURE');
+		if (!is_object($motif)) {
+			$motif = new CovidAttestCmd();
+			$motif->setLogicalId('send_motif_CULTURE');
+			$motif->setIsVisible(1);
+			$motif->setName(__('Envoi motif CULTURE', __FILE__));
+		}
+        $motif->setType('action');
+		$motif->setSubType('other');
+		$motif->setEqLogic_id($this->getId());
+		$motif->save();
       
       $motif = $this->getCmd(null, 'send_motif_MULTI');
 		if (!is_object($motif)) {
@@ -444,6 +461,19 @@ public static function dependancy_install() {
 			$motifType->setLogicalId('motif_ENFANTS');
 			$motifType->setIsVisible(0);
 			$motifType->setName(__('motif ENFANTS', __FILE__));
+		}
+        $motifType->setType('info');
+		$motifType->setSubType('string');
+      	$motifType->setIsVisible(0);
+		$motifType->setEqLogic_id($this->getId());
+		$motifType->save();
+
+		$motifType = $this->getCmd(null, 'motif_CULTURE');
+		if (!is_object($motifType)) {
+			$motifType = new CovidAttestCmd();
+			$motifType->setLogicalId('motif_CULTURE');
+			$motifType->setIsVisible(0);
+			$motifType->setName(__('motif CULTURE', __FILE__));
 		}
         $motifType->setType('info');
 		$motifType->setSubType('string');
@@ -769,7 +799,10 @@ class CovidAttestCmd extends cmd {
                  break;
              case 'send_motif_ENFANTS':
                  $this->getEqLogic()->createDirectPDF(ATTESTGEN::ENFANTS, $cmdId, $cmdName);
-                 break;
+				 break;
+			case 'send_motif_CULTURE':
+				$this->getEqLogic()->createDirectPDF(ATTESTGEN::CULTURE, $cmdId, $cmdName);
+				break;
            case 'remove_file':
              	$this->getEqLogic()->removeMyFiles();
              	break;
