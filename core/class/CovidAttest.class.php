@@ -621,9 +621,12 @@ public static function dependancy_install() {
 		$motifStr = 'Attestation Covid du '.$dateAttest.' a '.$timeAttest.' pour ';
 		 if (is_array($motifs)){
 		  $motifStr .=implode (',', $motifs);
-	  }else{
-		  $motifStr .= $motifs;
-	  }
+		  }else{
+			  $motifStr .= $motifs;
+		  }
+	    
+	    	$motifStr=str_replace("_"," ",$motifStr);
+		log::add('CovidAttest','debug','╠════ String motifs :'.$motifStr);
 
 		$useScenarioCMD = $this->getConfiguration('use_scenar', '0');
 
