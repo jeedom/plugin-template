@@ -1,3 +1,6 @@
+### 30/11/2020
+correction bug telegram avec conf "markdown" et motif sport_animaux
+
 ### 28/11/2020 19:00
 Correction erreur colorspace qd transformation en png du pdf de l'attestation
 
