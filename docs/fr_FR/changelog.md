@@ -3,7 +3,7 @@
  * Mise à jour du certificat
  * Nouveau motif créé : TRANSIT
 
-=> __*Pensez à resauvegarder vos équipement pour ajouter les commandes*__
+=> __*Pensez à resauvegarder vos équipements pour ajouter les commandes*__
 
 ### 30/11/2020
 correction bug telegram avec conf "markdown" et motif sport_animaux
