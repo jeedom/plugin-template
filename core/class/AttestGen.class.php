@@ -25,8 +25,9 @@ class ATTESTGEN {
     const MISSIONS = 'missions';
     const ENFANTS = 'enfants';
     const CULTURE = 'culture';
+  	const TRANSIT = 'transit';
 
-    const certiFName = 'certificate_05_12_2020.pdf';//'30-10-2020-attestation-de-deplacement-derogatoire.pdf'; //
+    const certiFName = 'certificate_16_12_2020.pdf';//'30-10-2020-attestation-de-deplacement-derogatoire.pdf'; //
 
     //public $aMemberVar = 'aMemberVar Member Variable';
     public $generate_attest = 'generate_attest';
@@ -306,6 +307,10 @@ class ATTESTGEN {
                 case ATTESTGEN::CULTURE:
                     $pdf->SetFont('Arial', '', $posDef['CULTURE']['size']);
                         $pdf->SetXY($posDef['CULTURE']["x"], $posDef['CULTURE']["y"]);
+                        break;
+                case ATTESTGEN::TRANSIT:
+                    $pdf->SetFont('Arial', '', $posDef['TRANSIT']['size']);
+                        $pdf->SetXY($posDef['TRANSIT']["x"], $posDef['TRANSIT']["y"]);
                         break;
                 default:
 		log::add('CovidAttest', 'debug', '║ ╠════ !! motif non trouvé <---------');
