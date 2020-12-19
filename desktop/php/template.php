@@ -64,107 +64,100 @@ $eqLogics = eqLogic::byType($plugin->getId());
 		<!-- Onglets -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fas fa-arrow-circle-left"></i></a></li>
-			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
-			<li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fas fa-list-alt"></i> {{Commandes}}</a></li>
+			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i><span class="hidden-xs"> {{Équipement}}</span></a></li>
+			<li role="presentation"><a href="#commandtab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-list"></i><span class="hidden-xs"> {{Commandes}}</span></a></li>
 		</ul>
 		<div class="tab-content">
 			<!-- Onglet de configuration de l'équipement -->
 			<div role="tabpanel" class="tab-pane active" id="eqlogictab">
-				<br/>
-				<div class="row">
-					<!-- Partie gauche de l'onglet "Equipements" -->
-					<!-- Paramètres généraux de l'équipement -->
-					<div class="col-lg-7">
-						<form class="form-horizontal">
-							<fieldset>
-								<legend><i class="fas fa-wrench"></i> {{Général}}</legend>
-								<div class="form-group">
-									<label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
-									<div class="col-xs-11 col-sm-7">
-										<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;"/>
-										<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}"/>
-									</div>
+				<!-- Partie gauche de l'onglet "Equipements" -->
+				<!-- Paramètres généraux de l'équipement -->
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="col-lg-7">
+							<legend><i class="fas fa-wrench"></i> {{Général}}</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
+								<div class="col-sm-7">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;"/>
+									<input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}"/>
 								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" >{{Objet parent}}</label>
-									<div class="col-xs-11 col-sm-7">
-										<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
-											<option value="">{{Aucun}}</option>
-											<?php
-											$options = '';
-											foreach ((jeeObject::buildTree(null, false)) as $object) {
-												$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
-											}
-											echo $options;
-											?>
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label">{{Catégorie}}</label>
-									<div class="col-sm-9">
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >{{Objet parent}}</label>
+								<div class="col-sm-7">
+									<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
+										<option value="">{{Aucun}}</option>
 										<?php
-										foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-											echo '<label class="checkbox-inline">';
-											echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
-											echo '</label>';
+										$options = '';
+										foreach ((jeeObject::buildTree(null, false)) as $object) {
+											$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
 										}
+										echo $options;
 										?>
-									</div>
+									</select>
 								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label">{{Options}}</label>
-									<div class="col-xs-11 col-sm-7">
-										<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
-										<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
-									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Catégorie}}</label>
+								<div class="col-sm-9">
+									<?php
+									foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
+										echo '<label class="checkbox-inline">';
+										echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
+										echo '</label>';
+									}
+									?>
 								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Options}}</label>
+								<div class="col-sm-7">
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+								</div>
+							</div>
+							<br>
 
-								<br/>
-								<legend><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
-								<div class="form-group">
-									<label class="col-sm-3 control-label">{{Paramètre n°1}}</label>
-									<div class="col-xs-11 col-sm-7">
-										<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="param1" placeholder="{{Paramètre n°1}}"/>
+							<legend><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Paramètre n°1}}</label>
+								<div class="col-sm-7">
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="param1" placeholder="{{Paramètre n°1}}"/>
+								</div>
+							</div>
+							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
+							<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Auto-actualisation}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Fréquence de rafraîchissement de l'équipement}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<div class="input-group">
+										<input type="text" class="eqLogicAttr form-control roundedLeft" data-l1key="configuration" data-l2key="autorefresh" placeholder="{{Cliquer sur ? pour afficher l'assistant cron}}"/>
+										<span class="input-group-btn">
+											<a class="btn btn-default cursor jeeHelper roundedRight" data-helper="cron" title="Assistant cron">
+												<i class="fas fa-question-circle"></i>
+											</a>
+										</span>
 									</div>
 								</div>
-								<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
-								<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
-								<div class="form-group">
-									<label class="col-sm-3 control-label">{{Auto-actualisation}}
-										<sup><i class="fas fa-question-circle" title="{{Fréquence de rafraîchissement de l'équipement}}"></i></sup>
-									</label>
-									<div class="col-xs-11 col-sm-7">
-										<div class="input-group">
-											<input type="text" class="eqLogicAttr form-control roundedLeft" data-l1key="configuration" data-l2key="autorefresh" placeholder="{{Cliquer sur ? pour afficher l'assistant cron}}"/>
-											<span class="input-group-btn">
-												<a class="btn btn-default cursor jeeHelper roundedRight" data-helper="cron" title="Assistant cron">
-													<i class="fas fa-question-circle"></i>
-												</a>
-											</span>
-										</div>
-									</div>
+							</div>
+						</div>
+
+						<!-- Partie droite de l'onglet "Équipement" -->
+						<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
+						<div class="col-lg-5">
+							<legend><i class="fas fa-info"></i> {{Informations}}</legend>
+							<div class="form-group">
+								<div class="text-center">
+									<img name="icon_visu" src="<?= $plugin->getPathImgIcon(); ?>" style="max-width:160px;"/>
 								</div>
-								<br/>
-							</fieldset>
-						</form>
-					</div>
-					<!-- Partie droite de l'onglet "Equipement" -->
-					<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
-					<div class="col-lg-5">
-						<form class="form-horizontal">
-							<fieldset>
-								<legend><i class="fas fa-info"></i> {{Informations}}</legend>
-								<div class="form-group">
-									<label class="col-sm-3"></label>
-									<div class="col-sm-7 text-center">
-										<img name="icon_visu" src="<?= $plugin->getPathImgIcon(); ?>" style="max-width:160px;"/>
-									</div>
-								</div>
-							</fieldset>
-						</form>
-					</div>
-				</div><!-- /.row-->
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<hr>
 			</div><!-- /.tabpanel #eqlogictab-->
 
 			<!-- Onglet des commandes de l'équipement -->
