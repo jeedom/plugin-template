@@ -15,6 +15,6 @@
 		"forum":"Lien vers le forum",
 		"video" : "Lien vers une video"
 	},
-	"language" : ["fr_FR","en_US","de_DE","sp_SP"],
+	"language" : ["fr_FR","en_US","de_DE","sp_SP","ru_RU", "pt_PT"],
 	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
 }
