@@ -1,7 +1,19 @@
 {
 	"id" : "template",
 	"name" : "Template",
-	"description" : "Template servant de base à la création de plugins Jeedom",
+	 "specialAttributes" : {
+	    "object" : {
+	      "toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "input"},
+	      "toto2" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial number"},"type" : "number"}
+	    },
+	    "user" : {
+	      "toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "select","values" : [{"value" : "1", "name" : "valeur 1"},{"value" : "plop", "name" : "valeur plop"}]}
+	    }
+	  },
+	"description" : {
+		"fr_FR": "Template servant de base à la création de plugins Jeedom",
+		"en_US": "Template plugin"
+	},
 	"licence" : "AGPL",
 	"author" : "Jeedom SAS",
 	"require" : "3.3.39",
