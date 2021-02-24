@@ -74,7 +74,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<!-- Paramètres généraux de l'équipement -->
 				<form class="form-horizontal">
 					<fieldset>
-						<div class="col-lg-7">
+						<div class="col-lg-6">
 							<legend><i class="fas fa-wrench"></i> {{Général}}</legend>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
@@ -100,7 +100,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Catégorie}}</label>
-								<div class="col-sm-9">
+								<div class="col-sm-7">
 									<?php
 									foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 										echo '<label class="checkbox-inline">';
@@ -126,6 +126,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="param1" placeholder="{{Paramètre n°1}}"/>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"> {{Mot de passe}}</label>
+								<div class="col-sm-7">
+									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="password"/>
+								</div>
+							</div>
 							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
 							<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
 							<div class="form-group">
@@ -147,7 +153,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 						<!-- Partie droite de l'onglet "Équipement" -->
 						<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
-						<div class="col-lg-5">
+						<div class="col-lg-6">
 							<legend><i class="fas fa-info"></i> {{Informations}}</legend>
 							<div class="form-group">
 								<div class="text-center">
