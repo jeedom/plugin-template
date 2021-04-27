@@ -46,7 +46,7 @@ class jeedom_com():
 		try:
 			if len(self.changes) == 0:
 				resend_changes = threading.Timer(self.cycle, self.send_changes_async)
-				resend_changes.start() 
+				resend_changes.start()
 				return
 			start_time = datetime.datetime.now()
 			changes = self.changes
@@ -64,12 +64,12 @@ class jeedom_com():
 			if timer_duration < 0.1:
 				timer_duration = 0.1
 			resend_changes = threading.Timer(timer_duration, self.send_changes_async)
-			resend_changes.start() 
+			resend_changes.start()
 		except Exception as error:
 			logging.error('Critical error on  send_changes_async %s' % (str(error),))
 			resend_changes = threading.Timer(self.cycle, self.send_changes_async)
-			resend_changes.start() 
-		
+			resend_changes.start()
+
 	def add_changes(self, key, value):
 		if key.find('::') != -1:
 			tmp_changes = {}
@@ -126,12 +126,12 @@ class jeedom_utils():
 	@staticmethod
 	def convert_log_level(level = 'error'):
 		LEVELS = {'debug': logging.DEBUG,
-          'info': logging.INFO,
-          'notice': logging.WARNING,
-          'warning': logging.WARNING,
-          'error': logging.ERROR,
-          'critical': logging.CRITICAL,
-          'none': logging.NOTSET}
+		  'info': logging.INFO,
+		  'notice': logging.WARNING,
+		  'warning': logging.WARNING,
+		  'error': logging.ERROR,
+		  'critical': logging.CRITICAL,
+		  'none': logging.NOTSET}
 		return LEVELS.get(level, logging.NOTSET)
 
 	@staticmethod
@@ -192,7 +192,7 @@ class jeedom_utils():
 		pid = str(os.getpid())
 		logging.debug("Writing PID " + pid + " to " + str(path))
 		file(path, 'w').write("%s\n" % pid)
-		
+
 	@staticmethod
 	def remove_accents(input_str):
 		nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
@@ -216,7 +216,7 @@ class jeedom_serial():
 			logging.error("Device name missing.")
 			return False
 		logging.debug("Open Serialport")
-		try:  
+		try:
 			self.port = serial.Serial(self.device,self.rate,timeout=self.timeout)
 		except serial.SerialException, e:
 			logging.error("Error: Failed to connect on device " + self.device + " Details : " + str(e))
@@ -271,14 +271,11 @@ class jeedom_serial():
 
 # ------------------------------------------------------------------------------
 
-JEEDOM_SOCKET_MESSAGE = Queue()
-
 class jeedom_socket_handler(StreamRequestHandler):
 	def handle(self):
-		global JEEDOM_SOCKET_MESSAGE
 		logging.debug("Client connected to [%s:%d]" % self.client_address)
 		lg = self.rfile.readline()
-		JEEDOM_SOCKET_MESSAGE.put(lg)
+		self.server.queue.put(lg)
 		logging.debug("Message read from socket: " + lg.strip())
 		self.netAdapterClientConnected = False
 		logging.debug("Client disconnected from [%s:%d]" % self.client_address)
@@ -288,11 +285,16 @@ class jeedom_socket():
 	def __init__(self,address='localhost', port=55000):
 		self.address = address
 		self.port = port
+		self.queue = None
 		SocketServer.TCPServer.allow_reuse_address = True
 
 	def open(self):
+		if self.queue is not None:
+			logging.warning("Socket already started")
+			return
 		self.netAdapter = TCPServer((self.address, self.port), jeedom_socket_handler)
 		if self.netAdapter:
+			self.queue = Queue()
 			logging.debug("Socket interface started")
 			threading.Thread(target=self.loopNetServer, args=()).start()
 		else:
