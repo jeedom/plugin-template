@@ -34,7 +34,8 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			echo '<div class="input-group" style="margin:5px;">';
 			echo '<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic"/>';
 			echo '<div class="input-group-btn">';
-			echo '<a id="bt_resetSearch" class="btn roundedRight" style="width:30px"><i class="fas fa-times"></i></a>';
+			echo '<a id="bt_resetSearch" class="btn" style="width:30px"><i class="fas fa-times"></i></a>';
+			echo '<a class="btn roundedRight hidden" id="bt_pluginDisplayAsTable" data-coreSupport="1" data-state="0"><i class="fas fa-grip-lines"></i></a>';
 			echo '</div>';
 			echo '</div>';
 			// Liste des équipements du plugin
