@@ -22,6 +22,8 @@
 	"maxDependancyInstallTime" : 0,
 	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
 	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
+	"changelog_beta" : "https://jeedom.github.io/plugin-template/#language#/beta/changelog",
+	"documentation_beta" : "https://jeedom.github.io/plugin-template/#language#/beta/",
 	"link" : {
 		"forum":"Lien vers le forum",
 		"video" : "Lien vers une video"
