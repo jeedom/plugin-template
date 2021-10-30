@@ -28,7 +28,7 @@ import json
 try:
 	from jeedom.jeedom import *
 except ImportError:
-	print "Error: importing module jeedom.jeedom"
+	print("Error: importing module jeedom.jeedom")
 	sys.exit(1)
 
 def read_socket():
