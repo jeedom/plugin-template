@@ -24,6 +24,7 @@ import signal
 from optparse import OptionParser
 from os.path import join
 import json
+import argparse
 
 try:
 	from jeedom.jeedom import *
@@ -87,20 +88,26 @@ _device = 'auto'
 _pidfile = '/tmp/demond.pid'
 _apikey = ''
 _callback = ''
+_cycle = 0.3
 
-for arg in sys.argv:
-	if arg.startswith("--loglevel="):
-		temp, _log_level = arg.split("=")
-	elif arg.startswith("--socketport="):
-		temp, _socket_port = arg.split("=")
-	elif arg.startswith("--sockethost="):
-		temp, _socket_host = arg.split("=")
-	elif arg.startswith("--pidfile="):
-		temp, _pidfile = arg.split("=")
-	elif arg.startswith("--apikey="):
-		temp, _apikey = arg.split("=")
-	elif arg.startswith("--device="):
-		temp, _device = arg.split("=")
+parser = argparse.ArgumentParser(
+    description='Desmond Daemon for Jeedom plugin')
+args = parser.parse_args()
+
+if args.device:
+	_device = args.device
+if args.loglevel:
+    _log_level = args.loglevel
+if args.callback:
+    _callback = args.callback
+if args.apikey:
+    _apikey = args.apikey
+if args.pid:
+    _pidfile = args.pid
+if args.cycle:
+    _cycle = float(args.cycle)
+if args.socketport:
+	_socketport = args.socketport
 		
 _socket_port = int(_socket_port)
 
