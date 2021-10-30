@@ -19,6 +19,7 @@ import sys
 import os
 import time
 import datetime
+import traceback
 import re
 import signal
 from optparse import OptionParser
@@ -137,4 +138,5 @@ try:
 	listen()
 except Exception as e:
 	logging.error('Fatal error : '+str(e))
+	logging.info(traceback.format_exc())
 	shutdown()
