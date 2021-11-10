@@ -43,7 +43,7 @@ def read_socket():
 			return
 		try:
 			print 'read'
-		except Exception, e:
+		except Exception as e:
 			logging.error('Send command to demon error : '+str(e))
 
 def listen():
