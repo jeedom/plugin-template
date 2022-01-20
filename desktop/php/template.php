@@ -79,7 +79,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			<!-- Onglet de configuration de l'équipement -->
 			<div role="tabpanel" class="tab-pane active" id="eqlogictab">
 				<!-- Partie gauche de l'onglet "Equipements" -->
-				<!-- Paramètres généraux de l'équipement -->
+				<!-- Paramètres généraux et spécifiques de l'équipement -->
 				<form class="form-horizontal">
 					<fieldset>
 						<div class="col-lg-6">
@@ -143,7 +143,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="password">
 								</div>
 							</div>
-							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
+							<!-- Exemple de champ de saisie du cron d'auto-actualisation avec assistant -->
 							<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
 							<div class="form-group">
 								<label class="col-sm-4 control-label">{{Auto-actualisation}}
@@ -163,7 +163,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						</div>
 
 						<!-- Partie droite de l'onglet "Équipement" -->
-						<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
+						<!-- Affiche un champ de commentaire par défaut mais vous pouvez y mettre ce que vous voulez -->
 						<div class="col-lg-6">
 							<legend><i class="fas fa-info"></i> {{Informations}}</legend>
 							<div class="form-group">
