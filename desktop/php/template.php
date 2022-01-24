@@ -175,7 +175,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						</div>
 					</fieldset>
 				</form>
-				<hr>
 			</div><!-- /.tabpanel #eqlogictab-->
 
 			<!-- Onglet des commandes de l'équipement -->
@@ -186,10 +185,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					<table id="table_cmd" class="table table-bordered table-condensed">
 						<thead>
 							<tr>
-								<th style="min-width:50px;width:70px;">ID</th>
-								<th style="min-width:220px;width:300px;">{{Nom}}</th>
+								<th class="hidden-xs" style="min-width:50px;width:70px;">ID</th>
+								<th style="min-width:200px;width:300px;">{{Nom}}</th>
 								<th>{{Type}}</th>
-								<th style="min-width:220px;width:360px;">{{Options}}</th>
+								<th style="min-width:260px;width:310px;">{{Options}}</th>
 								<th style="min-width:80px;width:200px;">{{Actions}}</th>
 							</tr>
 						</thead>
