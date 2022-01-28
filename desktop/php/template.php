@@ -147,7 +147,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							<!-- La fonction cron de la classe du plugin doit contenir le code prévu pour que ce champ soit fonctionnel -->
 							<div class="form-group">
 								<label class="col-sm-4 control-label">{{Auto-actualisation}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Fréquence de rafraîchissement de l'équipement}}"></i></sup>
+									<sup><i class="fas fa-question-circle tooltips" title="{{Fréquence de rafraîchissement des commandes infos de l'équipement}}"></i></sup>
 								</label>
 								<div class="col-sm-6">
 									<div class="input-group">
@@ -186,9 +186,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						<thead>
 							<tr>
 								<th class="hidden-xs" style="min-width:50px;width:70px;">ID</th>
-								<th style="min-width:200px;width:300px;">{{Nom}}</th>
+								<th style="min-width:200px;width:350px;">{{Nom}}</th>
 								<th>{{Type}}</th>
-								<th style="min-width:260px;width:310px;">{{Options}}</th>
+								<th style="min-width:260px;">{{Options}}</th>
 								<th style="min-width:80px;width:200px;">{{Actions}}</th>
 							</tr>
 						</thead>
