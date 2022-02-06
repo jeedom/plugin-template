@@ -132,7 +132,7 @@ class template extends eqLogic {
   /*
   * Permet de déclencher une action après modification d'une variable de configuration du plugin
   * Exemple avec la variable "param3"
-  public static function postConfig_param3() {
+  public static function postConfig_param3($value) {
     // no return value
   }
   */
