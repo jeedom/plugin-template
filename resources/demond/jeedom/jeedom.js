@@ -67,7 +67,7 @@ Jeedom.log.error  = function(_log){
 
 Jeedom.write_pid = function(_file){
   var fs = require('fs');
-  fs.writeFile(_file, process.pid, function(err) {
+  fs.writeFile(_file, process.pid.toString(), function(err) {
     if(err) {
       Jeedom.log.error("Can't write pid file : "+err);
       process.exit()
