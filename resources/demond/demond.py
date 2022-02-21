@@ -42,7 +42,7 @@ def read_socket():
 			logging.error("Invalid apikey from socket : " + str(message))
 			return
 		try:
-			print 'read'
+			print ('read')
 		except Exception, e:
 			logging.error('Send command to demon error : '+str(e))
 
