@@ -2,8 +2,12 @@
   "pre-install": {
   },
   "apt": {
+    "python3-pip" : {},
+    "python3-requests" : {},
   },
   "pip3": {
+    "pyserial" : {"reinstall" : true},
+    "requests" : {"reinstall" : true}
   },
   "npm": {
   },
