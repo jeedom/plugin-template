@@ -115,7 +115,7 @@ if args.pid:
 if args.cycle:
     _cycle = float(args.cycle)
 if args.socketport:
-	_socketport = args.socketport
+	_socket_port = args.socketport
 		
 _socket_port = int(_socket_port)
 
