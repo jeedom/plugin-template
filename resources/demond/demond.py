@@ -99,7 +99,7 @@ parser.add_argument("--callback", help="Callback", type=str)
 parser.add_argument("--apikey", help="Apikey", type=str)
 parser.add_argument("--cycle", help="Cycle to send event", type=str)
 parser.add_argument("--pid", help="Pid file", type=str)
-parser.add_argument("--socketport", help="Port for Zigbee server", type=str)
+parser.add_argument("--socketport", help="Port for communication from jeedom", type=str)
 args = parser.parse_args()
 
 if args.device:
@@ -115,7 +115,7 @@ if args.pid:
 if args.cycle:
     _cycle = float(args.cycle)
 if args.socketport:
-	_socketport = args.socketport
+	_socket_port = args.socketport
 		
 _socket_port = int(_socket_port)
 
