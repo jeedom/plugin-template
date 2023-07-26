@@ -137,8 +137,15 @@ class template extends eqLogic {
   }
   */
 
-  /*     * **********************Getteur Setteur*************************** */
+  /*
+   * Permet d'indiquer des éléments supplémentaires à remonter dans les informations de configuration
+   * lors de la création semi-automatique d'un post sur le forum community
+   public static function getConfigForCommunity() {
+      return "les infos essentiel de mon plugin";
+   }
+   */
 
+  /*     * **********************Getteur Setteur*************************** */
 }
 
 class templateCmd extends cmd {
@@ -165,5 +172,4 @@ class templateCmd extends cmd {
   }
 
   /*     * **********************Getteur Setteur*************************** */
-
 }
