@@ -11,19 +11,43 @@ $eqLogics = eqLogic::byType($plugin->getId());
 <div class="row row-overflow">
 	<!-- Page d'accueil du plugin -->
 	<div class="col-xs-12 eqLogicThumbnailDisplay">
-		<legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
-		<!-- Boutons de gestion du plugin -->
-		<div class="eqLogicThumbnailContainer">
-			<div class="cursor eqLogicAction logoPrimary" data-action="add">
-				<i class="fas fa-plus-circle"></i>
-				<br>
-				<span>{{Ajouter}}</span>
+		<div class="row">
+			<div class="col-sm-10">
+				<legend><i class="fas fa-cog"></i> {{Gestion}}</legend>
+				<!-- Boutons de gestion du plugin -->
+				<div class="eqLogicThumbnailContainer">
+					<div class="cursor eqLogicAction logoPrimary" data-action="add">
+						<i class="fas fa-plus-circle"></i>
+						<br>
+						<span>{{Ajouter}}</span>
+					</div>
+					<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
+						<i class="fas fa-wrench"></i>
+						<br>
+						<span>{{Configuration}}</span>
+					</div>
+				</div>
 			</div>
-			<div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
-				<i class="fas fa-wrench"></i>
-				<br>
-				<span>{{Configuration}}</span>
-			</div>
+			<?php
+			// à conserver
+			// sera afficher uniquement si l'utilisateur est en version 4.4 ou supérieur
+			$jeedomVersion  = jeedom::version() ?? '0';
+			$displayInfoValue = version_compare($jeedomVersion, '4.4.0', '>=');
+			if ($displayInfoValue) {
+			?>
+				<div class="col-sm-2">
+					<legend><i class=" fas fa-comments"></i> {{Community}}</legend>
+					<div class="eqLogicThumbnailContainer">
+						<div class="cursor eqLogicAction logoSecondary" data-action="createCommunityPost">
+							<i class="fas fa-ambulance"></i>
+							<br>
+							<span style="color:var(--txt-color)">{{Créer un post Community}}</span>
+						</div>
+					</div>
+				</div>
+			<?php
+			}
+			?>
 		</div>
 		<legend><i class="fas fa-table"></i> {{Mes templates}}</legend>
 		<?php
@@ -42,7 +66,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			echo '<div class="eqLogicThumbnailContainer">';
 			foreach ($eqLogics as $eqLogic) {
 				$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
+				echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
 				echo '<img src="' . $eqLogic->getImage() . '"/>';
 				echo '<br>';
 				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
@@ -63,7 +87,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			<span class="input-group-btn">
 				<!-- Les balises <a></a> sont volontairement fermées à la ligne suivante pour éviter les espaces entre les boutons. Ne pas modifier -->
 				<a class="btn btn-sm btn-default eqLogicAction roundedLeft" data-action="configure"><i class="fas fa-cogs"></i><span class="hidden-xs"> {{Configuration avancée}}</span>
-				</a><a class="btn btn-sm btn-default eqLogicAction" data-action="copy"><i class="fas fa-copy"></i><span class="hidden-xs">  {{Dupliquer}}</span>
+				</a><a class="btn btn-sm btn-default eqLogicAction" data-action="copy"><i class="fas fa-copy"></i><span class="hidden-xs"> {{Dupliquer}}</span>
 				</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}
 				</a><a class="btn btn-sm btn-danger eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}
 				</a>
@@ -92,7 +116,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" >{{Objet parent}}</label>
+								<label class="col-sm-4 control-label">{{Objet parent}}</label>
 								<div class="col-sm-6">
 									<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
 										<option value="">{{Aucun}}</option>
@@ -204,6 +228,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
 </div><!-- /.row row-overflow -->
 
 <!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, id_du_plugin) -->
-<?php include_file('desktop', 'template', 'js', 'template');?>
+<?php include_file('desktop', 'template', 'js', 'template'); ?>
 <!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
-<?php include_file('core', 'plugin.template', 'js');?>
+<?php include_file('core', 'plugin.template', 'js'); ?>
