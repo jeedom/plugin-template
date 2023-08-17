@@ -1,0 +1,30 @@
+# depandabot to update your package.json or requirements.txt - remove useless sections
+# check all configuration options :
+# https://docs.github.com/fr/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# also works with private repository
+# https://docs.github.com/fr/code-security/dependabot/working-with-dependabot/configuring-access-to-private-registries-for-dependabot
+version: 2
+updates:
+  # Maintain python pip dependencies in your 'requirement.txt' file
+  - package-ecosystem: "pip"
+    directory: "/resources"
+    target-branch: "beta"
+    schedule:
+      interval: weekly
+  
+  # Maintain NodeJS dependencies in 'package.json'
+  - package-ecosystem: npm
+    directory: "/resources/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    target-branch: "beta"
+
+  # Maintain any github-actions workflow
+  # https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot    
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    target-branch: "beta"
