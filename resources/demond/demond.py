@@ -4,12 +4,12 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Jeedom is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 
@@ -43,7 +43,7 @@ def read_socket():
 			return
 		try:
 			print ('read')
-		except Exception, e:
+		except Exception as e:
 			logging.error('Send command to demon error : '+str(e))
 
 def listen():
@@ -116,7 +116,7 @@ if args.cycle:
     _cycle = float(args.cycle)
 if args.socketport:
 	_socketport = args.socketport
-		
+
 _socket_port = int(_socket_port)
 
 jeedom_utils.set_log_level(_log_level)
@@ -130,7 +130,7 @@ logging.info('Apikey : '+str(_apikey))
 logging.info('Device : '+str(_device))
 
 signal.signal(signal.SIGINT, handler)
-signal.signal(signal.SIGTERM, handler)	
+signal.signal(signal.SIGTERM, handler)
 
 try:
 	jeedom_utils.write_pid(str(_pidfile))
