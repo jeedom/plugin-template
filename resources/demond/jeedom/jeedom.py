@@ -45,7 +45,7 @@ class jeedom_com():
 		self.changes = {}
 		if cycle > 0 :
 			self.send_changes_async()
-		logging.info('Init request module v%s' % (str(requests.__version__),))
+		logging.info('Init request module v%s', requests.__version__)
 
 	def send_changes_async(self):
 		try:
@@ -56,7 +56,7 @@ class jeedom_com():
 			start_time = datetime.datetime.now()
 			changes = self.changes
 			self.changes = {}
-			logging.info('Send to jeedom : '+str(changes))
+			logging.info('Send to jeedom: %s', changes)
 			i=0
 			while i < self.retry:
 				try:
@@ -64,10 +64,10 @@ class jeedom_com():
 					if r.status_code == requests.codes.ok:
 						break
 				except Exception as error:
-					logging.error('Error on send request to jeedom ' + str(error)+' retry : '+str(i)+'/'+str(self.retry))
+					logging.error('Error on send request to jeedom %s retry : %i/%i', error, i, self.retry)
 				i = i + 1
 			if r.status_code != requests.codes.ok:
-				logging.error('Error on send request to jeedom, return code %s' % (str(r.status_code),))
+				logging.error('Error on send request to jeedom, return code %i', r.status_code)
 			dt = datetime.datetime.now() - start_time
 			ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
 			timer_duration = self.cycle - ms
@@ -78,7 +78,7 @@ class jeedom_com():
 			resend_changes = threading.Timer(timer_duration, self.send_changes_async)
 			resend_changes.start()
 		except Exception as error:
-			logging.error('Critical error on  send_changes_async %s' % (str(error),))
+			logging.error('Critical error on  send_changes_async %s', error)
 			resend_changes = threading.Timer(self.cycle, self.send_changes_async)
 			resend_changes.start()
 
@@ -106,7 +106,7 @@ class jeedom_com():
 		threading.Thread( target=self.thread_change,args=(change,)).start()
 
 	def thread_change(self,change):
-		logging.info('Send to jeedom :  %s' % (str(change),))
+		logging.info('Send to jeedom : %s', change)
 		i=0
 		while i < self.retry:
 			try:
@@ -114,7 +114,7 @@ class jeedom_com():
 				if r.status_code == requests.codes.ok:
 					break
 			except Exception as error:
-				logging.error('Error on send request to jeedom ' + str(error)+' retry : '+str(i)+'/'+str(self.retry))
+				logging.error('Error on send request to jeedom %s retry : %i/%i', error, i, self.retry)
 			i = i + 1
 
 	def set_change(self,changes):
@@ -135,10 +135,10 @@ class jeedom_com():
 		try:
 			response = requests.get(self.url + '?apikey=' + self.apikey, verify=False)
 			if response.status_code != requests.codes.ok:
-				logging.error('Callback error: %s %s. Please check your network configuration page'% (response.status.code, response.status.message,))
+				logging.error('Callback error: %s %s. Please check your network configuration page', response.status.code, response.status.message)
 				return False
 		except Exception as e:
-			logging.error('Callback result as a unknown error: %s. Please check your network configuration page'% (e.message,))
+			logging.error('Callback result as a unknown error: %s. Please check your network configuration page', e.message)
 			return False
 		return True
 
@@ -213,7 +213,7 @@ class jeedom_utils():
 	@staticmethod
 	def write_pid(path):
 		pid = str(os.getpid())
-		logging.info("Writing PID " + pid + " to " + str(path))
+		logging.info("Writing PID %s to %s", pid, path)
 		open(path, 'w').write("%s\n" % pid)
 
 	@staticmethod
@@ -236,11 +236,11 @@ class jeedom_serial():
 		self.port = None
 		self.rtscts = rtscts
 		self.xonxoff = xonxoff
-		logging.info('Init serial module v%s' % (str(serial.VERSION),))
+		logging.info('Init serial module v%s', serial.VERSION)
 
 	def open(self):
 		if self.device:
-			logging.info("Open serial port on device: " + str(self.device)+', rate '+str(self.rate)+', timeout : '+str(self.timeout))
+			logging.info("Open serial port on device: %s, rate %s, timeout: %i", self.device, self.rate, self.timeout)
 		else:
 			logging.error("Device name missing.")
 			return False
@@ -256,7 +256,7 @@ class jeedom_serial():
 			stopbits=serial.STOPBITS_ONE
 			)
 		except serial.SerialException as e:
-			logging.error("Error: Failed to connect on device " + self.device + " Details : " + str(e))
+			logging.error("Error: Failed to connect on device %s. Details : %s", self.device, e)
 			return False
 		if not self.port.isOpen():
 			self.port.open()
@@ -271,11 +271,11 @@ class jeedom_serial():
 			logging.info("Serial port closed")
 			return True
 		except:
-			logging.error("Failed to close the serial port (" + self.device + ")")
+			logging.error("Failed to close the serial port (%s)", self.device)
 			return False
 
 	def write(self,data):
-		logging.info("Write data to serial port : "+str(jeedom_utils.ByteToHex(data)))
+		logging.info("Write data to serial port: %s", str(jeedom_utils.ByteToHex(data)))
 		self.port.write(data)
 
 	def flushOutput(self,):
@@ -297,9 +297,9 @@ class jeedom_serial():
 			try:
 				byte = self.port.read()
 			except IOError as e:
-				logging.error("Error: " + str(e))
+				logging.error("Error: %s", e)
 			except OSError as e:
-				logging.error("Error: " + str(e))
+				logging.error("Error: %s", e)
 			buf += byte
 		return buf
 
@@ -310,12 +310,12 @@ JEEDOM_SOCKET_MESSAGE = Queue()
 class jeedom_socket_handler(StreamRequestHandler):
 	def handle(self):
 		global JEEDOM_SOCKET_MESSAGE
-		logging.info("Client connected to [%s:%d]" % self.client_address)
+		logging.info("Client connected to [%s:%d]", self.client_address[0], self.client_address[1])
 		lg = self.rfile.readline()
 		JEEDOM_SOCKET_MESSAGE.put(lg)
-		logging.info("Message read from socket: " + str(lg.strip()))
+		logging.info("Message read from socket: %s", str(lg.strip()))
 		self.netAdapterClientConnected = False
-		logging.info("Client disconnected from [%s:%d]" % self.client_address)
+		logging.info("Client disconnected from [%s:%d]", self.client_address[0], self.client_address[1])
 
 class jeedom_socket():
 
@@ -334,7 +334,7 @@ class jeedom_socket():
 
 	def loopNetServer(self):
 		logging.info("LoopNetServer Thread started")
-		logging.info("Listening on: [%s:%d]" % (self.address, self.port))
+		logging.info("Listening on: [%s:%d]", self.address, self.port)
 		self.netAdapter.serve_forever()
 		logging.info("LoopNetServer Thread stopped")
 

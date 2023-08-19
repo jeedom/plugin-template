@@ -39,12 +39,12 @@ def read_socket():
 		logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
 		message = json.loads(jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get()))
 		if message['apikey'] != _apikey:
-			logging.error("Invalid apikey from socket : " + str(message))
+			logging.error("Invalid apikey from socket: %s", message)
 			return
 		try:
 			print ('read')
 		except Exception as e:
-			logging.error('Send command to demon error : '+str(e))
+			logging.error('Send command to demon error: %s' ,e)
 
 def listen():
 	jeedom_socket.open()
@@ -58,12 +58,12 @@ def listen():
 # ----------------------------------------------------------------------------
 
 def handler(signum=None, frame=None):
-	logging.debug("Signal %i caught, exiting..." % int(signum))
+	logging.debug("Signal %i caught, exiting...", int(signum))
 	shutdown()
 
 def shutdown():
 	logging.debug("Shutdown")
-	logging.debug("Removing PID file " + str(_pidfile))
+	logging.debug("Removing PID file %s", _pidfile)
 	try:
 		os.remove(_pidfile)
 	except:
@@ -122,12 +122,12 @@ _socket_port = int(_socket_port)
 jeedom_utils.set_log_level(_log_level)
 
 logging.info('Start demond')
-logging.info('Log level : '+str(_log_level))
-logging.info('Socket port : '+str(_socket_port))
-logging.info('Socket host : '+str(_socket_host))
-logging.info('PID file : '+str(_pidfile))
-logging.info('Apikey : '+str(_apikey))
-logging.info('Device : '+str(_device))
+logging.info('Log level: %s', _log_level)
+logging.info('Socket port: %s', _socket_port)
+logging.info('Socket host: %s', _socket_host)
+logging.info('PID file: %s', _pidfile)
+logging.info('Apikey: %s', _apikey)
+logging.info('Device: %s', _device)
 
 signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTERM, handler)
@@ -137,6 +137,6 @@ try:
 	jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
 	listen()
 except Exception as e:
-	logging.error('Fatal error : '+str(e))
+	logging.error('Fatal error: %s', e)
 	logging.info(traceback.format_exc())
 	shutdown()
