@@ -69,6 +69,31 @@ class template extends eqLogic {
   * Fonction exécutée automatiquement tous les jours par Jeedom
   public static function cronDaily() {}
   */
+  
+  /*
+  * Permet de déclencher une action avant modification d'une variable de configuration du plugin
+  * Exemple avec la variable "param3"
+  public static function preConfig_param3( $value ) {
+    // do some checks or modify on $value
+    return $value;
+  }
+  */
+
+  /*
+  * Permet de déclencher une action après modification d'une variable de configuration du plugin
+  * Exemple avec la variable "param3"
+  public static function postConfig_param3($value) {
+    // no return value
+  }
+  */
+
+  /*
+   * Permet d'indiquer des éléments supplémentaires à remonter dans les informations de configuration
+   * lors de la création semi-automatique d'un post sur le forum community
+   public static function getConfigForCommunity() {
+      return "les infos essentiel de mon plugin";
+   }
+   */
 
   /*     * *********************Méthodes d'instance************************* */
 
@@ -119,31 +144,6 @@ class template extends eqLogic {
   * Permet de modifier l'affichage du widget (également utilisable par les commandes)
   public function toHtml($_version = 'dashboard') {}
   */
-
-  /*
-  * Permet de déclencher une action avant modification d'une variable de configuration du plugin
-  * Exemple avec la variable "param3"
-  public static function preConfig_param3( $value ) {
-    // do some checks or modify on $value
-    return $value;
-  }
-  */
-
-  /*
-  * Permet de déclencher une action après modification d'une variable de configuration du plugin
-  * Exemple avec la variable "param3"
-  public static function postConfig_param3($value) {
-    // no return value
-  }
-  */
-
-  /*
-   * Permet d'indiquer des éléments supplémentaires à remonter dans les informations de configuration
-   * lors de la création semi-automatique d'un post sur le forum community
-   public static function getConfigForCommunity() {
-      return "les infos essentiel de mon plugin";
-   }
-   */
 
   /*     * **********************Getteur Setteur*************************** */
 }
