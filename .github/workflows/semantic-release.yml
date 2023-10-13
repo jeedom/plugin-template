@@ -1,0 +1,69 @@
+# this workflow runs Semantic-Release on current branch
+# - list new commits with conventional-commit messages
+# - update changelog.md (or changelog_beta.md)
+# - update version number into plugin_info/info.json
+# - generate a new tag with the new version
+# - publish a new Github package
+# - generate vars.env file with the version number for future workflow steps
+name: Automatic Build
+
+on:
+  # add here any required branch to trigger the workflow
+  push:
+    branches: [ master, beta, main, alpha ]
+  pull_request_target:
+    branches: [ master, beta, main, alpha ]
+  # this is to manually trigger the worklow
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Reason'     
+        default: 'Manual launch'
+
+env:
+  # branch name must be 'beta' for beta branch
+  BRANCH_NAME: ${{ github.ref_name }}
+        
+jobs:
+  # one single job
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+        # https://github.com/marketplace/actions/setup-node-js-environment
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # compute branch_name if needed
+      - id: testJobShell
+        run:  |
+          if [[ "${BRANCH_NAME}" == "main" ]]; then 
+            BRANCH_NAME='master'
+          elif [[ "${BRANCH_NAME}" == "alpha" ]]; then 
+            BRANCH_NAME='beta'
+          fi
+  
+      # use shareable configuration:
+      # https://github.com/pifou25/jeedom-semrel-plugin-config
+      - name: semantic
+        run: |
+          npx --package=@semantic-release/changelog@6 \
+              --package=@semantic-release/exec@6 \
+              --package=@semantic-release/git@10 \
+              --package=semantic-release-export-data@1 \
+              --package=jeedom-semrel-plugin-config@1 \
+              --package=semantic-release@21 \
+              semantic-release --extends=jeedom-semrel-plugin-config
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # if exists, vars.env contains the next version number
+      - name: Display Github summary
+        if: ${{ hashFiles('vars.env') != '' }}
+        run: |
+          OUTPUT=$(cat vars.env)
+          echo "New release : $OUTPUT" >> $GITHUB_STEP_SUMMARY
