@@ -12,3 +12,5 @@ La documentation générale relative à la conception de plugin est consultable 
 
 ---
 Si vous créez une branch nommée prettier, le robot workflows fera une passe complete sur le code pour que le code soit le plus uniforme possible.
+---
+test workflow en cours...
