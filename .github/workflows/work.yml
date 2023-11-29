@@ -8,7 +8,7 @@ on:
       - beta
       - master
       
-name : 'Test Plugin Jeedom'
+name : 'Full Workflows Plugin Jeedom'
 
 jobs:
   plugin:
