@@ -1,6 +1,6 @@
 # Template de plugin pour Jeedom
 
-[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Build Master](https://github.com/pifou25/plugin-template/actions/workflows/semantic-release.yml/badge.svg?branch=master)](https://github.com/pifou25/plugin-template/actions/workflows/semantic-release.yml)
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/pifou25/plugin-template)
 
@@ -15,7 +15,6 @@ Validation Code int (branche BETA):
 ![PHP](https://github.com/jeedom/plugin-template/actions/workflows/codeLintGlobal.yml/badge.svg?branch=beta)
 
 
---------
 Validation PHP Version (branche MASTER) :
 
 ![PHP 7.3](https://github.com/jeedom/plugin-template/actions/workflows/lint_Php73.yml/badge.svg?branch=master)
