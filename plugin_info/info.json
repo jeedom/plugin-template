@@ -1,32 +1,57 @@
 {
-	"id" : "template",
-	"name" : "Template",
-	"specialAttributes" : {
-		"object" : {
-			"toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "input"},
-			"toto2" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial number"},"type" : "number"}
+	"id": "template",
+	"name": "Template",
+	"specialAttributes": {
+		"object": {
+			"toto": {
+				"name": {
+					"fr_FR": "Plop je suis un attribut spécial"
+				},
+				"type": "input"
+			},
+			"toto2": {
+				"name": {
+					"fr_FR": "Plop je suis un attribut spécial number"
+				},
+				"type": "number"
+			}
 		},
-		"user" : {
-			"toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "select","values" : [{"value" : "1", "name" : "valeur 1"},{"value" : "plop", "name" : "valeur plop"}]}
+		"user": {
+			"toto": {
+				"name": {
+					"fr_FR": "Plop je suis un attribut spécial"
+				},
+				"type": "select",
+				"values": [
+					{
+						"value": "1",
+						"name": "valeur 1"
+					},
+					{
+						"value": "plop",
+						"name": "valeur plop"
+					}
+				]
+			}
 		}
 	},
-	"description" : {
+	"description": {
 		"fr_FR": "Template servant de base à la création de plugins pour Jeedom"
 	},
-	"licence" : "AGPL",
-	"author" : "Jeedom SAS",
-	"require" : "4.2.0",
-	"category" : "programming",
-	"hasDependency" : false,
-	"hasOwnDeamon" : false,
-	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
-	"changelog_beta" : "https://jeedom.github.io/plugin-template/#language#/beta/changelog",
-	"documentation_beta" : "https://jeedom.github.io/plugin-template/#language#/beta/",
-	"link" : {
-		"forum":"Lien vers le forum",
-		"video" : "Lien vers une video"
+	"licence": "AGPL",
+	"author": "Jeedom SAS",
+	"require": "4.2",
+	"category": "programming",
+	"hasDependency": false,
+	"hasOwnDeamon": false,
+	"maxDependancyInstallTime": 0,
+	"changelog_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template\/beta\/changelog",
+	"changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template\/changelog",
+	"documentation_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template\/beta",
+	"documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template",
+	"link": {
+		"forum": "Lien vers le forum",
+		"video": "Lien vers une video"
 	},
 	"language": [
 		"fr_FR",
@@ -40,13 +65,13 @@
 		"pt_PT"
 	],
 	"compatibility": [
-		"miniplus",
 		"smart",
+		"luna",
+		"atlas",
 		"rpi",
 		"docker",
 		"diy",
 		"mobile",
-		"v4",
-		"atlas"
+		"v4"
 	]
 }
