@@ -1,0 +1,30 @@
+# this workflow runs Semantic-Release on current branch
+# - list new commits with conventional-commit messages
+# - update changelog.md (or changelog_beta.md)
+# - update version number into plugin_info/info.json
+# - generate a new tag with the new version
+# - publish a new Github package
+# - generate vars.env file with the version number for future workflow steps
+name: Semantic Release
+
+on:
+  push:
+    branches: [ master, beta, dev ]
+  pull_request:
+    branches: [ master, beta, dev ]
+  # this is to manually trigger the worklow
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Reason'     
+        default: 'Manual launch'
+
+env:
+  # branch name must be 'beta' for beta branch
+  BRANCH_NAME: ${{ github.ref_name }}
+    
+jobs:
+  # one single job, import from jeedom/workflows
+  release:
+    # https://github.com/jeedom/workflows/blob/main/.github/workflows/semantic-release.yml
+    uses: jeedom/workflows/.github/workflows/semantic-release.yml@main

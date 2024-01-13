@@ -1,0 +1,14 @@
+# This workflow check pull-requests commit message validity
+name: "Check Commit message for Semantic validity"
+
+on:
+  # this workflow triggers only on Pull Requests
+  pull_request:
+    branches: [ master, beta, dev ]
+    types: [ opened, reopened, synchronize, edited ]
+
+jobs:
+  # one single job, import from jeedom/workflows
+  checkCommit:
+    # https://github.com/jeedom/workflows/blob/main/.github/workflows/checkCommit.yml
+    uses: jeedom/workflows/.github/workflows/checkCommit.yml@main
