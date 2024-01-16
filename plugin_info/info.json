@@ -1,11 +1,21 @@
 {
-	"id" : "template",
-	"name" : "Template",
+	"id": "template",
+	"name": "Template",
 	"pluginVersion": "0.1",
-	"specialAttributes" : {
-		"object" : {
-			"toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "input"},
-			"toto2" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial number"},"type" : "number"}
+	"specialAttributes": {
+		"object": {
+			"toto": {
+				"name": {
+					"fr_FR": "Plop je suis un attribut spécial"
+				},
+				"type": "input"
+			},
+			"toto2": {
+				"name": {
+					"fr_FR": "Plop je suis un attribut spécial number"
+				},
+				"type": "number"
+			}
 		},
 		"user": {
 			"toto": {
@@ -62,7 +72,6 @@
 		"rpi",
 		"docker",
 		"diy",
-		"mobile",
-		"v4"
+		"mobile"
 	]
 }
