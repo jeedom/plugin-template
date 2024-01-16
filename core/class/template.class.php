@@ -91,8 +91,8 @@ class template extends eqLogic {
    * Permet d'indiquer des éléments supplémentaires à remonter dans les informations de configuration
    * lors de la création semi-automatique d'un post sur le forum community
    public static function getConfigForCommunity() {
-     // Cette function doit retourner des infos complémentataires sous la forme d'un
-     // string contenant les infoos formatées en HTML.
+      // Cette function doit retourner des infos complémentataires sous la forme d'un
+      // string contenant les infos formatées en HTML.
       return "les infos essentiel de mon plugin";
    }
    */
