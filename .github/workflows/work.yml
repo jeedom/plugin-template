@@ -12,4 +12,4 @@ name : 'Full Workflows Plugin Jeedom'
 
 jobs:
   plugin:
-    uses: jeedom/workflows/.github/workflows/pluginVersion.yml@main
+    uses: jeedom/workflows/.github/workflows/plugin.yml@main
