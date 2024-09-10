@@ -44,7 +44,7 @@
 	"require": "4.2",
 	"os" : {
 		"min" : 10,
-		"max" : 12
+		"max" : 12.99
 	},
 	"category": "programming",
 	"hasDependency": false,
