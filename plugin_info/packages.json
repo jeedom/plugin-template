@@ -8,8 +8,13 @@
     "requests" : {"reinstall" : true}
   },
   "npm": {
+    "plugins/template/ressources/demaond"  : {}
+  },
+  "composer": {
+       "plugins/template"  : {}
   },
   "yarn": {
+    "plugins/template/ressources/demaond"  : {}
   },
   "plugin": {
   },
