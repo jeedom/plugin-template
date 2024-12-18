@@ -6,7 +6,7 @@ function replacePluginIdInFiles($directory, $newId) {
     
     foreach ($files as $file) {
         if ($file->isFile()) {
-            
+
             $fileName = $file->getFilename();
             if ($fileName === 'script_renameId.php') {
                 continue;
@@ -14,7 +14,7 @@ function replacePluginIdInFiles($directory, $newId) {
 
             $filePath = $file->getRealPath();
             $fileContents = file_get_contents($filePath);
-            
+
             $lines = explode(PHP_EOL, $fileContents);
             foreach ($lines as &$line) {
                 if (strpos($line, "include_file('core', 'plugin.template', 'js');") === false) {
