@@ -100,6 +100,11 @@ if (strtolower($confirmation) === 'oui' || strtolower($confirmation) === 'o') {
 
     $dataJson['id'] = $newId; 
 
+    $dataJson['changelog_beta'] = str_replace('template', $newId, $dataJson['changelog_beta']);
+    $dataJson['changelog'] = str_replace('template', $newId, $dataJson['changelog']);
+    $dataJson['documentation_beta'] = str_replace('template', $newId, $dataJson['documentation_beta']);
+    $dataJson['documentation'] = str_replace('template', $newId, $dataJson['documentation']);
+
     $directories = [
         __DIR__ . '/../core/class', 
         __DIR__ . '/../desktop',
