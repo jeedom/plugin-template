@@ -1,7 +1,7 @@
 <?php
 
 function replacePluginIdInFiles($directory, $newId) {
-    $oldId = 'totoId';
+    $oldId = 'template';
     $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
     
     foreach ($files as $file) {
@@ -23,7 +23,7 @@ function replacePluginIdInFiles($directory, $newId) {
 }
 
 function renameFiles($directory, $newId) {
-    $oldId = 'totoId';
+    $oldId = 'template';
     $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
     
     foreach ($files as $file) {
