@@ -149,8 +149,16 @@ if (strtolower($demonResponse) === 'oui' || strtolower($demonResponse) === 'o') 
 
     $dataJson['hasOwnDeamon'] = true; 
     echo "La prise en compte du démon est activée.\n";
-} 
-
+} else {
+    echo "Suppression du repertoire démon.\n";
+    $demonDirectory = __DIR__ . '/../resources';
+    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($demonDirectory));
+    foreach ($files as $file) {
+        if ($file->isFile()) {
+            unlink($file->getRealPath());
+        }
+    }
+}
 
 echo "Votre plugin possede t-il des dépendances ? (oui/non) : ";
 $dependancyResponse = trim(fgets(STDIN));
