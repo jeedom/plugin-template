@@ -145,7 +145,7 @@ switch ($categoryChoice) {
 echo "Votre plugin possede t-il un démon ? (oui/non) : ";
 $demonResponse = trim(fgets(STDIN));
 
-if (strtolower($confirmationDemon) === 'oui' || strtolower($confirmationDemon) === 'o') {
+if (strtolower($demonResponse) === 'oui' || strtolower($demonResponse) === 'o') {
 
     $dataJson['hasOwnDeamon'] = true; 
     echo "La prise en compte du démon est activée.\n";
