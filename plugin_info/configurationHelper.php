@@ -145,21 +145,29 @@ switch ($categoryChoice) {
 echo "Votre plugin possede t-il un démon ? (oui/non) : ";
 $demonResponse = trim(fgets(STDIN));
 
-echo "Vous avez entré '$demonResponse'. Confirmez-vous cette modification ? (oui/non) : ";
-$confirmationDemon = trim(fgets(STDIN));
-
 if (strtolower($confirmationDemon) === 'oui' || strtolower($confirmationDemon) === 'o') {
 
     $dataJson['hasOwnDeamon'] = true; 
     echo "La prise en compte du démon est activée.\n";
 } else {
-    echo "Suppression du repertoire démon.\n";
-    $demonDirectory = __DIR__ . '/../resources';
-    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($demonDirectory));
-    foreach ($files as $file) {
-        if ($file->isFile()) {
-            unlink($file->getRealPath());
+    echo "Vous avez entré '$demonResponse'. Confirmez-vous cette modification ? (oui/non) : ";
+    $confirmationDemon = trim(fgets(STDIN));
+
+    if (strtolower($confirmationDemon) === 'oui' || strtolower($confirmationDemon) === 'o') {
+        echo "Suppression du repertoire démon.\n";
+        $demonDirectory = __DIR__ . '/../resources';
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($demonDirectory, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($files as $file) {
+            if ($file->isFile()) {
+                unlink($file->getRealPath());
+            } elseif ($file->isDir()) {
+                rmdir($file->getRealPath());
+            }
         }
+        rmdir($demonDirectory);
     }
 }
 
