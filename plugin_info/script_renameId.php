@@ -8,6 +8,10 @@ function replacePluginIdInFiles($directory, $newId) {
         if ($file->isFile()) {
             $filePath = $file->getRealPath();
             $fileContents = file_get_contents($filePath);
+
+            if ($fileName === 'script_renameId.php') {
+                continue;
+            }
             
             $lines = explode(PHP_EOL, $fileContents);
             foreach ($lines as &$line) {
