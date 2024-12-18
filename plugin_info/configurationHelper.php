@@ -8,7 +8,7 @@ function replacePluginIdInFiles($directory, $newId) {
         if ($file->isFile()) {
 
             $fileName = $file->getFilename();
-            if ($fileName === 'script_renameId.php') {
+            if ($fileName === 'configurationHelper.php') {
                 continue;
             }
 
@@ -66,6 +66,81 @@ if ($namePlugin !== '') {
     $dataJson['name'] = $namePlugin;
     echo "Plugin renommé.\n";
 } 
+
+echo "Choisissez la catégorie de votre plugin :\n";
+echo "1. Securité\n";
+echo "2. Protocole Domotique\n";
+echo "3. Passereille Domotique\n";
+echo "4. Programmation\n";
+echo "5. Organisation\n";
+echo "6. Météo\n";
+echo "7. Communication\n";
+echo "8. Objets connectés\n";
+echo "9. Multimédia\n";
+echo "10. Confort\n";
+echo "11. Monitoring\n";
+echo "12. Santé\n";
+echo "13. Nature\n";
+echo "14. Automatisme\n";
+echo "15. Energie\n";
+echo "16. Autre\n";
+
+$categoryChoice = trim(fgets(STDIN));
+
+switch ($categoryChoice) {
+    case '1':
+        $dataJson['category'] = 'security';
+        break;
+    case '2':
+        $dataJson['category'] = 'automation protocol';
+        break;
+    case '3':
+        $dataJson['category'] = 'home automation protocol';
+        break;
+    case '4':
+        $dataJson['category'] = 'programming';
+        break;
+    case '5':
+        $dataJson['category'] = 'organization';
+        break;
+    case '6':
+        $dataJson['category'] = 'weather';
+        break;
+    case '7':
+        $dataJson['category'] = 'communication';
+        break;
+    case '8':
+        $dataJson['category'] = 'devicecommunication';
+        break;
+    case '9':
+        $dataJson['category'] = 'multimedia';
+        break;
+    case '10':
+        $dataJson['category'] = 'wellness';
+        break;
+    case '11':
+        $dataJson['category'] = 'monitoring';
+        break;
+    case '12':
+        $dataJson['category'] = 'health';
+        break;
+    case '13':
+        $dataJson['category'] = 'nature';
+        break;
+    case '14':
+        $dataJson['category'] = 'automatisation';
+        break;
+    case '15':
+        $dataJson['category'] = 'energy';
+        break;
+    case '16':
+        $dataJson['category'] = 'other';
+        break;
+    default:
+        echo "Choix invalide. La catégorie par défaut 'programming' sera utilisée.\n";
+        $data['category'] = 'programming';
+        break;
+}
 
 echo "Votre plugin possede t-il un démon ? (oui/non) : ";
 $demonResponse = trim(fgets(STDIN));
