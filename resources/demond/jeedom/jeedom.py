@@ -244,8 +244,8 @@ class jeedom_serial():
             self.port.close()
             logging.info("Serial port closed")
             return True
-        except:
-            logging.error("Failed to close the serial port (%s)", self.device)
+        except serial.SerialException as e:
+            logging.error("Failed to close the serial port (%s): %s", self.device, e)
             return False
 
     def write(self, data):

@@ -58,16 +58,16 @@ def shutdown():
     logging.debug("Removing PID file %s", _pidfile)
     try:
         os.remove(_pidfile)
-    except:
-        pass
+    except Exception as e:
+        logging.warning('Error removing PID file: %s', e)
     try:
         my_jeedom_socket.close()
-    except:
-        pass
+    except Exception as e:
+        logging.warning('Error closing socket: %s', e)
     # try:  # if you need jeedom_serial
     #     my_jeedom_serial.close()
-    # except:
-    #     pass
+    # except Exception as e:
+    #     logging.warning('Error closing serial: %s', e)
     logging.debug("Exit 0")
     sys.stdout.flush()
     os._exit(0)
