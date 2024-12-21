@@ -27,10 +27,9 @@ from socketserver import (TCPServer, StreamRequestHandler)
 import unicodedata
 import pyudev
 
-# ------------------------------------------------------------------------------
 
 class jeedom_com():
-    def __init__(self,apikey = '',url = '',cycle = 0.5,retry = 3):
+    def __init__(self, apikey='', url='', cycle=0.5, retry=3):
         self._apikey = apikey
         self._url = url
         self._cycle = cycle
@@ -92,15 +91,15 @@ class jeedom_com():
                 logging.error('Error on send request to jeedom "%s" retry: %i/%i', error, i, self._retry)
         return False
 
-    def set_change(self,changes):
+    def set_change(self, changes):
         self._changes = changes
 
     def get_change(self):
         return self._changes
 
-    def merge_dict(self,d1, d2):
-        for k,v2 in d2.items():
-            v1 = d1.get(k) # returns None if v1 has no value for this key
+    def merge_dict(self, d1, d2):
+        for k, v2 in d2.items():
+            v1 = d1.get(k)  # returns None if v1 has no value for this key
             if isinstance(v1, Mapping) and isinstance(v2, Mapping):
                 self.merge_dict(v1, v2)
             else:
@@ -117,28 +116,29 @@ class jeedom_com():
             return False
         return True
 
-# ------------------------------------------------------------------------------
 
 class jeedom_utils():
 
     @staticmethod
-    def convert_log_level(level = 'error'):
-        LEVELS = {'debug': logging.DEBUG,
-          'info': logging.INFO,
-          'notice': logging.WARNING,
-          'warning': logging.WARNING,
-          'error': logging.ERROR,
-          'critical': logging.CRITICAL,
-          'none': logging.CRITICAL}
+    def convert_log_level(level='error'):
+        LEVELS = {
+            'debug': logging.DEBUG,
+            'info': logging.INFO,
+            'notice': logging.WARNING,
+            'warning': logging.WARNING,
+            'error': logging.ERROR,
+            'critical': logging.CRITICAL,
+            'none': logging.CRITICAL
+            }
         return LEVELS.get(level, logging.CRITICAL)
 
     @staticmethod
-    def set_log_level(level = 'error'):
+    def set_log_level(level='error'):
         FORMAT = '[%(asctime)-15s][%(levelname)s] : %(message)s'
-        logging.basicConfig(level=jeedom_utils.convert_log_level(level),format=FORMAT, datefmt="%Y-%m-%d %H:%M:%S")
+        logging.basicConfig(level=jeedom_utils.convert_log_level(level), format=FORMAT, datefmt="%Y-%m-%d %H:%M:%S")
 
     @staticmethod
-    def find_tty_usb(idVendor, idProduct, product = None):
+    def find_tty_usb(idVendor, idProduct, product=None):
         context = pyudev.Context()
         for device in context.list_devices(subsystem='tty'):
             if 'ID_VENDOR' not in device:
@@ -148,7 +148,7 @@ class jeedom_utils():
             if device['ID_MODEL_ID'] != idProduct:
                 continue
             if product is not None:
-                if 'ID_VENDOR' not in device or device['ID_VENDOR'].lower().find(product.lower()) == -1 :
+                if 'ID_VENDOR' not in device or device['ID_VENDOR'].lower().find(product.lower()) == -1:
                     continue
             return str(device.device_node)
         return None
@@ -158,12 +158,12 @@ class jeedom_utils():
         return "".join([i for i in str if i in range(32, 127)])
 
     @staticmethod
-    def ByteToHex( byteStr ):
+    def ByteToHex(byteStr):
         return byteStr.hex()
 
     @staticmethod
     def dec2bin(x, width=8):
-        return ''.join(str((x>>i)&1) for i in range(width-1,-1,-1))
+        return ''.join(str((x >> i) & 1) for i in range(width-1, -1, -1))
 
     @staticmethod
     def dec2hex(dec):
@@ -174,12 +174,12 @@ class jeedom_utils():
     @staticmethod
     def testBit(int_type, offset):
         mask = 1 << offset
-        return(int_type & mask)
+        return (int_type & mask)
 
     @staticmethod
     def clearBit(int_type, offset):
         mask = ~(1 << offset)
-        return(int_type & mask)
+        return (int_type & mask)
 
     @staticmethod
     def split_len(seq, length):
@@ -200,11 +200,10 @@ class jeedom_utils():
     def printHex(hex):
         return ' '.join([hex[i:i + 2] for i in range(0, len(hex), 2)])
 
-# ------------------------------------------------------------------------------
 
 class jeedom_serial():
 
-    def __init__(self,device = '',rate = '',timeout = 9,rtscts = True,xonxoff=False):
+    def __init__(self, device='', rate='', timeout=9, rtscts=True, xonxoff=False):
         self.device = device
         self.rate = rate
         self.timeout = timeout
@@ -222,13 +221,13 @@ class jeedom_serial():
         logging.info("Open Serialport")
         try:
             self.port = serial.Serial(
-            self.device,
-            self.rate,
-            timeout=self.timeout,
-            rtscts=self.rtscts,
-            xonxoff=self.xonxoff,
-            parity=serial.PARITY_NONE,
-            stopbits=serial.STOPBITS_ONE
+                self.device,
+                self.rate,
+                timeout=self.timeout,
+                rtscts=self.rtscts,
+                xonxoff=self.xonxoff,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE
             )
         except serial.SerialException as e:
             logging.error("Error: Failed to connect on device %s. Details : %s", self.device, e)
@@ -249,7 +248,7 @@ class jeedom_serial():
             logging.error("Failed to close the serial port (%s)", self.device)
             return False
 
-    def write(self,data):
+    def write(self, data):
         logging.info("Write data to serial port: %s", str(jeedom_utils.ByteToHex(data)))
         self.port.write(data)
 
@@ -266,7 +265,7 @@ class jeedom_serial():
             return self.port.read()
         return None
 
-    def readbytes(self,number):
+    def readbytes(self, number):
         buf = b''
         for i in range(number):
             try:
@@ -278,9 +277,9 @@ class jeedom_serial():
             buf += byte
         return buf
 
-# ------------------------------------------------------------------------------
 
 JEEDOM_SOCKET_MESSAGE = Queue()
+
 
 class jeedom_socket_handler(StreamRequestHandler):
     def handle(self):
@@ -292,9 +291,10 @@ class jeedom_socket_handler(StreamRequestHandler):
         self.netAdapterClientConnected = False
         logging.info("Client disconnected from [%s:%d]", self.client_address[0], self.client_address[1])
 
+
 class jeedom_socket():
 
-    def __init__(self,address='localhost', port=55000):
+    def __init__(self, address='localhost', port=55000):
         self.address = address
         self.port = port
         socketserver.TCPServer.allow_reuse_address = True

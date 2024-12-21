@@ -22,10 +22,10 @@ import signal
 import json
 import argparse
 
-from jeedom.jeedom import jeedom_socket, jeedom_utils, jeedom_serial, jeedom_com, JEEDOM_SOCKET_MESSAGE
+from jeedom.jeedom import jeedom_socket, jeedom_utils, jeedom_com, JEEDOM_SOCKET_MESSAGE  # jeedom_serial
+
 
 def read_socket():
-    global JEEDOM_SOCKET_MESSAGE
     if not JEEDOM_SOCKET_MESSAGE.empty():
         logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
         message = json.loads(jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get()))
@@ -33,9 +33,10 @@ def read_socket():
             logging.error("Invalid apikey from socket: %s", message)
             return
         try:
-            print ('read')
+            print('read')
         except Exception as e:
-            logging.error('Send command to demon error: %s' ,e)
+            logging.error('Send command to demon error: %s', e)
+
 
 def listen():
     my_jeedom_socket.open()
@@ -46,11 +47,11 @@ def listen():
     except KeyboardInterrupt:
         shutdown()
 
-# ----------------------------------------------------------------------------
 
 def handler(signum=None, frame=None):
     logging.debug("Signal %i caught, exiting...", int(signum))
     shutdown()
+
 
 def shutdown():
     logging.debug("Shutdown")
@@ -71,7 +72,6 @@ def shutdown():
     sys.stdout.flush()
     os._exit(0)
 
-# ----------------------------------------------------------------------------
 
 _log_level = "error"
 _socket_port = 55009
@@ -82,8 +82,7 @@ _apikey = ''
 _callback = ''
 _cycle = 0.3
 
-parser = argparse.ArgumentParser(
-    description='Desmond Daemon for Jeedom plugin')
+parser = argparse.ArgumentParser(description='Desmond Daemon for Jeedom plugin')
 parser.add_argument("--device", help="Device", type=str)
 parser.add_argument("--loglevel", help="Log Level for the daemon", type=str)
 parser.add_argument("--callback", help="Callback", type=str)
@@ -130,7 +129,7 @@ try:
         logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
         shutdown()
     # my_jeedom_serial = jeedom_serial(device=_device)  # if you need jeedom_serial
-    my_jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
+    my_jeedom_socket = jeedom_socket(port=_socket_port, address=_socket_host)
     listen()
 except Exception as e:
     logging.error('Fatal error: %s', e)
