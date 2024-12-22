@@ -86,9 +86,9 @@ class jeedom_com():
                     return True
                 else:
                     logging.warning('Error on send request to jeedom, return code %s', r.status_code)
-                    time.sleep(0.5)
             except Exception as error:
                 logging.error('Error on send request to jeedom "%s" retry: %i/%i', error, i, self._retry)
+            time.sleep(0.5)
         return False
 
     def set_change(self, changes):
@@ -158,7 +158,7 @@ class jeedom_utils():
         return "".join([i for i in str if i in range(32, 127)])
 
     @staticmethod
-    def ByteToHex(byteStr):
+    def ByteToHex(byteStr: bytes):
         return byteStr.hex()
 
     @staticmethod
@@ -318,7 +318,3 @@ class jeedom_socket():
 
     def getMessage(self):
         return self.message
-
-# ------------------------------------------------------------------------------
-# END
-# ------------------------------------------------------------------------------
