@@ -1,6 +1,11 @@
 <?php
 
+
+$scriptFileName = basename(__FILE__);
+
+
 function replacePluginIdInFiles($directory, $newId) {
+    global $scriptFileName;
     $oldId = 'template';
     $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
     
@@ -8,7 +13,7 @@ function replacePluginIdInFiles($directory, $newId) {
         if ($file->isFile()) {
 
             $fileName = $file->getFilename();
-            if ($fileName === 'configurationHelper.php') {
+            if ($fileName === $scriptFileName) {
                 continue;
             }
 
@@ -29,6 +34,7 @@ function replacePluginIdInFiles($directory, $newId) {
 }
 
 function renameFiles($directory, $newId) {
+    global $scriptFileName;
     $oldId = 'template';
     $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
     
@@ -141,6 +147,8 @@ switch ($categoryChoice) {
         $data['category'] = 'programming';
         break;
 }
+
+// echo "Vous avez choisir la catégorie '$categoryChoice'.\n";
 
 echo "Votre plugin possede t-il un démon ? (oui/non) : ";
 $demonResponse = trim(fgets(STDIN));
