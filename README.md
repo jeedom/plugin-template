@@ -14,3 +14,12 @@ La documentation générale relative à la conception de plugin est consultable 
 Si vous créez une branch nommée prettier, le robot workflows fera une passe complete sur le code pour que le code soit le plus uniforme possible.
 ---
 test workflow en cours... for commit
+
+---
+Nouvel assistant pour un gain de temps à la création de votre plugin
+---
+Sur votre terminal, vous pouvez vous rendre dans plugin_info, et executer : php helperConfiguration.php
+Un assistant en CLI vous posera quelques questions, (l'id du plugin, la catégorie, si démon, etcc), puis s'occupera de renommer tous les fichiers et le reste.
+Voila, votre plugin est basiquement prêt pour coder votre travail.
+
+
