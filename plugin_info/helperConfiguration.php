@@ -214,6 +214,7 @@ if (strtolower($confirmation) === 'oui' || strtolower($confirmation) === 'o') {
         __DIR__ . '/../desktop/modal',
         __DIR__ . '/../desktop/php',
         __DIR__ . '/../desktop/js',
+        __DIR__ . '/../core/ajax', 
         __DIR__ ,
     ];
      
