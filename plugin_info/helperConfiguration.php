@@ -188,7 +188,9 @@ if (strtolower($dependancyResponse) === 'oui' || strtolower($dependancyResponse)
 
     $dataJson['hasDependency'] = true; 
     echo "La prise en compte des dépendances est activée.\n";
-} 
+ else {
+    unset($dataJson['maxDependancyInstallTime']);
+}
 
 
 echo "Quel est l'ID du plugin : ";
