@@ -188,7 +188,7 @@ if (strtolower($dependancyResponse) === 'oui' || strtolower($dependancyResponse)
 
     $dataJson['hasDependency'] = true; 
     echo "La prise en compte des dépendances est activée.\n";
- else {
+}else {
     unset($dataJson['maxDependancyInstallTime']);
 }
 
