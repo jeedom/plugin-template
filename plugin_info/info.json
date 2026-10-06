@@ -42,18 +42,18 @@
 	"licence": "AGPL",
 	"author": "Jeedom SAS",
 	"require": "4.2",
-	"os" : {
-		"min" : 10,
-		"max" : 12.99
+	"os": {
+		"min": 10,
+		"max": 12.99
 	},
 	"category": "programming",
 	"hasDependency": false,
 	"hasOwnDeamon": false,
 	"maxDependancyInstallTime": 0,
-	"changelog_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template\/beta\/changelog",
-	"changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template\/changelog",
-	"documentation_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template\/beta",
-	"documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/programming\/template",
+	"changelog_beta": "https://doc.jeedom.com/plugins/programming/template/beta/#language#/changelog",
+	"documentation_beta": "https://doc.jeedom.com/plugins/programming/template/beta/#language#/",
+	"changelog": "https://doc.jeedom.com/plugins/programming/template/#language#/changelog",
+	"documentation": "https://doc.jeedom.com/plugins/programming/template/#language#/",
 	"link": {
 		"forum": "Lien vers le forum",
 		"video": "Lien vers une video"
