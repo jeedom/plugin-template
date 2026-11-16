@@ -380,7 +380,8 @@ class jeedom_socket_handler(StreamRequestHandler):
 
 class jeedom_socket():
     """Réception des messages du PHP. Avec path, le démon écoute sur un socket Unix que seul Jeedom peut
-    ouvrir : plus besoin de clé API ni de port. Sans path, ancien fonctionnement sur un port TCP local."""
+    ouvrir : plus besoin de clé API ni de port. Sans path, ancien fonctionnement sur un port TCP local :
+    le démon doit alors vérifier la clé API de chaque message."""
 
     def __init__(self, address='localhost', port=55000, path=None):
         self.address = address

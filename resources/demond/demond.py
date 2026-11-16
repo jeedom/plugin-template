@@ -105,6 +105,10 @@ if args.cycle:
     _cycle = float(args.cycle)
 if args.socket:
     _socket = args.socket
+else:
+    # Sans socket Unix, le démon écouterait sur un port TCP sans contrôle de la clé API : on refuse.
+    print('Missing --socket argument: the daemon only listens on a Unix socket')
+    sys.exit(1)
 if args.rest_credentials:
     _rest_credentials = args.rest_credentials
 
