@@ -106,7 +106,14 @@ class template extends eqLogic {
     $return['state'] = 'nok';
     $pid_file = jeedom::getTmpFolder(__CLASS__) . '/deamon.pid';
     if (file_exists($pid_file) && @posix_getsid(trim(file_get_contents($pid_file)))) {
-      $return['state'] = 'ok';
+      // Le démon doit aussi répondre sur son socket : un processus figé ou un pid réutilisé ne suffit pas.
+      // Avec un démon Node.js (jeedom.js), envoyer GET /health avec com_http et attendre le code 204.
+      $socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
+      socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => 1, 'usec' => 0));
+      if (@socket_connect($socket, self::daemonSocketPath()) && socket_write($socket, "health\n") && trim((string) @socket_read($socket, 16)) == 'ok') {
+        $return['state'] = 'ok';
+      }
+      socket_close($socket);
     }
     $return['launchable'] = 'ok';
     return $return;

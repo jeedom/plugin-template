@@ -32,4 +32,5 @@ Le démon d'exemple (`resources/demond/demond.py`) fonctionne avec Jeedom 4.6 et
 * Jeedom parle au démon par un socket Unix que seul Jeedom peut ouvrir (`--socket`), sans clé API ni port réseau. Côté PHP, `template::sendToDaemon()` remplace l'ancien `socket_create(AF_INET…)` par `socket_create(AF_UNIX…)`.
 * Le démon envoie ses valeurs avec `jeedom_com.add_changes()`. Avec Jeedom 5, il passe par l'API REST avec un jeton qu'il renouvelle lui-même (`--rest-credentials`). Avec Jeedom 4, il appelle `core/php/jeetemplate.php` avec la clé API du plugin.
 * Dans les deux cas, le plugin reçoit les messages dans `template::handleDaemonMessages()`.
+* `deamon_info()` ne déclare le démon en service que si son pid est vivant **et** s'il répond sur son socket (ligne `health` → `ok` pour `demond.py`, `GET /health` → `204` pour `jeedom.js`). Un démon figé, ou tué en laissant son socket, est ainsi relancé par Jeedom.
 * Pour un démon Node.js, `resources/demond/jeedom/jeedom.js` offre les mêmes possibilités avec `Jeedom.com.config(apikey, callback, cycle, credentials)` et `Jeedom.http.config(socket)`.

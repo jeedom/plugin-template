@@ -256,6 +256,10 @@ Jeedom.http.config = function(_port,_apikey){
     res.setHeader('Content-Type', 'text/plain');
     res.status(404).send('Not found');
   });
+  // Contrôle de deamon_info() : le démon répond 204 tant qu'il traite les requêtes.
+  Jeedom.http.app.get('/health', function(req, res) {
+    res.status(204).end();
+  });
   if (Jeedom.http.socket) {
     if (fs.existsSync(_port)) fs.unlinkSync(_port);
     process.umask(0o077); // socket accessible au seul compte de Jeedom

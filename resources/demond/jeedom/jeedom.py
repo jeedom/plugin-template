@@ -373,6 +373,10 @@ class jeedom_socket_handler(StreamRequestHandler):
     def handle(self):
         global JEEDOM_SOCKET_MESSAGE
         lg = self.rfile.readline()
+        if lg.strip() == b'health':
+            # Contrôle de deamon_info() : le démon répond sans passer par la file des messages.
+            self.wfile.write(b'ok\n')
+            return
         JEEDOM_SOCKET_MESSAGE.put(lg)
         logging.debug("Message read from socket: %s", str(lg.strip()))
         self.netAdapterClientConnected = False
