@@ -97,6 +97,126 @@ class template extends eqLogic {
    }
    */
 
+  /*     * ***************************Démon******************************* */
+  /* À supprimer si le plugin n'a pas de démon (hasOwnDeamon à false dans info.json). */
+
+  public static function deamon_info() {
+    $return = array();
+    $return['log'] = __CLASS__;
+    $return['state'] = 'nok';
+    $pid_file = jeedom::getTmpFolder(__CLASS__) . '/deamon.pid';
+    if (file_exists($pid_file) && @posix_getsid(trim(file_get_contents($pid_file)))) {
+      // Le démon doit aussi répondre sur son socket : un processus figé ou un pid réutilisé ne suffit pas.
+      // Avec un démon Node.js (jeedom.js), envoyer GET /health avec com_http et attendre le code 204.
+      $socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
+      socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => 1, 'usec' => 0));
+      if (@socket_connect($socket, self::daemonSocketPath()) && socket_write($socket, "health\n") && trim((string) @socket_read($socket, 16)) == 'ok') {
+        $return['state'] = 'ok';
+      }
+      socket_close($socket);
+    }
+    $return['launchable'] = 'ok';
+    return $return;
+  }
+
+  public static function deamon_start() {
+    self::deamon_stop();
+    $deamon_info = self::deamon_info();
+    if ($deamon_info['launchable'] != 'ok') {
+      throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+    }
+    // Python de l'environnement du plugin, créé par l'installation des dépendances (section pip3 de packages.json).
+    $python = is_dir(__DIR__ . '/../../resources/python_venv') ? system::getCmdPython3(__CLASS__) : 'python3 ';
+    $cmd = $python . escapeshellarg(realpath(__DIR__ . '/../../resources/demond') . '/demond.py');
+    $cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel(__CLASS__));
+    $cmd .= ' --socket ' . escapeshellarg(self::daemonSocketPath());
+    $cmd .= ' --cycle ' . escapeshellarg(config::byKey('cycle', __CLASS__, 0.3));
+    $cmd .= ' --pid ' . escapeshellarg(jeedom::getTmpFolder(__CLASS__) . '/deamon.pid');
+    $cmd .= self::daemonJeedomArguments();
+    log::add(__CLASS__, 'info', 'Lancement du démon');
+    exec($cmd . ' >> ' . log::getPathToLog(__CLASS__ . '_daemon') . ' 2>&1 &');
+    for ($i = 0; $i < 20; $i++) {
+      if (self::deamon_info()['state'] == 'ok') {
+        message::removeAll(__CLASS__, 'unableStartDeamon');
+        return true;
+      }
+      sleep(1);
+    }
+    log::add(__CLASS__, 'error', __('Impossible de lancer le démon, vérifiez le log', __FILE__), 'unableStartDeamon');
+    return false;
+  }
+
+  public static function deamon_stop() {
+    $pid_file = jeedom::getTmpFolder(__CLASS__) . '/deamon.pid';
+    if (file_exists($pid_file)) {
+      system::kill(intval(trim(file_get_contents($pid_file))));
+    }
+    system::kill('demond.py');
+    if (file_exists(self::daemonSocketPath())) {
+      unlink(self::daemonSocketPath());
+    }
+  }
+
+  /*
+   * Socket Unix du démon. Seul Jeedom peut l'ouvrir : le PHP n'a pas besoin de clé API pour parler au démon.
+   */
+  public static function daemonSocketPath() {
+    return jeedom::getTmpFolder(__CLASS__) . '/daemon.sock';
+  }
+
+  /*
+   * Arguments qui permettent au démon d'envoyer ses messages à Jeedom :
+   * - Jeedom 5 : API REST, avec un jeton propre au démon qu'il renouvelle lui-même ;
+   * - Jeedom 4 : core/php/jeetemplate.php, avec la clé API du plugin.
+   */
+  private static function daemonJeedomArguments() {
+    $url = network::getNetworkAccess('internal', 'http:127.0.0.1:port:comp');
+    if (method_exists('plugin', 'daemonCredentialFile')) {
+      try {
+        $credentials = plugin::daemonCredentialFile(__CLASS__);
+      } catch (DomainException $e) {
+        // Session du démon supprimée par Jeedom (expirée ou révoquée) : on lui en ouvre une nouvelle.
+        $credentials = plugin::daemonCredentialFile(__CLASS__, true);
+      }
+      config::save('daemon::transport', 'rest', __CLASS__);
+      return ' --callback ' . escapeshellarg($url . '/api/v1/plugins/' . __CLASS__ . '/daemon/messages')
+        . ' --rest-credentials ' . escapeshellarg($credentials);
+    }
+    config::save('daemon::transport', 'callback', __CLASS__);
+    return ' --callback ' . escapeshellarg($url . '/plugins/' . __CLASS__ . '/core/php/jee' . __CLASS__ . '.php')
+      . ' --apikey ' . escapeshellarg(jeedom::getApiKey(__CLASS__));
+  }
+
+  /*
+   * Envoie un message au démon (reçu dans read_socket() de demond.py).
+   * Exemple : template::sendToDaemon(array('action' => 'test'));
+   *
+   * Avec un démon Node.js (jeedom.js, Jeedom.http.config(socket)), le PHP envoie une requête HTTP sur le socket :
+   *   $request = new com_http('http://localhost/action');
+   *   $request->setCURLOPT(array(CURLOPT_UNIX_SOCKET_PATH => self::daemonSocketPath()));
+   *   $request->setHeader(array('Content-Type: application/json'));
+   *   $request->setPost(json_encode($params));
+   *   $request->exec();
+   */
+  public static function sendToDaemon($params) {
+    $socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
+    if ($socket === false || !@socket_connect($socket, self::daemonSocketPath())) {
+      throw new Exception(__('Le démon ne répond pas', __FILE__));
+    }
+    $payload = json_encode($params) . "\n";
+    socket_write($socket, $payload, strlen($payload));
+    socket_close($socket);
+  }
+
+  /*
+   * Messages envoyés par le démon avec jeedom_com, regroupés par clé :
+   * add_changes('equipement::temperature', 21.5) donne array('equipement' => array('temperature' => 21.5)).
+   * Appelée par Jeedom 5 et, avec Jeedom 4, par core/php/jeetemplate.php.
+   */
+  public static function handleDaemonMessages(array $messages) {
+    log::add(__CLASS__, 'debug', 'Messages du démon : ' . json_encode($messages));
+  }
+
   /*     * *********************Méthodes d'instance************************* */
 
   // Fonction exécutée automatiquement avant la création de l'équipement

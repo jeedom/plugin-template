@@ -16,7 +16,11 @@
 
 import time
 import logging
-from threading import Thread
+import fcntl
+import json
+import secrets
+from datetime import datetime
+from threading import Thread, Lock
 import requests
 from collections.abc import Mapping
 import serial
@@ -28,13 +32,74 @@ import unicodedata
 import pyudev
 
 
+class jeedom_rest_access():
+    """Jeton du démon pour l'API REST de Jeedom 5.
+
+    Le fichier transmis par le PHP (--rest-credentials) contient un jeton de renouvellement. Il est échangé
+    contre un jeton d'accès valable 24 h et un nouveau jeton de renouvellement, enregistré à sa place.
+    """
+
+    def __init__(self, path, messages_url):
+        self._path = path
+        self._refresh_url = messages_url.split('/api/v1/')[0] + '/api/v1/session/refresh'
+        self._token = None
+        self._expires = 0
+        self._lock = Lock()
+
+    def token(self):
+        with self._lock:
+            if self._token is None or self._expires < time.time() + 5:
+                self._refresh()
+            return self._token
+
+    def forget(self):
+        self._token = None
+
+    def _refresh(self):
+        # Même verrou que plugin::daemonCredentialFile() côté PHP.
+        with open(self._path + '.lock', 'a') as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            with open(self._path) as file:
+                credentials = json.load(file)
+            # La clé est enregistrée avant l'appel : si la réponse se perd, le prochain essai la réutilise
+            # et Jeedom renvoie la même paire au lieu de croire à un vol du jeton.
+            attempt = credentials.get('refreshAttempt') or secrets.token_hex(16)
+            self._store({'refreshToken': credentials['refreshToken'], 'refreshAttempt': attempt})
+            response = requests.post(self._refresh_url, json={'refreshToken': credentials['refreshToken']},
+                                     headers={'Idempotency-Key': attempt}, timeout=10, verify=False)
+            if response.status_code in (401, 403):
+                raise jeedom_access_lost('Accès REST du démon refusé par Jeedom (HTTP %s)' % response.status_code)
+            response.raise_for_status()
+            data = response.json()
+            self._store({'refreshToken': data['refreshToken']})
+            self._token = data['accessToken']
+            self._expires = datetime.fromisoformat(data['accessExpiresAt'].replace('Z', '+00:00')).timestamp()
+
+    def _store(self, credentials):
+        temp = self._path + '.tmp'
+        with open(os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600), 'w') as file:
+            json.dump(credentials, file)
+        os.replace(temp, self._path)
+
+
+class jeedom_access_lost(Exception):
+    """Jeedom a supprimé l'accès du démon : seul un redémarrage par Jeedom lui en redonne un."""
+
+
 class jeedom_com():
-    def __init__(self, apikey='', url='', cycle=0.5, retry=3):
+    """Envoi des messages du démon au plugin, reçus par sa méthode handleDaemonMessages().
+
+    Jeedom 4 : url est core/php/jee<plugin>.php et apikey la clé API du plugin.
+    Jeedom 5 : url est /api/v1/plugins/<plugin>/daemon/messages et credentials le fichier --rest-credentials.
+    """
+
+    def __init__(self, apikey='', url='', cycle=0.5, retry=3, credentials=''):
         self._apikey = apikey
         self._url = url
         self._cycle = cycle
         self._retry = retry
         self._changes = {}
+        self._rest = jeedom_rest_access(credentials, url) if credentials else None
         if self._cycle > 0:
             Thread(target=self.__thread_changes_async, daemon=True).start()
         logging.info('Init request module v%s', requests.__version__)
@@ -81,15 +146,29 @@ class jeedom_com():
         logging.debug('Send to jeedom: %s', change)
         for i in range(self._retry):
             try:
-                r = requests.post(self._url + '?apikey=' + self._apikey, json=change, timeout=(0.5, 120), verify=False)
-                if r.status_code == requests.codes.ok:
+                if self.__post(change):
                     return True
-                else:
-                    logging.warning('Error on send request to jeedom, return code %s', r.status_code)
+            except jeedom_access_lost as error:
+                logging.error('%s : arrêt du démon, Jeedom lui redonnera un accès au redémarrage', error)
+                os._exit(1)
             except Exception as error:
                 logging.error('Error on send request to jeedom "%s" retry: %i/%i', error, i, self._retry)
             time.sleep(0.5)
         return False
+
+    def __post(self, change):
+        if self._rest is None:
+            r = requests.post(self._url + '?apikey=' + self._apikey, json=change, timeout=(0.5, 120), verify=False)
+            expected = requests.codes.ok
+        else:
+            r = requests.post(self._url, json={'messages': change}, timeout=(0.5, 120), verify=False,
+                              headers={'Authorization': 'Bearer ' + self._rest.token()})
+            if r.status_code == 401:
+                self._rest.forget()  # jeton expiré : le prochain essai en demande un nouveau
+            expected = 204
+        if r.status_code != expected:
+            logging.warning('Error on send request to jeedom, return code %s', r.status_code)
+        return r.status_code == expected
 
     def set_change(self, changes):
         self._changes = changes
@@ -106,6 +185,12 @@ class jeedom_com():
                 d1[k] = v2
 
     def test(self):
+        if self._rest is not None:
+            try:
+                return self.__post({})
+            except Exception as e:
+                logging.error('Jeedom REST API error: %s', e)
+                return False
         try:
             response = requests.get(self._url + '?apikey=' + self._apikey, verify=False)
             if response.status_code != requests.codes.ok:
@@ -155,7 +240,10 @@ class jeedom_utils():
 
     @staticmethod
     def stripped(str):
-        return "".join([i for i in str if i in range(32, 127)])
+        # Le socket fournit des octets : ils sont décodés, puis les caractères de contrôle sont retirés.
+        if isinstance(str, bytes):
+            str = str.decode('utf-8', errors='ignore')
+        return "".join([i for i in str if ord(i) >= 32])
 
     @staticmethod
     def ByteToHex(byteStr: bytes):
@@ -284,23 +372,36 @@ JEEDOM_SOCKET_MESSAGE = Queue()
 class jeedom_socket_handler(StreamRequestHandler):
     def handle(self):
         global JEEDOM_SOCKET_MESSAGE
-        logging.info("Client connected to [%s:%d]", self.client_address[0], self.client_address[1])
         lg = self.rfile.readline()
+        if lg.strip() == b'health':
+            # Contrôle de deamon_info() : le démon répond sans passer par la file des messages.
+            self.wfile.write(b'ok\n')
+            return
         JEEDOM_SOCKET_MESSAGE.put(lg)
-        logging.info("Message read from socket: %s", str(lg.strip()))
+        logging.debug("Message read from socket: %s", str(lg.strip()))
         self.netAdapterClientConnected = False
-        logging.info("Client disconnected from [%s:%d]", self.client_address[0], self.client_address[1])
 
 
 class jeedom_socket():
+    """Réception des messages du PHP. Avec path, le démon écoute sur un socket Unix que seul Jeedom peut
+    ouvrir : plus besoin de clé API ni de port. Sans path, ancien fonctionnement sur un port TCP local :
+    le démon doit alors vérifier la clé API de chaque message."""
 
-    def __init__(self, address='localhost', port=55000):
+    def __init__(self, address='localhost', port=55000, path=None):
         self.address = address
         self.port = port
+        self.path = path
         socketserver.TCPServer.allow_reuse_address = True
 
     def open(self):
-        self.netAdapter = TCPServer((self.address, self.port), jeedom_socket_handler)
+        if self.path:
+            if os.path.exists(self.path):
+                os.remove(self.path)
+            os.umask(0o077)  # socket accessible au seul compte de Jeedom
+            self.netAdapter = socketserver.ThreadingUnixStreamServer(self.path, jeedom_socket_handler)
+            self.address, self.port = self.path, 0
+        else:
+            self.netAdapter = TCPServer((self.address, self.port), jeedom_socket_handler)
         if self.netAdapter:
             logging.info("Socket interface started")
             Thread(target=self.loopNetServer).start()
@@ -309,7 +410,7 @@ class jeedom_socket():
 
     def loopNetServer(self):
         logging.info("LoopNetServer Thread started")
-        logging.info("Listening on: [%s:%d]", self.address, self.port)
+        logging.info("Listening on: %s", self.path or '%s:%d' % (self.address, self.port))
         self.netAdapter.serve_forever()
         logging.info("LoopNetServer Thread stopped")
 
