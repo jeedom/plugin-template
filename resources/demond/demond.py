@@ -28,10 +28,8 @@ from jeedom.jeedom import jeedom_socket, jeedom_utils, jeedom_com, JEEDOM_SOCKET
 def read_socket():
     if not JEEDOM_SOCKET_MESSAGE.empty():
         logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
+        # Message envoyé par template::sendToDaemon() : seul Jeedom peut écrire sur le socket Unix.
         message = json.loads(jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get()))
-        if message['apikey'] != _apikey:
-            logging.error("Invalid apikey from socket: %s", message)
-            return
         try:
             print('read')
         except Exception as e:
@@ -74,8 +72,8 @@ def shutdown():
 
 
 _log_level = "error"
-_socket_port = 55009
-_socket_host = 'localhost'
+_socket = ''
+_rest_credentials = ''
 _device = 'auto'
 _pidfile = '/tmp/demond.pid'
 _apikey = ''
@@ -89,7 +87,8 @@ parser.add_argument("--callback", help="Callback", type=str)
 parser.add_argument("--apikey", help="Apikey", type=str)
 parser.add_argument("--cycle", help="Cycle to send event", type=float)
 parser.add_argument("--pid", help="Pid file", type=str)
-parser.add_argument("--socketport", help="Port for socket server", type=int)
+parser.add_argument("--socket", help="Unix socket for messages from Jeedom", type=str)
+parser.add_argument("--rest-credentials", help="Daemon access file for the REST API (Jeedom 5)", type=str)
 args = parser.parse_args()
 
 if args.device:
@@ -104,19 +103,17 @@ if args.pid:
     _pidfile = args.pid
 if args.cycle:
     _cycle = float(args.cycle)
-if args.socketport:
-    _socket_port = args.socketport
-
-_socket_port = int(_socket_port)
+if args.socket:
+    _socket = args.socket
+if args.rest_credentials:
+    _rest_credentials = args.rest_credentials
 
 jeedom_utils.set_log_level(_log_level)
 
 logging.info('Start demond')
 logging.info('Log level: %s', _log_level)
-logging.info('Socket port: %s', _socket_port)
-logging.info('Socket host: %s', _socket_host)
+logging.info('Socket: %s', _socket)
 logging.info('PID file: %s', _pidfile)
-logging.info('Apikey: %s', _apikey)
 logging.info('Device: %s', _device)
 
 signal.signal(signal.SIGINT, handler)
@@ -124,12 +121,12 @@ signal.signal(signal.SIGTERM, handler)
 
 try:
     jeedom_utils.write_pid(str(_pidfile))
-    my_jeedom_com = jeedom_com(apikey=_apikey, url=_callback, cycle=_cycle)
+    my_jeedom_com = jeedom_com(apikey=_apikey, url=_callback, cycle=_cycle, credentials=_rest_credentials)
     if not my_jeedom_com.test():
         logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
         shutdown()
     # my_jeedom_serial = jeedom_serial(device=_device)  # if you need jeedom_serial
-    my_jeedom_socket = jeedom_socket(port=_socket_port, address=_socket_host)
+    my_jeedom_socket = jeedom_socket(path=_socket)
     listen()
 except Exception as e:
     logging.error('Fatal error: %s', e)

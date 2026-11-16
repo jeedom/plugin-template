@@ -23,3 +23,13 @@ Un assistant en CLI vous posera quelques questions, (l'id du plugin, la catégor
 Voila, votre plugin est basiquement prêt pour coder votre travail.
 
 
+
+---
+Démon
+---
+Le démon d'exemple (`resources/demond/demond.py`) fonctionne avec Jeedom 4.6 et Jeedom 5 :
+
+* Jeedom parle au démon par un socket Unix que seul Jeedom peut ouvrir (`--socket`), sans clé API ni port réseau. Côté PHP, `template::sendToDaemon()` remplace l'ancien `socket_create(AF_INET…)` par `socket_create(AF_UNIX…)`.
+* Le démon envoie ses valeurs avec `jeedom_com.add_changes()`. Avec Jeedom 5, il passe par l'API REST avec un jeton qu'il renouvelle lui-même (`--rest-credentials`). Avec Jeedom 4, il appelle `core/php/jeetemplate.php` avec la clé API du plugin.
+* Dans les deux cas, le plugin reçoit les messages dans `template::handleDaemonMessages()`.
+* Pour un démon Node.js, `resources/demond/jeedom/jeedom.js` offre les mêmes possibilités avec `Jeedom.com.config(apikey, callback, cycle, credentials)` et `Jeedom.http.config(socket)`.
